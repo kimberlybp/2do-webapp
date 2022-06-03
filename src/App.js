@@ -7,6 +7,7 @@ import store from './store';
 
 import Loader from './components/Loader';
 import Login from "./views/Login";
+import Search from './views/Login/Search';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Loader />
         <Router>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route exact path="/" element={<Login />} />
+            <Route path="/search" element={<Search/>} />
           </Routes>
         </Router>
       </ThemeProvider>
