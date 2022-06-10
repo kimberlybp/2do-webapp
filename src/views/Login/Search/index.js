@@ -1,1 +1,1 @@
-export { default } from './Search'
+export { Search, AddTagButton, RadioButton, SelectTaskList, NewButton } from './Search'

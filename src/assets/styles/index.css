@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
+#title::placeholder {
+  color: black;
+}
+
+input#mod {
+  padding-top: 0.5em;
+  padding-bottom: 0em;
+  padding-left: 0.3em;
+}
+
 /* nunito-sans-300 - latin */
 @font-face {
   font-family: 'Nunito Sans';
