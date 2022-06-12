@@ -7,7 +7,8 @@ import store from './store';
 
 import Loader from './components/Loader';
 import Login from "./views/Login";
-import { Search } from './views/Login/Search';
+import Search from './views/Login/Search';
+
 
 function App() {
   return (
