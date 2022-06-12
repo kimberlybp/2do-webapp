@@ -42,7 +42,8 @@ export const lightTheme = {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '8px'
+          borderRadius: '8px',
+          fontSize: '18px'
         }
       }
     },
