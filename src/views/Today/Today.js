@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import SampleTasks from "./sampletasks.json";
-import SearchBar from "../../../components/SearchBar";
+import SearchBar from "../../components/SearchBar";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import Divider from "@mui/material/Divider";
@@ -21,7 +21,7 @@ import {
 } from "./components/button";
 import SelectTaskList from "./components/selecttasklist";
 import ModuleSearch from "./components/modulesearch";
-import SampleMods from "../../../samplemods.json";
+import SampleMods from "../../samplemods.json";
 import ListIcon from "@mui/icons-material/List";
 import AddTask from "./components/addtask";
 
@@ -251,7 +251,7 @@ export default function Today() {
             </Grid>
           </Grid>
 
-          <Grid item>
+          <Grid item sx={{ minWidth:"100%" }}>
             <AddTask />
           </Grid>
         </Grid>

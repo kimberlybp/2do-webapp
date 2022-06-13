@@ -35,8 +35,9 @@ export default function AddTask() {
             item
             xs={3.2}
             sm={2.1}
-            md={1.8}
-            lg={1.7}
+            xl={0.8}
+            md={1.3}
+            lg={1}
             sx={{ maxWidth: "20%" }}
           >
             <RadioButton />
@@ -64,18 +65,19 @@ export default function AddTask() {
       {tasks.map((task, index) => {
         return (
           <Grid item key={index}>
-            <Grid container direction="row" sx={{ minWidth: "50%" }}>
+            <Grid container direction="row" sx={{ width: "100%" }}>
               <Grid
                 item
                 xs={3.2}
                 sm={2.1}
-                md={1.8}
-                lg={1.7}
+                xl={0.8}
+                md={1.3}
+                lg={1}
                 sx={{ maxWidth: "20%" }}
               >
                 <RadioButton type="checkbox" checked={task.isComplete} />
               </Grid>
-              <Grid item xs={9} md={10} sx={{ mt: "2.5%" }}>
+              <Grid item xs={9} lg={10} sx={{ mt: "1.5%" }}>
                 <Typography fontWeight={700} fontSize={20}>
                   {task.description}
                 </Typography>

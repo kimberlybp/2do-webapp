@@ -7,7 +7,7 @@ import store from './store';
 
 import Loader from './components/Loader';
 import Login from "./views/Login";
-import Today from "./views/Login/Today";
+import Today from "./views/Today";
 
 function App() {
   return (
