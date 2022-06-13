@@ -1,6 +1,9 @@
 export const lightTheme = {
   palette: {
     type: 'light',
+    background: {
+      default: '#d1bde1',
+    },
     primary: {
       main: '#7134EB',
     },
