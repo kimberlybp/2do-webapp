@@ -20,8 +20,6 @@ const PurpleButton = styled(Button)({
 });
 
 const Password = () => {
-  
-
   return (
     <Grid
       container
@@ -71,8 +69,6 @@ const Password = () => {
                 label="Confirm New Password"
                 variant="outlined"
                 size="small"
-                name="password_repeat"
-                type="password"
               />
             </Grid>
             <Grid item xs={12} sx={{ mt: 15 }}>
