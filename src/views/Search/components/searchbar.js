@@ -5,10 +5,9 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect, useState, useRef } from "react";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import SampleTasks from "./sampletasks.json";
 import InputBase from "@mui/material/InputBase";
 import CloseIcon from "@mui/icons-material/Close";
-import Views from "./components/tabviews";
+
 
 const SearchDisplay = styled(Grid)({
   "&:hover": {
@@ -150,22 +149,4 @@ const SearchBar = ({ sampletasks }) => {
   );
 };
 
-const Search = () => {
-  return (
-    <Grid container sx={{ ml: "18%", mt: "1.5%" }}>
-      <Grid item xs={12}>
-        <SearchBar sampletasks={SampleTasks}></SearchBar>
-      </Grid>
-      <Grid item xs={12} sx={{ my: 2 }}>
-        <Typography variant="h4" fontWeight="bold" letterSpacing={0.5}>
-          Search Results
-        </Typography>
-        <Grid item xs={12}>
-          <Views></Views>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
-};
-
-export default Search;
+export default SearchBar;
