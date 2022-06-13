@@ -7,6 +7,7 @@ import store from './store';
 
 import Loader from './components/Loader';
 import Login from "./views/Login";
+import Today1 from './views/Today1';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/today1" element={<Today1 />} />
           </Routes>
         </Router>
       </ThemeProvider>
