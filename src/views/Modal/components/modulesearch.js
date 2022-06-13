@@ -1,6 +1,6 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import Grid from "@mui/material/Grid";
-import SampleMods from "../../Search/samplemods.json";
+import SampleMods from "../samplemods.json";
 
 const ModuleSearch = () => {
   return (

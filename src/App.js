@@ -7,8 +7,7 @@ import store from './store';
 
 import Loader from './components/Loader';
 import Login from "./views/Login";
-import { Search } from './views/Login/Search';
-import CreateTaskModal from './views/Login/Modal';
+import CreateTaskModal from './views/Modal';
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Login />} />
-            <Route path="/search" element={<Search/>} />
             <Route path="/createtask" element={<CreateTaskModal/>} />
           </Routes>
         </Router>

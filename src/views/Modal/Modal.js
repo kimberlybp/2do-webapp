@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import AddIcon from "@mui/icons-material/Add";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
-import SampleMods from "../Search/samplemods.json";
+import SampleMods from "./samplemods.json";
 import {
   PurpleButton,
   AddTagButton,
