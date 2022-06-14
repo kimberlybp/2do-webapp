@@ -13,9 +13,15 @@ code {
 }
 
 #addtask::placeholder {
-  color: '#6D6D6D';
+  color: #6d6d6d;
+  opacity: 90%;
   font-weight: 400;
   font-size: 20;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
 }
 
 /* nunito-sans-300 - latin */

@@ -34,7 +34,7 @@ export default function AddTask() {
           <Grid
             item
             xs={3.2}
-            sm={2.1}
+            sm={1.7}
             md={1.8}
             lg={1.7}
             sx={{ maxWidth: "20%" }}
@@ -68,7 +68,7 @@ export default function AddTask() {
               <Grid
                 item
                 xs={3.2}
-                sm={2.1}
+                sm={1.7}
                 md={1.8}
                 lg={1.7}
                 sx={{ maxWidth: "20%" }}
