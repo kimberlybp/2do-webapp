@@ -32,12 +32,12 @@ export default function Upcoming() {
         <SearchBar sampletasks={SampleTasks}></SearchBar>
       </Grid>
       <Grid item xs={12} sx={{ mt: "1%" }}>
-        <Grid item xs={12} sx={{ mb: {xs:"-2%", md:"-0.5%"} }}>
+        <Grid item xs={12} sx={{ mb: { xs: "-2%", md: "-0.5%" } }}>
           <Typography fontSize={22} fontWeight={600}>
             Next 7 Days
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ mb: {xs:"-2%", md:"-0.5%"} }}>
+        <Grid item xs={12} sx={{ mb: { xs: "-2%", md: "-0.5%" } }}>
           <Typography fontSize={34} fontWeight={700}>
             Upcoming
           </Typography>
@@ -46,7 +46,7 @@ export default function Upcoming() {
       <Box
         sx={{
           mr: "21%",
-          mt: {xs:15, md:17},
+          mt: { xs: 15, md: 17 },
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "center",
@@ -58,20 +58,27 @@ export default function Upcoming() {
         component={Paper}
         elevation={2}
       >
-        <Grid container sx={{
+        <Grid
+          container
+          sx={{
             mt: { xs: "1%", md: "1.7%" },
             ml: { xs: "1%", md: "2%" },
-            maxHeight:'100vh',
-            overflow: 'auto',
-          }}>
-          <Grid container direction="row" sx={{ maxWidth:'75%', ml:{xs:'7%', sm:'5%', lg:'2%'} }}>
-          <Grid item>
-            <Typography fontWeight={800} fontSize={24}>
-              Today
-            </Typography>
+            maxHeight: "100vh",
+            overflow: "auto",
+          }}
+        >
+          <Grid
+            container
+            direction="row"
+            sx={{ maxWidth: "75%", ml: { xs: "7%", sm: "5%", lg: "2%" } }}
+          >
+            <Grid item>
+              <Typography fontWeight={800} fontSize={24}>
+                Today
+              </Typography>
             </Grid>
-            <Box display="flex" alignItems="center" sx={{ ml:'1.5%' }}>
-            3 May 2022, Monday
+            <Box display="flex" alignItems="center" sx={{ ml: "1.5%" }}>
+              3 May 2022, Monday
             </Box>
           </Grid>
           <Grid container direction="row" sx={{ minWidth: "50%" }}>
@@ -260,17 +267,25 @@ export default function Upcoming() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item sx={{ minWidth:"100%" }}>
+          <Grid item sx={{ minWidth: "100%" }}>
             <AddTask />
           </Grid>
-          <Grid container direction="row" sx={{ maxWidth:'80%', mt:'1%', ml:{xs:'7%', sm:'5%', lg:'2%'} }}>
-          <Grid item>
-            <Typography fontWeight={800} fontSize={24}>
-              Tomorrow
-            </Typography>
+          <Grid
+            container
+            direction="row"
+            sx={{
+              maxWidth: "80%",
+              mt: "1%",
+              ml: { xs: "7%", sm: "5%", lg: "2%" },
+            }}
+          >
+            <Grid item>
+              <Typography fontWeight={800} fontSize={24}>
+                Tomorrow
+              </Typography>
             </Grid>
-            <Box display="flex" alignItems="center" sx={{ ml:'1.5%' }}>
-            4 May 2022, Tuesday
+            <Box display="flex" alignItems="center" sx={{ ml: "1.5%" }}>
+              4 May 2022, Tuesday
             </Box>
           </Grid>
           <Grid container direction="row" sx={{ minWidth: "50%" }}>
@@ -336,60 +351,92 @@ export default function Upcoming() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item sx={{ minWidth:"100%" }}>
+            <Grid item sx={{ minWidth: "100%" }}>
+              <AddTask />
+            </Grid>
+            <Grid
+              container
+              direction="row"
+              sx={{
+                maxWidth: "75%",
+                mt: "1%",
+                ml: { xs: "7%", sm: "5%", lg: "2%" },
+              }}
+            >
+              <Grid item>
+                <Typography fontWeight={800} fontSize={24}>
+                  In 2 days
+                </Typography>
+              </Grid>
+              <Box display="flex" alignItems="center" sx={{ ml: "1.5%" }}>
+                5 May 2022, Wednesday
+              </Box>
+            </Grid>
+          </Grid>
+          <Grid item sx={{ minWidth: "100%" }}>
             <AddTask />
           </Grid>
-          <Grid container direction="row" sx={{ maxWidth:'75%', mt:'1%', ml:{xs:'7%', sm:'5%', lg:'2%'} }}>
-          <Grid item>
-            <Typography fontWeight={800} fontSize={24}>
-              In 2 days
-            </Typography>
+          <Grid
+            container
+            direction="row"
+            sx={{
+              maxWidth: "75%",
+              mt: "1%",
+              ml: { xs: "7%", sm: "5%", lg: "2%" },
+            }}
+          >
+            <Grid item>
+              <Typography fontWeight={800} fontSize={24}>
+                In 3 days
+              </Typography>
             </Grid>
-            <Box display="flex" alignItems="center" sx={{ ml:'1.5%' }}>
-            5 May 2022, Wednesday
+            <Box display="flex" alignItems="center" sx={{ ml: "1.5%" }}>
+              6 May 2022, Thursday
             </Box>
           </Grid>
-          </Grid>
-          <Grid item sx={{ minWidth:"100%" }}>
+          <Grid item sx={{ minWidth: "100%" }}>
             <AddTask />
           </Grid>
-          <Grid container direction="row" sx={{ maxWidth:'75%', mt:'1%', ml:{xs:'7%', sm:'5%', lg:'2%'} }}>
-          <Grid item>
-            <Typography fontWeight={800} fontSize={24}>
-              In 3 days
-            </Typography>
+          <Grid
+            container
+            direction="row"
+            sx={{
+              maxWidth: "75%",
+              mt: "1%",
+              ml: { xs: "7%", sm: "5%", lg: "2%" },
+            }}
+          >
+            <Grid item>
+              <Typography fontWeight={800} fontSize={24}>
+                In 4 days
+              </Typography>
             </Grid>
-            <Box display="flex" alignItems="center" sx={{ ml:'1.5%' }}>
-            6 May 2022, Thursday
+            <Box display="flex" alignItems="center" sx={{ ml: "1.5%" }}>
+              7 May 2022, Friday
             </Box>
           </Grid>
-          <Grid item sx={{ minWidth:"100%" }}>
+          <Grid item sx={{ minWidth: "100%" }}>
             <AddTask />
           </Grid>
-          <Grid container direction="row" sx={{ maxWidth:'75%', mt:'1%', ml:{xs:'7%', sm:'5%', lg:'2%'} }}>
-          <Grid item>
-            <Typography fontWeight={800} fontSize={24}>
-              In 4 days
-            </Typography>
+          <Grid
+            container
+            direction="row"
+            sx={{
+              maxWidth: "75%",
+              mt: "1%",
+              ml: { xs: "7%", sm: "5%", lg: "2%" },
+            }}
+          >
+            <Grid item>
+              <Typography fontWeight={800} fontSize={24}>
+                In 5 days
+              </Typography>
             </Grid>
-            <Box display="flex" alignItems="center" sx={{ ml:'1.5%' }}>
-            7 May 2022, Friday
+            <Box display="flex" alignItems="center" sx={{ ml: "1.5%" }}>
+              8 May 2022, Saturday
             </Box>
           </Grid>
-          <Grid item sx={{ minWidth:"100%" }}>
-            <AddTask />
-          </Grid>
-          <Grid container direction="row" sx={{ maxWidth:'75%', mt:'1%', ml:{xs:'7%', sm:'5%', lg:'2%'} }}>
-          <Grid item>
-            <Typography fontWeight={800} fontSize={24}>
-              In 5 days
-            </Typography>
-            </Grid>
-            <Box display="flex" alignItems="center" sx={{ ml:'1.5%' }}>
-            8 May 2022, Saturday
-            </Box>
-          </Grid>
-          <Grid item sx={{ minWidth:"100%" }}>
+          <Grid item sx={{ minWidth: "100%" }}>
             <AddTask />
           </Grid>
         </Grid>
