@@ -1,5 +1,5 @@
 import {
-  Button, TextField, Link, Paper, Box, Grid, Typography
+  Button, TextField, Link, Box, Grid, Typography
 } from '@mui/material'
 import { styled } from '@mui/styles'
 import { useForm, Controller } from 'react-hook-form';
@@ -43,7 +43,7 @@ export default function Login(props) {
           <VectorOne style={{ maxWidth: '500px' }} /> : <VectorTwo style={{ maxWidth: '500px' }} />}
         <PrimaryText>Orbital 2022</PrimaryText>
       </LeftGrid>
-      <RightGrid item xs={12} sm={12} md={6} component={Paper} elevation={4}>
+      <RightGrid item xs={12} sm={12} md={6}>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
           <Box sx={{ display: { sm: "block", md: "none" } }}>
             <RightLogo />
