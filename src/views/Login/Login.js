@@ -1,10 +1,12 @@
+import { useEffect } from 'react';
 import {
   Button, TextField, Link, Box, Grid, Typography
 } from '@mui/material'
 import { styled } from '@mui/styles'
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../_actions/UserAction';
 import { pageLoading, stopPageLoading } from '../../_actions/SharedAction';
 import Copyright from './components/Copyright.js';
 import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
@@ -15,19 +17,19 @@ import { ReactComponent as VectorTwo } from '../../assets/images/login-vector2.s
 export default function Login(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userId = useSelector((state) => state.User.user_id);
   const { handleSubmit, control } = useForm();
+  
+  useEffect(() => {
+    dispatch(pageLoading('Login checking userId'));
+    if(userId !== null) navigate('/today');
+    else dispatch(stopPageLoading());
 
-  const onSubmit = async data => {
-    console.log(data);
-    dispatch(pageLoading());
-    await setTimeout(function () {
-      dispatch(stopPageLoading());
-      navigate("/today", { replace: true });
+    // eslint-disable-next-line
+  }, [userId])
 
-    }, 3000);
-
-
-    // dispatch(loginUser(data.email, data.password));
+  const onSubmit = data => {
+    dispatch(login(data.email, data.password));
   };
 
   return (
