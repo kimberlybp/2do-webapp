@@ -16,7 +16,17 @@ function getCognitoUserSub(user) {
 })
 }
 
+function getCognitoSession(user) {
+  return new Promise((resolve, reject) => {
+    user.getSession(function (err, session) {
+      if (err) reject(err);
+      resolve(session);
+    })
+  });
+}
+
 export const authService = {
   asyncAuthenticateUser,
-  getCognitoUserSub
+  getCognitoUserSub,
+  getCognitoSession
 }
