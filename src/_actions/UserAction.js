@@ -48,3 +48,7 @@ export function initializeUserData(dispatch, accessToken, user) {
   dispatch(initUser(user));
   dispatch(stopPageLoading());
 }
+
+export function logOutUser() {
+  return { type: actions.LOG_OUT_USER }
+}

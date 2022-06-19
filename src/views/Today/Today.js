@@ -1,21 +1,29 @@
 import { Fragment, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-import { stopPageLoading } from '../../_actions/SharedAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { pageLoading, stopPageLoading } from '../../_actions/SharedAction';
 import {
-  Box, Typography
+  Box, Typography, Button
 } from '@mui/material';
 import vector from '../../assets/images/under-construction.png';
+import { logOut } from '../../_actions/AuthAction';
 
 export default function Today() {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const userId = useSelector((state) => state.User.user_id);
 
   useEffect(() => {
-    dispatch(stopPageLoading());
+    // dispatch(pageLoading('Today checking userId'));
+    if(userId === null) navigate('/');
+    // else dispatch(stopPageLoading());
 
     // eslint-disable-next-line
-  }, [])
+  }, [userId])
+
+  const onClick = () => {
+    dispatch(logOut());
+  }
 
   return(
     <Fragment>
@@ -30,6 +38,9 @@ export default function Today() {
             </Typography>
 
             <img alt="Person working" src={vector} style={{ maxWidth: '500px' }} />
+            <Button variant="contained" onClick={onClick}>
+              Log out
+            </Button>
           </Box>
     </Fragment>
   );

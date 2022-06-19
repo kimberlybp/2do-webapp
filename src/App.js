@@ -14,6 +14,7 @@ import { checkSession } from './_actions/AuthAction';
 
 const Components = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(checkSession());
 

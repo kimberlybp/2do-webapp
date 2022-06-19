@@ -21,10 +21,7 @@ export default function Login(props) {
   const { handleSubmit, control } = useForm();
   
   useEffect(() => {
-    dispatch(pageLoading('Login checking userId'));
-    if(userId !== null) navigate('/today');
-    else dispatch(stopPageLoading());
-
+    if (userId !== null) navigate('/today');
     // eslint-disable-next-line
   }, [userId])
 

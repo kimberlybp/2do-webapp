@@ -25,8 +25,18 @@ function getCognitoSession(user) {
   });
 }
 
+function logOutUser(user) {
+  return new Promise((resolve, reject) => {
+    if (user !== null) {
+      user.signOut();
+      resolve();
+    } else reject();
+  })
+}
+
 export const authService = {
   asyncAuthenticateUser,
   getCognitoUserSub,
-  getCognitoSession
+  getCognitoSession,
+  logOutUser
 }

@@ -22,14 +22,7 @@ const reducer = (state = initState, action) => {
       }
     }
     case actions.LOG_OUT_USER: {
-      return {
-        user_id: null,
-        sub_id: null,
-        email: null,
-        first_name: null,
-        last_name: null,
-        logged_in: false
-      }
+      return initState;
     }
     default: {
       return state
