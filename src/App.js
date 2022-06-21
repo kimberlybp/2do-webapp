@@ -7,6 +7,7 @@ import store from './store';
 
 import Loader from './components/Loader';
 import Login from "./views/Login";
+import AllTasks from './views/All Tasks';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/alltasks" element={<AllTasks />} />
           </Routes>
         </Router>
       </ThemeProvider>
