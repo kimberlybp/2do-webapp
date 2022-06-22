@@ -1,7 +1,10 @@
 import { combineReducers } from "redux";
 import Shared from './SharedReducer';
+import Auth from './AuthReducer';
+import Alert from './AlertReducer';
+import User from './UserReducer';
 
 export default combineReducers({ 
-  Shared, 
+  Shared, Auth, Alert, User
 });
 
