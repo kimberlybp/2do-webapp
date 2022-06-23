@@ -7,7 +7,7 @@ import store from './store';
 
 import Loader from './components/Loader';
 import Login from "./views/Login";
-import Lists from "./views/Lists";
+import Tags from "./views/Tags";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/lists" element={<Lists />} />
+            <Route path="/tags" element={<Tags />} />
           </Routes>
         </Router>
       </ThemeProvider>

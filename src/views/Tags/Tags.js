@@ -24,7 +24,7 @@ import ModuleSearch from "./components/modulesearch";
 import SampleMods from "./samplemods.json";
 import AddTask from "./components/addtask";
 
-export default function Lists() {
+export default function Tags() {
   return (
     <Grid container sx={{ ml: "18%", mt: { xs: "5%", md: "1.5%" } }}>
       <Grid item xs={12}>
@@ -33,32 +33,21 @@ export default function Lists() {
       <Grid item xs={12} sx={{ mt: "1%" }}>
         <Grid item xs={12} sx={{ mb: { xs: "-2%", md: "-0.5%" } }}>
           <Typography fontSize={22} fontWeight={600}>
-            Task List
+            Tag
           </Typography>
         </Grid>
-        <Grid container direction="row">
-          <Grid item sx={{ mb: { xs: "-2%", md: "-0.5%" } }}>
-            <Typography fontSize={34} fontWeight={700}>
-              School
+          <Grid sx={{ mt:{xs:'1%', lg:'0.3%'} }}>
+            <Box sx={{ display:'flex', justifyContent:"center", bgcolor:'red', borderRadius:6, width:100 }}>
+            <Typography font="inherit" color="white" fontWeight={700} sx={{ fontSize: {xs:25, md:32}}}>
+              High
             </Typography>
+            </Box>
           </Grid>
-          <Box
-            display="flex"
-            alignItems="flex-end"
-            height="inherit"
-            sx={{
-              ml: { xs: "2%", sm: "1%", xl: "0.5%" },
-              mb: { xs: "0.5%", sm: "-0.7%", md: "0.5%", lg: "0.3%", xl: "0%" },
-            }}
-          >
-            <Typography color="#484848">0/2 Completed</Typography>
-          </Box>
-        </Grid>
       </Grid>
       <Box
         sx={{
           mr: "21%",
-          mt: { xs: 15, md: 17 },
+          mt: { xs: 15, md: 18 },
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "center",
@@ -340,7 +329,7 @@ export default function Lists() {
                     <Grid container alignItems="center">
                       <Typography
                         fontSize={15}
-                        sx={{ color: "black", mt: "7%", ml: "2%" }}
+                        sx={{ color: "black", mt: {xs:"10%", md:"12%", lg:"10%", xl:"7%"}, ml: "2%" }}
                       >
                         3 June 2022, 7:00 PM
                       </Typography>
