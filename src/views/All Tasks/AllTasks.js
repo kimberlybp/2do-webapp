@@ -25,7 +25,7 @@ import SampleMods from "./samplemods.json";
 import ListIcon from "@mui/icons-material/List";
 import AddTask from "./components/addtask";
 
-export default function Upcoming() {
+export default function AllTasks() {
   return (
     <Grid container sx={{ ml: "18%", mt: { xs: "5%", md: "1.5%" } }}>
       <Grid item xs={12}>
