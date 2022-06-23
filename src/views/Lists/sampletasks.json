@@ -1,0 +1,44 @@
+[
+  {
+      "task":"Finish & submit lab 3",
+      "tasklist": "School",
+      "module": "CS2106",
+      "tag": "High"
+  },
+  {
+      "task":"Finish assignment 3",
+      "tasklist": "School",
+      "module": "MA2001",
+      "tag": "High"
+  },
+  {
+      "task":"Do tutorial 8",
+      "tasklist": "School",
+      "module": "MA2001",
+      "tag": "Medium"
+  },
+  {
+      "task":"Buy muji pens",
+      "tasklist": "Random",
+      "module": "",
+      "tag": "Low"
+  },
+  {
+      "task":"Email members about event",
+      "tasklist": "CCA",
+      "module": "",
+      "tag": "High"
+  },
+  {
+      "task":"Watch 2 videos",
+      "tasklist": "Work",
+      "module": "",
+      "tag": "Medium"
+  },
+  {
+      "task":"Do tutorial 7",
+      "tasklist": "School",
+      "module": "ST2131",
+      "tag": "Medium"
+  }
+]
