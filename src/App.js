@@ -10,6 +10,7 @@ import Alert from './components/Alert';
 import Loader from './components/Loader';
 import Login from "./views/Login";
 import Today from "./views/Today";
+import Popups from "./views/Popups";
 import { checkSession } from './_actions/AuthAction';
 
 const Components = () => {
@@ -28,6 +29,7 @@ const Components = () => {
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route exact path="/today" element={<Today />} />
+          <Route exact path="/popups" element={<Popups />} />
         </Routes>
       </Router>
     </Fragment>
