@@ -2,20 +2,20 @@ import { actions } from '../utils/constants/actions';
 import * as alertActions from './AlertAction';
 import { userService } from '../_services/userService';
 import { pageLoading, stopPageLoading } from './SharedAction';
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import { CognitoUser, AuthenticationDetails, CognitoUserAttribute } from "amazon-cognito-identity-js";
 import UserPool from '../utils/UserPool';
 import { authService } from '../_services/authService';
-import { setToken } from './AuthAction';
+import { logOut, setToken, signUpSuccess } from './AuthAction';
 
 function initUser(user) {
   return {
     type: actions.SET_INIT_USER_INFO, payload: {
-      user_id: user._id,
-      sub_id: user.sub,
+      userId: user._id,
+      subId: user.sub,
       email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      profile_pic_url: user.profile_pic_url
+      firstName: user.first_name,
+      lastName: user.last_name,
+      profilePicUrl: user.profile_pic_url
     }
   }
 }
@@ -37,11 +37,45 @@ export function login(email, password) {
         console.error('unhandled');
       }
     } catch (err) {
+      dispatch(logOut());
+      if(err.message.includes("not confirmed")) dispatch(alertActions.errorAlert('Error', "Email not verified", 30));
+      else dispatch(alertActions.errorAlert('Error', err.message, 30));
+      
+      dispatch(stopPageLoading());
+    }
+  }
+}
+
+export function signUp(data) {
+  return async (dispatch, getState) => { 
+    dispatch(pageLoading('user signing up'));
+    const attributeList = [];
+    const dataEmail = { 
+      Name: 'email',
+      Value: data.email
+    }
+    const attributeEmail = new CognitoUserAttribute(dataEmail);
+    attributeList.push(attributeEmail);
+
+    try {
+      const res = await authService.asyncSignUp(UserPool, data.email, data.password, attributeList);
+      const user = {
+        sub: res.sub,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+      }
+      // eslint-disable-next-line
+      const createRes = await userService.createUser(user);
+      dispatch(signUpSuccess());
+      dispatch(stopPageLoading());
+    } catch (err) {
       dispatch(alertActions.errorAlert('Error', err.message, 30));
       dispatch(stopPageLoading());
     }
   }
 }
+
 
 export function initializeUserData(dispatch, accessToken, user) {
   dispatch(setToken(accessToken));

@@ -7,7 +7,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../_actions/UserAction';
-import { pageLoading, stopPageLoading } from '../../_actions/SharedAction';
 import Copyright from './components/Copyright.js';
 import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
 import { ReactComponent as VectorOne } from '../../assets/images/login-vector1.svg';
@@ -17,7 +16,7 @@ import { ReactComponent as VectorTwo } from '../../assets/images/login-vector2.s
 export default function Login(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.User.user_id);
+  const userId = useSelector((state) => state.User.userId);
   const { handleSubmit, control } = useForm();
   
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function Login(props) {
           </Subtitle>
         </Box>
         {Math.random() < 0.5 ?
-          <VectorOne style={{ maxWidth: '500px' }} /> : <VectorTwo style={{ maxWidth: '500px' }} />}
+          <VectorOne style={{ maxWidth: '100%' }} /> : <VectorTwo style={{ maxWidth: '100%' }} />}
         <PrimaryText>Orbital 2022</PrimaryText>
       </LeftGrid>
       <RightGrid item xs={12} sm={12} md={6}>
@@ -74,7 +73,7 @@ export default function Login(props) {
           <Grid container>
             <Grid item display="flex">
               <Typography>Don't have an account?</Typography>
-              <Link sx={{ marginLeft: '6px' }} href="#" variant="body2">
+              <Link sx={{ marginLeft: '6px' }} href="/register" variant="body2">
                 {"Sign Up"}
               </Link>
             </Grid>

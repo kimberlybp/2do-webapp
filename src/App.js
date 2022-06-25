@@ -9,6 +9,7 @@ import store from './store';
 import Alert from './components/Alert';
 import Loader from './components/Loader';
 import Login from "./views/Login";
+import SignUp from "./views/SignUp";
 import Today from "./views/Today";
 import { checkSession } from './_actions/AuthAction';
 
@@ -18,7 +19,7 @@ const Components = () => {
   useEffect(() => {
     dispatch(checkSession());
 
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line 
 
   return (
     <Fragment>
@@ -27,6 +28,7 @@ const Components = () => {
       <Router>
         <Routes>
           <Route exact path="/" element={<Login />} />
+          <Route exact path="/register" element={<SignUp />} />
           <Route exact path="/today" element={<Today />} />
         </Routes>
       </Router>

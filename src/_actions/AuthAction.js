@@ -10,6 +10,14 @@ export function logOutAuth() {
   return { type: actions.LOG_OUT_AUTH }
 }
 
+export function signUpSuccess() {
+  return { type: actions.SIGN_UP_SUCCESS }
+}
+
+export function clearSignUpStatus() {
+  return { type: actions.CLEAR_SIGN_UP_STATUS }
+}
+
 export function setToken(token) {
   return {
     type: actions.SET_TOKEN,
@@ -47,9 +55,9 @@ export function logOut() {
       await authService.logOutUser(user);
       dispatch(logOutAuth());
       dispatch(logOutUser());
-      dispatch(alertActions.successAlert('Success', "Log out successful.", 30));
+      // dispatch(alertActions.successAlert('Success', "Log out successful.", 30));
     } catch (err) {
-      dispatch(alertActions.errorAlert('Error', "We're having trouble logging you out.", 30));
+      dispatch(alertActions.errorAlert('Error', "An unexpected error has occured.", 30));
     }
     dispatch(stopPageLoading());
   }

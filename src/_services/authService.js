@@ -7,6 +7,18 @@ function asyncAuthenticateUser(user, authDetails) {
   })
 }
 
+function asyncSignUp(userPool, email, password, attributeList) {
+  return new Promise((resolve, reject) => {
+    userPool.signUp(email, password, attributeList, null, function (err, result) {
+      if (err) reject(err);
+      resolve({
+        user: result.user,
+        sub: result.userSub
+      });
+    })
+  })
+}
+
 function getCognitoUserSub(user) {
   return new Promise((resolve, reject) => {
   user.getUserAttributes(function (err, result) {
@@ -36,6 +48,7 @@ function logOutUser(user) {
 
 export const authService = {
   asyncAuthenticateUser,
+  asyncSignUp,
   getCognitoUserSub,
   getCognitoSession,
   logOutUser

@@ -1,10 +1,10 @@
 import { actions } from '../utils/constants/actions';
 
 const initState = {
-  user_id: null,
-  sub_id: null,
+  userId: null,
+  subId: null,
   email: null,
-  logged_in: false
+  loggedIn: false
 }
 
 const reducer = (state = initState, action) => {
@@ -13,12 +13,12 @@ const reducer = (state = initState, action) => {
       const { user_id, sub_id, email, first_name, last_name } = action.payload;
       return {
         ...state,
-        user_id: user_id,
-        sub_id: sub_id,
+        userId: user_id,
+        subId: sub_id,
         email: email,
-        first_name: first_name,
-        last_name: last_name,
-        logged_in: true
+        firstName: first_name,
+        lastName: last_name,
+        loggedIn: true
       }
     }
     case actions.LOG_OUT_USER: {
