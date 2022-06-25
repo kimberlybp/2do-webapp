@@ -1,7 +1,6 @@
 import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { pageLoading, stopPageLoading } from '../../_actions/SharedAction';
 import {
   Box, Typography, Button
 } from '@mui/material';
@@ -14,9 +13,7 @@ export default function Today() {
   const userId = useSelector((state) => state.User.userId);
 
   useEffect(() => {
-    // dispatch(pageLoading('Today checking userId'));
     if(userId === null) navigate('/');
-    // else dispatch(stopPageLoading());
 
     // eslint-disable-next-line
   }, [userId])

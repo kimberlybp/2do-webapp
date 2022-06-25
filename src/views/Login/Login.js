@@ -7,7 +7,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../_actions/UserAction';
-import { pageLoading, stopPageLoading } from '../../_actions/SharedAction';
 import Copyright from './components/Copyright.js';
 import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
 import { ReactComponent as VectorOne } from '../../assets/images/login-vector1.svg';

@@ -65,9 +65,9 @@ export function signUp(data) {
         last_name: data.lastName,
         email: data.email,
       }
+      // eslint-disable-next-line
       const createRes = await userService.createUser(user);
       dispatch(signUpSuccess());
-      console.log(createRes);
       dispatch(stopPageLoading());
     } catch (err) {
       dispatch(alertActions.errorAlert('Error', err.message, 30));

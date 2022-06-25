@@ -19,7 +19,7 @@ const Components = () => {
   useEffect(() => {
     dispatch(checkSession());
 
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line 
 
   return (
     <Fragment>

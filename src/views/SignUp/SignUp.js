@@ -1,17 +1,15 @@
 import { Fragment, useEffect, useState } from 'react';
 import {
-  Button, TextField, Link, Box, Grid, Typography, FormControlLabel, Checkbox
+  Button, TextField, Link, Box, Grid, Typography
 } from '@mui/material'
 import { styled } from '@mui/styles'
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../_actions/UserAction';
-import { pageLoading, stopPageLoading } from '../../_actions/SharedAction';
 import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
 import { ReactComponent as VectorOne } from '../../assets/images/register-vector1.svg';
 import SuccessDialog from './components/SuccessDialog';
-
 
 export default function SignUp(props) {
   const dispatch = useDispatch();
@@ -20,7 +18,6 @@ export default function SignUp(props) {
   const status = useSelector((state) => state.Auth.signUpStatus);
   const { handleSubmit, control, watch } = useForm();
 
-  const [success, setSuccess] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -34,8 +31,6 @@ export default function SignUp(props) {
   }, [status])
 
   const onSubmit = data => {
-    console.log(data);
-    // setOpen(true)
     dispatch(signUp(data))
   };
 
@@ -93,7 +88,7 @@ export default function SignUp(props) {
                     type="password" />
                 )}
                 rules={{ required: 'Password required', pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-\"!@#%&\/,><\':;|_~`])\S{8,99}$/,
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-\"!@#%&\/,><\':;|_~`])\S{8,99}$/, // eslint-disable-line
                   message: "Must contain least 8 characters that includes at least 1 lowercase letter, uppercase letter, number and a special character with no whitespace"
                 } }}
               />
@@ -106,7 +101,7 @@ export default function SignUp(props) {
                     type="password" />
                 )}
                 rules={{ required: 'Confirm Password required', validate: (val) => {
-                  if(watch('password') != val) return "Passwords do not match"
+                  if(watch('password') !== val) return "Passwords do not match"
                 } }}
               />
             </Grid>
@@ -170,8 +165,4 @@ const RightLogo = styled(Logo)({
   placeSelf: 'flex-start',
   color: '#7134EB',
   marginBottom: '10px'
-});
-
-const PrimaryText = styled(Typography)({
-  color: '#7B688A'
 });
