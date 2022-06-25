@@ -11,7 +11,7 @@ import { logOut } from '../../_actions/AuthAction';
 export default function Today() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.User.user_id);
+  const userId = useSelector((state) => state.User.userId);
 
   useEffect(() => {
     // dispatch(pageLoading('Today checking userId'));

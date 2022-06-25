@@ -1,7 +1,8 @@
 import { actions } from "../utils/constants/actions";
 
 const initState = {
-  access_token: null
+  access_token: null,
+  signUpSuccess: null
 }
 
 const reducer = (state = initState, action) => {
@@ -15,6 +16,18 @@ const reducer = (state = initState, action) => {
     }
     case actions.LOG_OUT_AUTH: {
       return initState;
+    }
+    case actions.SIGN_UP_SUCCESS: {
+      return {
+        ...state,
+        signUpStatus: true
+      }
+    }
+    case actions.CLEAR_SIGN_UP_STATUS: {
+      return {
+        ...state,
+        signUpStatus: null
+      }
     }
     default: {
       return state
