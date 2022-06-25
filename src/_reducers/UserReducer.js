@@ -10,14 +10,14 @@ const initState = {
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actions.SET_INIT_USER_INFO: {
-      const { user_id, sub_id, email, first_name, last_name } = action.payload;
+      const { userId, subId, email, firstName, lastName } = action.payload;
       return {
         ...state,
-        userId: user_id,
-        subId: sub_id,
+        userId: userId,
+        subId: subId,
         email: email,
-        firstName: first_name,
-        lastName: last_name,
+        firstName: firstName,
+        lastName: lastName,
         loggedIn: true
       }
     }

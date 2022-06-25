@@ -34,7 +34,7 @@ export default function Today() {
               TODAY
             </Typography>
 
-            <img alt="Person working" src={vector} style={{ maxWidth: '500px' }} />
+            <img alt="Person working" src={vector} style={{ width: "50%" }} />
             <Button variant="contained" onClick={onClick}>
               Log out
             </Button>

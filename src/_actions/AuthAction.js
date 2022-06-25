@@ -50,15 +50,19 @@ export function checkSession() {
 export function logOut() {
   return async (dispatch, getState) => {
     dispatch(pageLoading('Logging user out'));
-    try {
-      const user = UserPool.getCurrentUser();
-      await authService.logOutUser(user);
-      dispatch(logOutAuth());
-      dispatch(logOutUser());
-      // dispatch(alertActions.successAlert('Success', "Log out successful.", 30));
-    } catch (err) {
-      dispatch(alertActions.errorAlert('Error', "An unexpected error has occured.", 30));
-    }
-    dispatch(stopPageLoading());
+    setTimeout(async () => {
+      try {
+        const user = UserPool.getCurrentUser();
+        await authService.logOutUser(user);
+        dispatch(logOutAuth());
+        dispatch(logOutUser());
+        // dispatch(alertActions.successAlert('Success', "Log out successful.", 30));
+        dispatch(stopPageLoading());
+      } catch (err) {
+        dispatch(alertActions.errorAlert('Error', "An unexpected error has occured.", 30));
+        dispatch(stopPageLoading());
+      }
+    }, 3000)
+
   }
 }
