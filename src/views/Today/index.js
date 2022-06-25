@@ -1,1 +1,1 @@
-export { default } from './Today.js'
+export { default } from "./Today"
