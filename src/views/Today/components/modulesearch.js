@@ -15,10 +15,10 @@ const ModuleSearch = () => {
             type="text"
             {...params.inputProps}
             style={{
-              height: 50,
+              height: 43,
               border: "none",
               backgroundColor: "#f5f5f3",
-              borderRadius: 4.5,
+              borderRadius: 3.5,
               width: "100%",
               font: "inherit",
             }}

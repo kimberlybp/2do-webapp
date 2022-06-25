@@ -24,6 +24,7 @@ import ModuleSearch from "./components/modulesearch";
 import SampleMods from "../../samplemods.json";
 import ListIcon from "@mui/icons-material/List";
 import AddTask from "./components/addtask";
+import { IconButton } from "@mui/material";
 
 export default function Today() {
   return (
@@ -63,7 +64,16 @@ export default function Today() {
         component={Paper}
         elevation={2}
       >
-        <Grid container sx={{ ml: "1%", mt: "0.5%" }}>
+        <Grid 
+          container 
+          sx={{
+              mt: { xs: "1%", md: "1.7%" },
+              ml: { xs: "1%", md: "2%" },
+              maxHeight: "100vh",
+              overflow: "auto",
+              minWidth:"40%",
+            }}
+          >
           <Grid container direction="row" sx={{ minWidth: "50%" }}>
             <Grid
               item
@@ -264,6 +274,7 @@ export default function Today() {
             mt: { xs: "1%", md: "2%" },
             ml: { xs: "2%", md: "3%" },
             mr: { xs: "2%", md: "3%" },
+            maxWidth:"50%"
           }}
         >
           <Grid item xs={12}>
@@ -315,6 +326,7 @@ export default function Today() {
           </Grid>
           <Grid item xs={12} sx={{ mt: "0.5%" }}>
             <TextField
+              id="addtask"
               multiline
               variant="standard"
               placeholder={"Add any extra notes you have here"}
@@ -339,6 +351,7 @@ export default function Today() {
               </Grid>
               <Grid item sx={{ mt: { xs: "3%", md: "1%" }, maxWidth: "75%" }}>
                 <TextField
+                  id="addtask"
                   multiline
                   variant="standard"
                   placeholder={"Add a subtask"}
@@ -367,15 +380,17 @@ export default function Today() {
                   <Box
                     sx={{
                       backgroundColor: "#f5f3f3",
-                      height: 49,
+                      height: 36,
                       mr: { md: "5%" },
                       borderRadius: 1,
+                      display:"flex",
+                      alignItems:"center", mt:"1%"
                     }}
                   >
                     <Grid container alignItems="center">
                       <Typography
-                        fontSize={15}
-                        sx={{ color: "black", mt: "7%", ml: "2%" }}
+                        fontSize={15} fontWeight={550}
+                        sx={{ color: "black", ml: "3%" }}
                       >
                         3 June 2022, 7:00 PM
                       </Typography>
@@ -389,10 +404,10 @@ export default function Today() {
                   md={6}
                   sx={{
                     mt: { xs: "4%", md: "0%" },
-                    mb: { xs: "15%", sm: "9%", md: "0%" },
+                    mb: { xs: "4%", sm: "0%" },
                   }}
                 >
-                  <Typography fontWeight={700} sx={{ color: "#6d6d6d" }}>
+                  <Typography fontWeight={700} sx={{ color: "#6d6d6d", mb:"1%" }}>
                     Task List
                   </Typography>
                   <SelectTaskList></SelectTaskList>
@@ -415,49 +430,59 @@ export default function Today() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <AddIcon
-                    sx={{
-                      ml: {
-                        xs: "1%",
-                        sm: "2.3%",
+                <IconButton sx={{
+                      position:"absolute",  ml: {
+                        xs: "1.8%",
+                        sm: "4.6%",
                         md: "-1%",
                         lg: "-0.2%",
-                        xl: "0.4%",
+                        xl: "0.6%",
                       },
-                      mt: "0.3%",
-                      opacity: "80%",
+                      mt: "0.8%", }}>
+                  <AddIcon
+                    sx={{
+                      opacity: "70%",
+                      color:"black",
                       position: "absolute",
                     }}
                   />
+                  </IconButton>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <NewButton
+              <Box
                 sx={{
+                  bgcolor:"#f5f5f3",
                   width: "100%",
-                  height: 50,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  display: "box",
+                  height: 43,
+                  direction:"row",
+                  display:"flex"
                 }}
               >
+              <Grid item sx={{ display:"flex", alignItems:"center", mr: "1%", ml:"1%" }}>
                 <NotificationsActiveOutlinedIcon
-                  sx={{ color: "#2f80ed", mr: "1%", ml: "-1.7%" }}
+                  sx={{ color: "#2f80ed" }}
                 />
+              </Grid>
                 <Grid
                   container
                   justifyContent="flex-start"
-                  alignItems="flex-start"
+                  alignItems="center"
+                  sx={{ 
+                  overflow: "hidden",
+                  textOverflow: "ellipsis" }}
                 >
-                  <Typography fontWeight={700} color="#2f80ed">
+                  <Typography noWrap fontWeight={700} color="#2f80ed">
                     15 mins before (3 June 2022, 6:45 PM)
                   </Typography>
                 </Grid>
-                <CloseIcon
-                  sx={{ mr: "-1.5%", color: "black", opacity: "70%" }}
-                />
-              </NewButton>
+                <IconButton>
+                  <CloseIcon
+                    sx={{ ml:"5%", color: "black", opacity: "70%" }}
+                  />
+                </IconButton>
+              </Box>
             </Grid>
             <Grid item xs={12}>
               <Divider sx={{ my: "1%" }} />
@@ -499,7 +524,7 @@ export default function Today() {
               >
                 <NewButton
                   sx={{
-                    height: 49,
+                    height: 47,
                     color: "red",
                     fontSize: { xs: 13, sm: 16, md: 18 },
                     fontWeight: { xs: 900, sm: 700 },
@@ -511,7 +536,7 @@ export default function Today() {
                 </NewButton>
                 <NewButton
                   sx={{
-                    height: 49,
+                    height: 47,
                     color: "primary",
                     fontSize: { xs: 13, sm: 16, md: 18 },
                     fontWeight: { xs: 900, sm: 700 },
