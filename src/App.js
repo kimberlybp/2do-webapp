@@ -10,7 +10,6 @@ import Alert from './components/Alert';
 import Loader from './components/Loader';
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
-import Today from "./views/Today";
 import Layout from "./views/Layout";
 import { checkSession } from './_actions/AuthAction';
 

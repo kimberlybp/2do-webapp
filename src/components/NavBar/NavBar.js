@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import {
-  AppBar, Divider, Drawer, IconButton, List, ListItem, ListItemText, ListItemIcon, Toolbar, Typography,
-  useTheme, Button, ListItemButton, Avatar, Tooltip, Menu, MenuItem, Container, Icon, TextField, InputAdornment
+  AppBar, Divider, Drawer, IconButton, List, ListItem, ListItemText, ListItemIcon, Toolbar,
+  useTheme, Button, ListItemButton, Avatar, Tooltip, Menu, MenuItem, TextField, InputAdornment
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@mui/styles";
@@ -16,7 +16,6 @@ import AllTasksIcon from '@mui/icons-material/Assignment';
 import { useLocation, useNavigate } from "react-router-dom";
 import { logOut } from '../../_actions/AuthAction';
 import stringAvatar from "../../utils/stringAvatar";
-
 import OtherNav from "./components/OtherNav";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SearchIcon from '@mui/icons-material/Search';
@@ -33,15 +32,6 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
       position: "absolute"
     }
-  },
-  appBar: {
-    color: "#2B3334",
-    backgroundColor: "#D1BDE1 !important",
-    // [theme.breakpoints.up("sm")]: {
-    //   width: `calc(100% - ${drawerWidth}px)`,
-    //   marginLeft: drawerWidth,
-    //   color: "#2B3334",
-    // }
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -143,7 +133,7 @@ function NavBar(props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ display: { xs: 'inline-block', sm: 'none' }}}
+              sx={{ display: { xs: 'inline-block', sm: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
@@ -164,10 +154,10 @@ function NavBar(props) {
             />
           </Box>
           <Box sx={{ minWidth: "fit-content" }}>
-          <Tooltip title="FAQ">
-            <IconButton sx={{ backgroundColor: "white", marginRight: 1 }}>
-              <HelpOutlineIcon sx={{ color: "#000000" }} />
-            </IconButton>
+            <Tooltip title="FAQ">
+              <IconButton sx={{ backgroundColor: "white", marginRight: 1 }}>
+                <HelpOutlineIcon sx={{ color: "#000000" }} />
+              </IconButton>
             </Tooltip>
             <Tooltip title="Open setings">
               <IconButton onClick={handleMenu} sx={{ p: 0 }}>
