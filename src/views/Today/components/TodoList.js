@@ -14,16 +14,12 @@ import { selectTask, toggleComplete } from "../../../_actions/TaskAction";
 
 export default function TodoList(props) {
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.Task.tasks);
+  // const tasks = useSelector((state) => state.Task.tasks);
+  const tasks = props.tasks;
   const currentTask = useSelector((state) => state.Task.currentTask);
 
   const allTasks = useMemo(() => {
-    console.log("tasks updated")
     return tasks;
-  }, [tasks])
-
-  useEffect(() => {
-    console.log("hey")
   }, [tasks])
 
   const handleChecked = (value, event) => {

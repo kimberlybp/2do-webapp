@@ -1,8 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import { Grid, useTheme, Chip, Box, Button, Link, IconButton, Tooltip } from "@mui/material";
+import { Grid, useTheme, Chip, Box, Button, Link, IconButton, Tooltip, Switch, FormControlLabel } from "@mui/material";
 import { styled } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -37,6 +37,8 @@ export default function Today() {
   const dispatch = useDispatch();
   const firstName = useSelector((state) => state.User.firstName);
   const currentTask = useSelector((state) => state.Task.currentTask);
+  const tasks = useSelector((state) => state.Task.tasks);
+  const [showCompleted, setShowCompleted] = useState(false); 
 
   const handleAddSubtask = () => {
     const updated = currentTask.subtasks;
@@ -44,6 +46,12 @@ export default function Today() {
     updated.push({ order: latestOrder, title: "New Subtask", complete: false });
     dispatch(updateTaskParam('subtasks', updated));
   }
+
+  const handleSwitch = (event) => {
+    setShowCompleted(event.target.checked);
+  };
+
+  const filtered = showCompleted ? tasks : tasks.filter(t => t.complete === false);
 
   return (
     <Grid container sx={{ px: "30px" }}>
@@ -68,7 +76,13 @@ export default function Today() {
         elevation={2}>
         <Grid container sx={{ minHeight: "75vh" }}>
           <Grid item xs={12} lg={5.5}>
-            <TodoList />
+            <FormControlLabel
+              control={
+                <Switch checked={showCompleted} onChange={handleSwitch} name="completed" />
+              }
+              label="Show Completed Tasks"
+            />
+            <TodoList tasks={filtered} />
           </Grid>
           <Grid item md={0.5}>
             <Divider
@@ -142,7 +156,7 @@ export default function Today() {
                   Created on 1 May 2022, Monday 2:49 PM
                 </Typography>
                 <Typography variant="caption" display="block" sx={{ fontStyle: "italic", color: "#6D6D6D" }} gutterBottom>
-                  Created on 1 May 2022, Monday 2:49 PM
+                  Updated on 1 May 2022, Monday 2:49 PM
                 </Typography>
                 <Divider />
 
