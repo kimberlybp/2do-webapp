@@ -82,7 +82,7 @@ const reducer = (state = initState, action) => {
         }
       else return {
         ...state,
-        tasks: state.tasks.map((t, i) => t.id == id ? { ...t, complete: !t.complete } : t),
+        tasks: state.tasks.map((t, i) => t.id === id ? { ...t, complete: !t.complete } : t),
       }
     }
     case actions.SELECT_TASK: {

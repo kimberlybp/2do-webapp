@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, Fragment } from 'react';
+import { useState, useMemo, Fragment } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -7,7 +7,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
 import CloseIcon from '@mui/icons-material/Close';
 import { TextField, Typography } from '@mui/material';
 import { updateTaskParam } from "../../../_actions/TaskAction";

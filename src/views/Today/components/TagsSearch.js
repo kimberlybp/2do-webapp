@@ -3,13 +3,12 @@ import { TextField, Box } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from "react-redux";
 import { updateTaskParam } from "../../../_actions/TaskAction";
-import { GithubPicker, CirclePicker } from 'react-color';
+import { CirclePicker } from 'react-color';
 import { Typography } from '@mui/material';
 
 
@@ -67,6 +66,7 @@ export default function FreeSoloCreateOptionDialog(props) {
 
   const filtered = React.useMemo(() => {
     return top100Films.filter((elem) => !currentTask.tags.find(({ name }) => elem.name === name) && elem.color);
+    // eslint-disable-next-line
   }, [currentTask])
 
   return (

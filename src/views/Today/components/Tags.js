@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { styled } from '@mui/material/styles';
-import { Chip, Box, useTheme, Popover, Typography, Button } from '@mui/material';
-import TagFacesIcon from '@mui/icons-material/TagFaces';
+import { Chip, Box, useTheme, Popover, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { updateTaskParam } from "../../../_actions/TaskAction";
 import TagsSearch from './TagsSearch';

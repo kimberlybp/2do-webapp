@@ -14,6 +14,8 @@ export default function TaskTitle(props) {
     if (currentTask) {
       setValue("taskTitle", currentTask.title)
     }
+
+    // eslint-disable-next-line
   }, [currentTask]);
 
   return (

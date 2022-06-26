@@ -1,15 +1,13 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import { Grid, useTheme, Chip, Box, Button, Link, IconButton, Tooltip, Switch, FormControlLabel } from "@mui/material";
-import { styled } from "@mui/styles";
+import { Grid, useTheme, Box, Button, Link, IconButton, Switch, FormControlLabel } from "@mui/material";
+// import { styled } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import generateGreetings from "../../utils/generateGreetings";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
-import SaveIcon from '@mui/icons-material/Save';
 import AddIcon from '@mui/icons-material/Add';
 import { updateTaskParam, toggleComplete } from "../../_actions/TaskAction";
 
@@ -25,12 +23,12 @@ import DueDate from './components/DueDate';
 
 import { ReactComponent as NusModsLogo } from '../../assets/icons/nusmods.svg';
 
-const ReminderButton = styled(Button)(({ theme }) => ({
-  color: `#2F80ED !important`,
-  backgroundColor: "#F5F3F3 !important",
-  fontWeight: "700 !important",
-  justifyContent: "left !important"
-}));
+// const ReminderButton = styled(Button)(({ theme }) => ({
+//   color: `#2F80ED !important`,
+//   backgroundColor: "#F5F3F3 !important",
+//   fontWeight: "700 !important",
+//   justifyContent: "left !important"
+// }));
 
 export default function Today() {
   const theme = useTheme();

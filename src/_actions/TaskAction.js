@@ -1,7 +1,4 @@
 import { actions } from '../utils/constants/actions';
-import { pageLoading, stopPageLoading, taskLoading, taskLoadingDone } from './SharedAction';
-import * as alertActions from './AlertAction';
-import { moduleService } from '../_services/moduleService';
 
 function updateCurrentTask(key, value) {
   return {

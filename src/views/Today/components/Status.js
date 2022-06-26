@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Grid, useTheme, Chip, Box, Button, Link } from "@mui/material";
+import { Chip } from "@mui/material";
 
 export default function Status() {
   const currentTask = useSelector((state) => state.Task.currentTask);

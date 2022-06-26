@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { createFilterOptions } from '@mui/material'
-import { taskLoading, taskLoadingDone } from '../../../_actions/SharedAction';
 import { getAllModules } from '../../../_actions/ModuleAction';
 import { updateTaskParam } from '../../../_actions/TaskAction';
 
@@ -24,6 +23,7 @@ export default function ModuleSearch() {
 
   React.useEffect(() => {
     dispatch(getAllModules());
+    // eslint-disable-next-line
   }, []);
 
   React.useEffect(() => {

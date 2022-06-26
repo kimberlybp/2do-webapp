@@ -138,8 +138,9 @@ function NavBar(props) {
               <MenuIcon />
             </IconButton>
             <TextField
+              disabled
               id="standard-search"
-              placeholder="Search"
+              placeholder="Search (Under Construction 😅)"
               type="search"
               variant="outlined"
               size="small"

@@ -11,5 +11,5 @@ export default function generateGreetings(name) {
   else if (hours >= 21 && hours <= 11)
     return `Good Night ${name}!`
   else
-    return `Wow! You're still awake. Working Late ${name}?`
+    return `Wow! You're still awake. Working Late ${name}? 🦉`
 } 
