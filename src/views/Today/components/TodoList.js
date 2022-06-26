@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { List, Box, Typography } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import { TextField } from '@mui/material';
 import moment from 'moment';
-import { selectTask } from "../../../_actions/TaskAction";
+import { selectTask, toggleComplete } from "../../../_actions/TaskAction";
 
 
 export default function CheckboxList(props) {
@@ -20,21 +20,17 @@ export default function CheckboxList(props) {
   const currentTask = useSelector((state) => state.Task.currentTask);
 
   const allTasks = useMemo(() => {
+    console.log("tasks updated")
     return tasks;
   }, [tasks])
 
+  useEffect(() => {
+    console.log("hey")
+  }, [tasks])
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+  const handleChecked = (value, event) => {
+    event.stopPropagation();
+    dispatch(toggleComplete(value.id));
   };
 
   const onTaskClick = (value) => () => {
@@ -64,11 +60,11 @@ export default function CheckboxList(props) {
               <ListItemIcon sx={{ minWidth: "23px" }}>
                 <Checkbox
                   edge="start"
-                  checked={checked.indexOf(value) !== -1}
+                  checked={value.complete}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ 'aria-labelledby': labelId }}
-                  onClick={handleToggle(value)}
+                  onClick={(e) => handleChecked(value, e)}
                 />
               </ListItemIcon>
               <ListItemText id={labelId}
@@ -76,11 +72,12 @@ export default function CheckboxList(props) {
                   {value.title}</Typography>}
                 disableTypography
                 secondary={
-                  <Box display="flex" sx={{ placeItems: 'center', color: "#6D6D6D" }}>
+                  <Box display="flex" sx={{ placeItems: 'center', color: "#6D6D6D",fontSize: "14px", maxWidth: "100%" }}>
                     {value.tags && value.tags.map((tag, i) => {
                       return <Box sx={{
-                        width: "15px",
-                        height: "15px",
+                        mx:"1px",
+                        width: "5px",
+                        height: "12px",
                         backgroundColor: tag.color,
                         borderRadius: '5px',
                       }} />

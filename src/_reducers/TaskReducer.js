@@ -20,7 +20,7 @@ const initState = {
       createdAt: new Date(),
       updatedAt: new Date(),
       module: {
-        title: '',
+        title: 'Discrete Structures',
         moduleCode: 'CS1231S'
       },
       saved: true
@@ -42,8 +42,8 @@ const initState = {
       createdAt: new Date(),
       updatedAt: new Date(),
       module: {
-        title: '',
-        moduleCode: ''
+        title: 'Computer Organisation',
+        moduleCode: 'CS2100'
       },
       saved: true
     }
@@ -61,6 +61,28 @@ const reducer = (state = initState, action) => {
           [key]: value,
           saved: false
         }
+      }
+    }
+    case actions.UPDATE_TASKLIST_SYNC: {
+      return {
+        ...state,
+        tasks: state.tasks.map((t, i) => t.id === state.currentTask.id ? state.currentTask : t),
+      }
+    }
+    case actions.TOGGLE_COMPLETE: {
+      const { id } = action.payload;
+      if (state.currentTask && id === state.currentTask.id)
+        return {
+          ...state,
+          tasks: state.tasks.map((t, i) => t.id === id ? { ...t, complete: !t.complete } : t),
+          currentTask: {
+            ...state.currentTask,
+            complete: !state.currentTask.complete
+          }
+        }
+      else return {
+        ...state,
+        tasks: state.tasks.map((t, i) => t.id == id ? { ...t, complete: !t.complete } : t),
       }
     }
     case actions.SELECT_TASK: {

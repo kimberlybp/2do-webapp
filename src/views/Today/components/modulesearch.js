@@ -6,12 +6,17 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { createFilterOptions } from '@mui/material'
 import { taskLoading, taskLoadingDone } from '../../../_actions/SharedAction';
 import { getAllModules } from '../../../_actions/ModuleAction';
+import { updateTaskParam } from '../../../_actions/TaskAction';
 
 export default function ModuleSearch() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const loading = useSelector((state) => state.Shared.loadingTasks['moduleSearch']);
   const allMods = useSelector((state) => state.Module.allModules);
+  const currentTask = useSelector((state) => state.Task.currentTask);
+  const [inputValue, setInputValue] = React.useState('');
+
+
   const filterOptions = createFilterOptions({
     matchFrom: 'any',
     limit: 500,
@@ -24,10 +29,13 @@ export default function ModuleSearch() {
   React.useEffect(() => {
     if (!allMods) return;
 
-  }, [allMods]);
+  }, [allMods, currentTask]);
+
+  if (!allMods) return "";
 
   return (
     <Autocomplete
+      value={currentTask.module}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -35,11 +43,18 @@ export default function ModuleSearch() {
       onClose={() => {
         setOpen(false);
       }}
+      onChange={(event, newValue) => {
+        dispatch(updateTaskParam('module', newValue))
+      }}
       filterOptions={filterOptions}
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(option) => `${option.moduleCode} ${option.title}`}
       options={allMods}
       loading={loading}
+      inputValue={inputValue}
+      onInputChange={(event, newInputValue) => {
+        setInputValue(newInputValue);
+      }}
       renderInput={(params) => (
         <TextField
           {...params}

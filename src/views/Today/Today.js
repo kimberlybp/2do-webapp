@@ -11,7 +11,7 @@ import generateGreetings from "../../utils/generateGreetings";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import SaveIcon from '@mui/icons-material/Save';
 import AddIcon from '@mui/icons-material/Add';
-import { updateTaskParam } from "../../_actions/TaskAction";
+import { updateTaskParam, toggleComplete } from "../../_actions/TaskAction";
 
 import TodoList from './components/TodoList';
 import SubTasks from './components/SubTasks';
@@ -85,11 +85,6 @@ export default function Today() {
                   </Typography>
                   <Status />
                   <div style={{ flexGrow: 1 }}></div>
-                  <Tooltip title="Save any changes you have made to this task">
-                    <IconButton>
-                      <SaveIcon />
-                    </IconButton>
-                  </Tooltip>
                 </Box>
                 {/* {!currentTask.saved && <Typography>Task has been edited, remember to save</Typography>} */}
                 <TaskTitle />
@@ -156,7 +151,13 @@ export default function Today() {
                     <Button color="error" fullWidth>Delete Task</Button>
                   </Grid>
                   <Grid item xs={12} lg={6}>
-                    <Button color="primary" fullWidth>Mark as Complete</Button>
+                    <Button color="primary"
+                      fullWidth
+                      onClick={() => {dispatch(toggleComplete(currentTask.id))}}>
+                      {
+                        currentTask.complete ? "Mark as Incomplete" : "Mark as Complete"
+                      }
+                    </Button>
                   </Grid>
                 </Grid>
               </>
