@@ -12,10 +12,8 @@ import { TextField } from '@mui/material';
 import moment from 'moment';
 import { selectTask, toggleComplete } from "../../../_actions/TaskAction";
 
-
-export default function CheckboxList(props) {
+export default function TodoList(props) {
   const dispatch = useDispatch();
-  const [checked, setChecked] = useState([0]);
   const tasks = useSelector((state) => state.Task.tasks);
   const currentTask = useSelector((state) => state.Task.currentTask);
 
@@ -35,6 +33,10 @@ export default function CheckboxList(props) {
 
   const onTaskClick = (value) => () => {
     dispatch(selectTask(value));
+  }
+
+  const onBlur = (event) => {
+    //call api first then, add to redux store
   }
 
   return (
@@ -74,7 +76,7 @@ export default function CheckboxList(props) {
                 secondary={
                   <Box display="flex" sx={{ placeItems: 'center', color: "#6D6D6D",fontSize: "14px", maxWidth: "100%" }}>
                     {value.tags && value.tags.map((tag, i) => {
-                      return <Box sx={{
+                      return <Box key={i} sx={{
                         mx:"1px",
                         width: "5px",
                         height: "12px",
@@ -104,7 +106,9 @@ export default function CheckboxList(props) {
             disabled
           />
         </ListItemIcon>
-        <TextField variant="standard" fullWidth placeholder='Quick add a task here!' />
+        <TextField variant="standard" fullWidth 
+        onBlur={e => onBlur(e)}
+        placeholder='Quick add a task here!' />
       </ListItem>
     </List>
   );

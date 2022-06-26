@@ -34,3 +34,9 @@ export function toggleComplete(id) {
   }
 }
 
+export function quickAddToday(newTask) {
+  return {
+    type: actions.QUICK_ADD_TODAY, payload: { newTask }
+  }
+}
+

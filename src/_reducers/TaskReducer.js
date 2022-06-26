@@ -92,6 +92,13 @@ const reducer = (state = initState, action) => {
         currentTask: { ...task, saved: true }
       }
     }
+    case actions.QUICK_ADD_TODAY: {
+      const { newTask } = action.payload;
+      return {
+        ...state,
+        tasks: [...state.tasks, newTask]
+      }
+    }
     default: {
       return state
     }
