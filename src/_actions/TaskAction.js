@@ -9,3 +9,9 @@ export function updateTaskParam(key, value) {
   }
 }
 
+export function selectTask(task) {
+  return {
+    type: actions.SELECT_TASK, payload: { task }
+  }
+}
+

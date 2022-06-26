@@ -33,6 +33,8 @@ export default function Tags() {
     const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+  if(!currentTask.tags) return null;
+
   return (
     <Box
       sx={{

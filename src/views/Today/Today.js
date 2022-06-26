@@ -10,22 +10,20 @@ import Divider from "@mui/material/Divider";
 import generateGreetings from "../../utils/generateGreetings";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import SaveIcon from '@mui/icons-material/Save';
+import AddIcon from '@mui/icons-material/Add';
+import { updateTaskParam } from "../../_actions/TaskAction";
 
 import TodoList from './components/TodoList';
+import SubTasks from './components/SubTasks';
 import TaskListDropdown from './components/TaskListDropdown';
 import ModuleSearch from './components/ModuleSearch';
 import TaskTitle from './components/TaskTitle';
+import TaskDescription from './components/TaskDescription';
 import Status from './components/Status';
 import Tags from './components/Tags';
+import DueDate from './components/DueDate';
 
 import { ReactComponent as NusModsLogo } from '../../assets/icons/nusmods.svg';
-
-const DateButton = styled(Button)(({ theme }) => ({
-  color: `${theme.palette.getContrastText("#F5F3F3")} !important`,
-  backgroundColor: "#F5F3F3 !important",
-  fontWeight: "400 !important",
-  justifyContent: "left !important"
-}));
 
 const ReminderButton = styled(Button)(({ theme }) => ({
   color: `#2F80ED !important`,
@@ -36,8 +34,16 @@ const ReminderButton = styled(Button)(({ theme }) => ({
 
 export default function Today() {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const firstName = useSelector((state) => state.User.firstName);
   const currentTask = useSelector((state) => state.Task.currentTask);
+
+  const handleAddSubtask = () => {
+    const updated = currentTask.subtasks;
+    const latestOrder = currentTask.subtasks[updated.length - 1]?.order + 1 ?? 1;
+    updated.push({ order: latestOrder, title: "New Subtask", complete: false });
+    dispatch(updateTaskParam('subtasks', updated));
+  }
 
   return (
     <Grid container sx={{ px: "30px" }}>
@@ -70,83 +76,99 @@ export default function Today() {
             />
           </Grid>
           <Grid item xs={12} lg={6} sx={{ px: "25px", display: { lg: "inline", xs: "none" } }}>
-            <Box sx={{ display: "flex" }}>
-              <Typography component="h1" variant="h5" gutterBottom
-                sx={{ fontWeight: 700, color: theme.palette.primary.dark, mr: 1 }}>
-                Task details
-              </Typography>
-              <Status />
-              <div style={{ flexGrow: 1 }}></div>
-              <Tooltip title="Save any changes you have made to this task">
-                <IconButton>
-                  <SaveIcon />
-                </IconButton>
-              </Tooltip>
-            </Box>
-            {/* {!currentTask.saved && <Typography>Task has been edited, remember to save</Typography>} */}
-            <TaskTitle />
-            <Tags />
-            <Typography variant="h6" gutterBottom
-              sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
-              Task Description
-            </Typography>
-            <Typography variant="body1" gutterBottom sx={{ minHeight: "100px" }}>
-              Add any extra notes you have here
-            </Typography>
-            <Typography variant="h6" gutterBottom
-              sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
-              Subtasks
-            </Typography>
-            <TodoList subtask={true} />
-            <Grid container spacing={2} sx={{ mb: "18px" }}>
-              <Grid item xs={12} lg={6}>
+            {currentTask &&
+              <>
+                <Box sx={{ display: "flex" }}>
+                  <Typography component="h1" variant="h5" gutterBottom
+                    sx={{ fontWeight: 700, color: theme.palette.primary.dark, mr: 1 }}>
+                    Task details
+                  </Typography>
+                  <Status />
+                  <div style={{ flexGrow: 1 }}></div>
+                  <Tooltip title="Save any changes you have made to this task">
+                    <IconButton>
+                      <SaveIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+                {/* {!currentTask.saved && <Typography>Task has been edited, remember to save</Typography>} */}
+                <TaskTitle />
+                <Tags />
                 <Typography variant="h6" gutterBottom
                   sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
-                  Due Date
+                  Task Description
                 </Typography>
-                <DateButton fullWidth>{moment().format('DD MMMM YYYY, h:mm A')}</DateButton>
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Typography variant="h6" gutterBottom
-                  sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
-                  Task List
-                </Typography>
-                <TaskListDropdown />
-              </Grid>
-            </Grid>
-            <Divider />
-            <Typography variant="h6" gutterBottom
+                <TaskDescription />
+                <Box display="flex">
+                  <Typography variant="h6" gutterBottom
+                    sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px", flexGrow: 1 }}>
+                    Subtasks
+                  </Typography>
+                  <IconButton onClick={() => handleAddSubtask()}>
+                    <AddIcon />
+                  </IconButton>
+                </Box>
+                <SubTasks />
+                <Grid container spacing={2} sx={{ mb: "18px" }}>
+                  <Grid item xs={12} lg={6}>
+                    <Typography variant="h6" gutterBottom
+                      sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
+                      Due Date
+                    </Typography>
+                    <DueDate />
+                    {/* <DateButton fullWidth>{moment().format('DD MMMM YYYY, h:mm A')}</DateButton> */}
+                  </Grid>
+                  <Grid item xs={12} lg={6}>
+                    <Typography variant="h6" gutterBottom
+                      sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
+                      Task List
+                    </Typography>
+                    <TaskListDropdown />
+                  </Grid>
+                </Grid>
+                <Divider />
+                {/* <Typography variant="h6" gutterBottom
               sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
               Deadline
             </Typography>
-            <ReminderButton fullWidth>{moment().format('DD MMMM YYYY, h:mm A')}</ReminderButton>
-            <Typography variant="h6"
-              sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
-              Link to Module
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom component="div" sx={{ color: "#6D6D6D" }}>
-              from <Link href="https://nusmods.com/" target="_blank">
-                <NusModsLogo style={{ maxWidth: "80px" }} />
-              </Link>
-            </Typography>
-            <ModuleSearch />
+            <ReminderButton fullWidth>{moment().format('DD MMMM YYYY, h:mm A')}</ReminderButton> */}
+                <Typography variant="h6"
+                  sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
+                  Link to Module
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom component="div" sx={{ color: "#6D6D6D" }}>
+                  from <Link href="https://nusmods.com/" target="_blank">
+                    <NusModsLogo style={{ maxWidth: "80px" }} />
+                  </Link>
+                </Typography>
+                <ModuleSearch />
 
-            <Typography variant="caption" display="block" sx={{ mt: "50px", fontStyle: "italic", color: "#6D6D6D" }}>
-              Created on 1 May 2022, Monday 2:49 PM
-            </Typography>
-            <Typography variant="caption" display="block" sx={{ fontStyle: "italic", color: "#6D6D6D" }} gutterBottom>
-              Created on 1 May 2022, Monday 2:49 PM
-            </Typography>
-            <Divider />
+                <Typography variant="caption" display="block" sx={{ mt: "50px", fontStyle: "italic", color: "#6D6D6D" }}>
+                  Created on 1 May 2022, Monday 2:49 PM
+                </Typography>
+                <Typography variant="caption" display="block" sx={{ fontStyle: "italic", color: "#6D6D6D" }} gutterBottom>
+                  Created on 1 May 2022, Monday 2:49 PM
+                </Typography>
+                <Divider />
 
-            <Grid container spacing={2} sx={{ padding: 1 }}>
-              <Grid item xs={12} lg={6}>
-                <Button color="error" fullWidth>Delete Task</Button>
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Button color="primary" fullWidth>Mark as Complete</Button>
-              </Grid>
-            </Grid>
+                <Grid container spacing={2} sx={{ padding: 1 }}>
+                  <Grid item xs={12} lg={6}>
+                    <Button color="error" fullWidth>Delete Task</Button>
+                  </Grid>
+                  <Grid item xs={12} lg={6}>
+                    <Button color="primary" fullWidth>Mark as Complete</Button>
+                  </Grid>
+                </Grid>
+              </>
+            }
+            {!currentTask &&
+              <>
+                <Typography component="h1" variant="h5" gutterBottom
+                  sx={{ fontWeight: 700, color: theme.palette.primary.dark, mr: 1 }}>
+                  Task details
+                </Typography>
+                <Typography>No task selected.</Typography>
+              </>}
           </Grid>
         </Grid>
       </Grid>
