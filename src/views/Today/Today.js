@@ -2,18 +2,21 @@ import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import { Grid, useTheme, Chip, Box, Button, Link } from "@mui/material";
+import { Grid, useTheme, Chip, Box, Button, Link, IconButton, Tooltip } from "@mui/material";
 import { styled } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import generateGreetings from "../../utils/generateGreetings";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import SaveIcon from '@mui/icons-material/Save';
 
 import TodoList from './components/TodoList';
-import ClickableTags from './components/ClickableTags';
 import TaskListDropdown from './components/TaskListDropdown';
 import ModuleSearch from './components/ModuleSearch';
+import TaskTitle from './components/TaskTitle';
+import Status from './components/Status';
+import Tags from './components/Tags';
 
 import { ReactComponent as NusModsLogo } from '../../assets/icons/nusmods.svg';
 
@@ -34,6 +37,7 @@ const ReminderButton = styled(Button)(({ theme }) => ({
 export default function Today() {
   const theme = useTheme();
   const firstName = useSelector((state) => state.User.firstName);
+  const currentTask = useSelector((state) => state.Task.currentTask);
 
   return (
     <Grid container sx={{ px: "30px" }}>
@@ -71,12 +75,17 @@ export default function Today() {
                 sx={{ fontWeight: 700, color: theme.palette.primary.dark, mr: 1 }}>
                 Task details
               </Typography>
-              <Chip label="Incomplete" />
+              <Status />
+              <div style={{ flexGrow: 1 }}></div>
+              <Tooltip title="Save any changes you have made to this task">
+                <IconButton>
+                  <SaveIcon />
+                </IconButton>
+              </Tooltip>
             </Box>
-            <Typography variant="h4" gutterBottom>
-              Finish & Submit Lab 3
-            </Typography>
-            <ClickableTags />
+            {/* {!currentTask.saved && <Typography>Task has been edited, remember to save</Typography>} */}
+            <TaskTitle />
+            <Tags />
             <Typography variant="h6" gutterBottom
               sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
               Task Description
@@ -121,7 +130,6 @@ export default function Today() {
               </Link>
             </Typography>
             <ModuleSearch />
-
 
             <Typography variant="caption" display="block" sx={{ mt: "50px", fontStyle: "italic", color: "#6D6D6D" }}>
               Created on 1 May 2022, Monday 2:49 PM
