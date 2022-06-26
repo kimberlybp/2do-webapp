@@ -20,6 +20,7 @@ export default function BasicSelect() {
           value={value}
           onChange={handleChange}
           sx={{ fontSize: "18px"}}
+          size="small"
         >
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>

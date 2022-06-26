@@ -42,7 +42,7 @@ export default function CheckboxList(props) {
           >
             <ListItemButton role={undefined} onClick={onTaskClick(value)} dense disableRipple
               sx={{
-                alignItems: 'flex-start',
+                alignItems: (subtask ? 'center' : 'flex-start'),
                 ".MuiListItemText-primary": {
                   color: "#2B3334",
                   fontWeight: 700,

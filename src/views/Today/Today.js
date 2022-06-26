@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import { Grid, useTheme, Chip, Box, Button } from "@mui/material";
+import { Grid, useTheme, Chip, Box, Button, Link } from "@mui/material";
 import { styled } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -12,6 +13,9 @@ import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import TodoList from './components/TodoList';
 import ClickableTags from './components/ClickableTags';
 import TaskListDropdown from './components/TaskListDropdown';
+import ModuleSearch from './components/ModuleSearch';
+
+import { ReactComponent as NusModsLogo } from '../../assets/icons/nusmods.svg';
 
 const DateButton = styled(Button)(({ theme }) => ({
   color: `${theme.palette.getContrastText("#F5F3F3")} !important`,
@@ -91,7 +95,7 @@ export default function Today() {
                   sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
                   Due Date
                 </Typography>
-                <DateButton fullWidth sx={{ py: "14px", px: "10px" }}>{moment().format('DD MMMM YYYY, h:mm A')}</DateButton>
+                <DateButton fullWidth>{moment().format('DD MMMM YYYY, h:mm A')}</DateButton>
               </Grid>
               <Grid item xs={12} lg={6}>
                 <Typography variant="h6" gutterBottom
@@ -104,15 +108,19 @@ export default function Today() {
             <Divider />
             <Typography variant="h6" gutterBottom
               sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
-              Remind Me
+              Deadline
             </Typography>
-            <ReminderButton fullWidth sx={{ py: "14px", px: "10px" }}>{moment().format('DD MMMM YYYY, h:mm A')}</ReminderButton>
+            <ReminderButton fullWidth>{moment().format('DD MMMM YYYY, h:mm A')}</ReminderButton>
             <Typography variant="h6"
               sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
               Link to Module
             </Typography>
-            <Typography variant="subtitle1" gutterBottom component="div" sx={{ color: "#6D6D6D" }}>from NUSMods</Typography>
-            <DateButton fullWidth sx={{ py: "14px", px: "10px" }}>CS2106 Introduction to Operating Systems</DateButton>
+            <Typography variant="subtitle1" gutterBottom component="div" sx={{ color: "#6D6D6D" }}>
+              from <Link href="https://nusmods.com/" target="_blank">
+                <NusModsLogo style={{ maxWidth: "80px" }} />
+              </Link>
+            </Typography>
+            <ModuleSearch />
 
 
             <Typography variant="caption" display="block" sx={{ mt: "50px", fontStyle: "italic", color: "#6D6D6D" }}>
@@ -134,7 +142,6 @@ export default function Today() {
           </Grid>
         </Grid>
       </Grid>
-
     </Grid>
   );
 }

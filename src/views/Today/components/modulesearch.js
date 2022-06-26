@@ -1,32 +1,61 @@
-import Autocomplete from "@mui/material/Autocomplete";
-import Grid from "@mui/material/Grid";
-import SampleMods from "../../../samplemods.json";
+import * as React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import CircularProgress from '@mui/material/CircularProgress';
+import { createFilterOptions } from '@mui/material'
+import { taskLoading, taskLoadingDone } from '../../../_actions/SharedAction';
+import { getAllModules } from '../../../_actions/ModuleAction';
 
-const ModuleSearch = () => {
+export default function ModuleSearch() {
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+  const loading = useSelector((state) => state.Shared.loadingTasks['moduleSearch']);
+  const allMods = useSelector((state) => state.Module.allModules);
+  const filterOptions = createFilterOptions({
+    matchFrom: 'any',
+    limit: 500,
+  });
+
+  React.useEffect(() => {
+    dispatch(getAllModules());
+  }, []);
+
+  React.useEffect(() => {
+    if (!allMods) return;
+
+  }, [allMods]);
+
   return (
     <Autocomplete
-      id="mod"
-      disableClearable
-      options={SampleMods.map((option) => option.module)}
+      open={open}
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={() => {
+        setOpen(false);
+      }}
+      filterOptions={filterOptions}
+      isOptionEqualToValue={(option, value) => option.title === value.title}
+      getOptionLabel={(option) => `${option.moduleCode} ${option.title}`}
+      options={allMods}
+      loading={loading}
       renderInput={(params) => (
-        <Grid item ref={params.InputProps.ref} sx={{ mt: "1%" }}>
-          <input
-            placeholder="Search for a module"
-            type="text"
-            {...params.inputProps}
-            style={{
-              height: 43,
-              border: "none",
-              backgroundColor: "#f5f5f3",
-              borderRadius: 3.5,
-              width: "100%",
-              font: "inherit",
-            }}
-          />
-        </Grid>
+        <TextField
+          {...params}
+          size="small"
+          placeholder="Search for a Module"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <React.Fragment>
+                {loading ? <CircularProgress color="inherit" size={20} sx={{ marginRight: "35px" }} /> : null}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            ),
+          }}
+        />
       )}
     />
   );
-};
-
-export default ModuleSearch;
+}
