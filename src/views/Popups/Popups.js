@@ -1,16 +1,7 @@
-import {
-  Button,
-  Box,
-  Grid,
-  Typography,
-  Popper,
-  Paper,
-  Divider,
-} from "@mui/material";
+import { Grid } from "@mui/material";
 import React from "react";
-import { styled } from "@mui/material/styles";
 import { ListActions, Profile } from "./components/dropdowns";
-import { Groupby } from "./components/groupsort"
+import { Groupby, Sort } from "./components/groupsort"
 
 export default function Popups() {
   return (
@@ -18,6 +9,7 @@ export default function Popups() {
       <ListActions />
       <Profile />
       <Groupby />
+      <Sort />
     </Grid>
   );
 }

@@ -39,8 +39,8 @@ function ListActions() {
           elevation={1}
           sx={{
             bgcolor: "white",
-            width: 218,
-            height: 127,
+            width: '218px',
+            height: '127px',
             alignItems: "center",
             display: "flex",
           }}
@@ -50,13 +50,13 @@ function ListActions() {
               <DropdownButton>
                 <ButtonWords>Add Tasks</ButtonWords>
               </DropdownButton>
-              <Divider sx={{ bgcolor: "black" }} />
+              <Divider/>
             </Grid>
             <Grid item xs={12}>
               <DropdownButton>
                 <ButtonWords>Rename</ButtonWords>
               </DropdownButton>
-              <Divider sx={{ bgcolor: "black" }} />
+              <Divider/>
             </Grid>
             <Grid item xs={12}>
               <DropdownButton>
@@ -93,8 +93,8 @@ function Profile() {
           elevation={1}
           sx={{
             bgcolor: "white",
-            width: 218,
-            height: 127,
+            width: '218px',
+            height: '127px',
             alignItems: "center",
             display: "flex",
           }}
@@ -104,13 +104,13 @@ function Profile() {
               <DropdownButton>
                 <ButtonWords>View Profile</ButtonWords>
               </DropdownButton>
-              <Divider sx={{ bgcolor: "black" }} />
+              <Divider/>
             </Grid>
             <Grid item xs={12}>
               <DropdownButton>
                 <ButtonWords>Settings</ButtonWords>
               </DropdownButton>
-              <Divider sx={{ bgcolor: "black" }} />
+              <Divider/>
             </Grid>
             <Grid item xs={12}>
               <DropdownButton>
