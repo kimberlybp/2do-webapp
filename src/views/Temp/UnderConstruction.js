@@ -14,7 +14,7 @@ export default function UnderConstruction() {
             flexDirection="column"
           >
             <Typography component="h1" variant="h5" sx={{ marginTop: "100px" }}>
-              Work in Progress (Milestone 1)
+              Work in Progress (Milestone 2)
             </Typography>
 
             <img alt="Person working" src={vector} style={{ maxWidth: '500px' }} />

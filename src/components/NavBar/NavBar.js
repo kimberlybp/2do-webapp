@@ -81,7 +81,7 @@ function NavBar(props) {
   const navLinks = [
     { title: 'Today', path: '/today', icon: <TodayIcon /> },
     { title: 'Upcoming', path: '/upcoming', icon: <UpcomingIcon /> },
-    { title: 'Calendar 😅', path: '/calendar', icon: <CalendarIcon /> },
+    { title: 'Calendar', path: '/calendar', icon: <CalendarIcon /> },
     { title: 'All Tasks', path: '/alltasks', icon: <AllTasksIcon /> },
   ]
 
@@ -117,7 +117,7 @@ function NavBar(props) {
       }}>
         {navLinks.map((nav, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton selected={location.pathname === nav.path} onClick={() => navigate(nav.path)} disabled={nav.title.includes("Calendar") || nav.title.includes("Upcoming")}>
+            <ListItemButton selected={location.pathname === nav.path} onClick={() => navigate(nav.path)}>
               <ListItemIcon sx={{ color: "#2B3334", minWidth: '45px' }}>
                 {nav.icon}
               </ListItemIcon>
@@ -166,7 +166,7 @@ function NavBar(props) {
           </Box>
           <Box sx={{ minWidth: "fit-content" }}>
             <Tooltip title="FAQ">
-              <IconButton sx={{ backgroundColor: "white", marginRight: 1 }}>
+              <IconButton sx={{ backgroundColor: "white", marginRight: 1 }} onClick={() => navigate('/faq')}>
                 <HelpOutlineIcon sx={{ color: "#000000" }} />
               </IconButton>
             </Tooltip>
@@ -182,8 +182,8 @@ function NavBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>View Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Settings</MenuItem>
+              <MenuItem disabled onClick={handleClose}>View Profile</MenuItem>
+              <MenuItem disabled onClick={handleClose}>Settings</MenuItem>
               <MenuItem onClick={onClickLogout}>Log Out</MenuItem>
             </Menu>
           </Box>
