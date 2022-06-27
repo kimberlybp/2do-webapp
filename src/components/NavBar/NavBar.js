@@ -15,10 +15,12 @@ import CalendarIcon from '@mui/icons-material/CalendarToday';
 import AllTasksIcon from '@mui/icons-material/Assignment';
 import { useLocation, useNavigate } from "react-router-dom";
 import { logOut } from '../../_actions/AuthAction';
+import { getTasks, createTaskDialogOpen } from '../../_actions/TaskAction';
 import stringAvatar from "../../utils/stringAvatar";
 import OtherNav from "./components/OtherNav";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SearchIcon from '@mui/icons-material/Search';
+import CreateTaskDialog from "../CreateTaskDialog";
 
 const drawerWidth = 280;
 
@@ -58,6 +60,7 @@ function NavBar(props) {
   const dispatch = useDispatch();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const userId = useSelector((state) => state.User.userId);
   const firstName = useSelector((state) => state.User.firstName);
@@ -66,6 +69,7 @@ function NavBar(props) {
 
   useEffect(() => {
     if(userId === null) navigate('/');
+    // else dispatch(getTasks());
 
     // eslint-disable-next-line
   }, [userId])
@@ -77,10 +81,9 @@ function NavBar(props) {
   const navLinks = [
     { title: 'Today', path: '/today', icon: <TodayIcon /> },
     { title: 'Upcoming', path: '/upcoming', icon: <UpcomingIcon /> },
-    { title: 'Calendar', path: '/calendar', icon: <CalendarIcon /> },
+    { title: 'Calendar 😅', path: '/calendar', icon: <CalendarIcon /> },
     { title: 'All Tasks', path: '/alltasks', icon: <AllTasksIcon /> },
   ]
-
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -100,7 +103,7 @@ function NavBar(props) {
       <Box className={classes.toolbar} sx={{ mx: "15px", marginTop: "15px" }}>
         <Logo style={{ color: theme.palette.primary.main }} />
       </Box>
-      <Button variant="contained" sx={{ mx: "15px" }}>Create Task</Button>
+      <Button variant="contained" sx={{ mx: "15px" }} onClick={() => {setCreateOpen(true); dispatch(createTaskDialogOpen()) }}>Create Task</Button>
       <List sx={{
         '&& .Mui-selected, && .Mui-selected:hover': {
           bgcolor: 'transparent',
@@ -114,7 +117,7 @@ function NavBar(props) {
       }}>
         {navLinks.map((nav, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton selected={location.pathname === nav.path} onClick={() => navigate(nav.path)}>
+            <ListItemButton selected={location.pathname === nav.path} onClick={() => navigate(nav.path)} disabled={nav.title.includes("Calendar") || nav.title.includes("Upcoming")}>
               <ListItemIcon sx={{ color: "#2B3334", minWidth: '45px' }}>
                 {nav.icon}
               </ListItemIcon>
@@ -214,6 +217,7 @@ function NavBar(props) {
           {drawer}
         </Drawer>
       </nav>
+      <CreateTaskDialog open={createOpen} setOpen={setCreateOpen} />
     </>
   );
 }

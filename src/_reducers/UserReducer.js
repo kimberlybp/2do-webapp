@@ -21,6 +21,9 @@ const reducer = (state = initState, action) => {
         loggedIn: true
       }
     }
+    case actions.RESET_APP: {
+      return initState;
+    }
     case actions.LOG_OUT_USER: {
       return initState;
     }

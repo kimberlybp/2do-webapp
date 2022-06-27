@@ -30,7 +30,7 @@ import { ReactComponent as NusModsLogo } from '../../assets/icons/nusmods.svg';
 //   justifyContent: "left !important"
 // }));
 
-export default function Today() {
+export default function AllTasks() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const firstName = useSelector((state) => state.User.firstName);
@@ -57,18 +57,8 @@ export default function Today() {
   return (
     <Grid container sx={{ px: "30px" }}>
       <Grid item xs={12} sx={{ mb: "-0.5%" }}>
-        <Typography component="h1" variant="h6">
-          {firstName && generateGreetings(capitalizeFirstLetter(firstName))}
-        </Typography>
-      </Grid>
-      <Grid item xs={12} sx={{ mb: "-0.5%" }}>
-        <Typography component="h1" variant="h4">
-          Today
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography component="h1" variant="h6" sx={{ marginBottom: "10px" }}>
-          {moment().format('Do MMMM YYYY, dddd')}
+        <Typography component="h1" variant="h4"  sx={{ marginBottom: "10px" }}>
+          All Tasks
         </Typography>
       </Grid>
       <Grid item xs={12}

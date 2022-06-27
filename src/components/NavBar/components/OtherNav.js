@@ -56,7 +56,7 @@ export default function CustomizedAccordions() {
         </AccordionSummary>
         <AccordionDetails>
           <List>
-            {["List 1", "List 2", "List 3"].map((text, index) => (
+            {["School", "Work"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemText primary={text} sx={{ marginLeft: '1.3rem'}} />
               </ListItem>

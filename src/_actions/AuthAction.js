@@ -6,6 +6,10 @@ import * as alertActions from './AlertAction';
 import { pageLoading, stopPageLoading } from './SharedAction';
 import { initializeUserData, logOutUser } from './UserAction';
 
+export function reset() {
+  return { type: actions.RESET_APP }
+}
+
 export function logOutAuth() {
   return { type: actions.LOG_OUT_AUTH }
 }
@@ -54,8 +58,7 @@ export function logOut() {
       try {
         const user = UserPool.getCurrentUser();
         await authService.logOutUser(user);
-        dispatch(logOutAuth());
-        dispatch(logOutUser());
+        dispatch(reset());
         // dispatch(alertActions.successAlert('Success', "Log out successful.", 30));
         dispatch(stopPageLoading());
       } catch (err) {

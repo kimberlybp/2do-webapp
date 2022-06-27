@@ -1,17 +1,21 @@
 import { actions } from '../utils/constants/actions';
 
+// const initState = {
+//   currentTask: null,
+//   tasks: null
+// }
 const initState = {
   currentTask: null,
   tasks: [
     {
       id: 1,
-      taskList: "School",
+      taskList: { name: 'School' },
       title: "Finish and Submit Lab 4",
       description: "",
       complete: false,
       subtasks: [
-        {order: 1, title: "subtask 1", complete: false},
-        {order: 2, title: "subtask 2", complete: false}
+        {order: 1, title: "Review lecture first", complete: false},
+        {order: 2, title: "Ask prof about topic 8", complete: false},
       ],
       tags: [
         {tagId: 1, name: "High", color: "#FA2222"}
@@ -27,24 +31,20 @@ const initState = {
     },
     {
       id: 2,
-      taskList: "Work",
-      title: "Finish and Submit 4 Tasks",
+      taskList: { name: 'Work' },
+      title: "Create a Pull Request for Feature #10",
       description: "",
       complete: false,
       subtasks: [
-        {order: 1, title: "subtask 1", complete: true},
-        {order: 2, title: "subtask 2", complete: false}
+        {order: 1, title: "Ask about API", complete: false}
       ],
       tags: [
-        {tagId: 1, name: "High", color: "#000"}
+        {tagId: 2, name: "Medium", color: "#FFA500"}
       ],
       dueDate: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
-      module: {
-        title: 'Computer Organisation',
-        moduleCode: 'CS2100'
-      },
+      module: null,
       saved: true
     }
   ]
@@ -52,6 +52,52 @@ const initState = {
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
+    case actions.RESET_APP: {
+      return initState;
+    }
+    case actions.CREATE_TASK_DIALOG: {
+      return {
+        ...state,
+        currentTask: {
+          id: state.tasks[state.tasks.length-1].id + 1,
+          taskList: { name: 'School' },
+          title: "Task Title",
+          description: "",
+          complete: false,
+          subtasks: [
+            {order: 1, title: "Subtask 1", complete: false},
+          ],
+          tags: [
+            {tagId: 1, name: "High", color: "#FA2222"}
+          ],
+          dueDate: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          module:null,
+          create: true
+        }
+      }
+    }
+    case actions.SET_INIT_TASKS: {
+      const { tasks } = action.payload;
+      return {
+        ...state,
+        tasks: tasks
+      }
+    }
+    case actions.CREATE_TASK: {
+      return {
+        ...state,
+        currentTask: {
+          ...state.currentTask,
+          create: false
+        },
+        tasks: [...state.tasks, {
+          ...state.currentTask,
+          create: false
+        }]
+      }
+    }
     case actions.UPDATE_TASK_PARAM: {
       const { key, value } = action.payload;
       return {
