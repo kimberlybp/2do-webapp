@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -59,9 +59,16 @@ function NavBar(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const userId = useSelector((state) => state.User.userId);
   const firstName = useSelector((state) => state.User.firstName);
   const lastName = useSelector((state) => state.User.lastName);
   const fullName = `${firstName} ${lastName}`;
+
+  useEffect(() => {
+    if(userId === null) navigate('/');
+
+    // eslint-disable-next-line
+  }, [userId])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
