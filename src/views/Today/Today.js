@@ -52,7 +52,7 @@ export default function Today() {
   const filtered = useMemo(() => {
     if (tasks) return showCompleted ? tasks : tasks.filter(t => t.complete === false);
     return [];
-  }, [tasks]);
+  }, [tasks, showCompleted]);
 
   return (
     <Grid container sx={{ px: "30px" }}>
