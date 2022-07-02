@@ -65,14 +65,12 @@ const EditProfile = () => {
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={12}>
               <Grid container direction="row" columnSpacing={20} rowSpacing={3}>
-                <Grid item xs={12} md={2.5}>
+                <Grid item xs={12} sm={2}>
                   <Avatar
                     sx={{ width: 120, height: 120, border: 2 }}
                     alt="Avatar"
                     src={ava}
-                  >
-                    Ava
-                  </Avatar>
+                  />
                 </Grid>
                 <Grid
                   item
@@ -106,9 +104,7 @@ const EditProfile = () => {
                   onSubmit={handleSubmit(onSubmit)}
                   sx={{ width: "100%" }}
                 >
-                  <Grid
-                    item
-                    xs={12}
+                  <Grid item xs={12}
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -117,19 +113,26 @@ const EditProfile = () => {
                       mb: 1.3,
                     }}
                   >
-                    <TextField
-                      sx={{ width: "49.2%" }}
-                      id="outlined-basic"
-                      label="First name"
-                      variant="outlined"
-                      size="small"
+                    <Controller name="firstName" control={control} defaultValue=""
+                      render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField sx={{ width: "49.2%" }} label="First Name" value={value} onChange={onChange}
+                          error={!!error} helperText={error ? error.message : null}
+                          variant="outlined"
+                          size="small"
+                        />
+                      )}
+                      rules={{ required: 'First Name required' }}
                     />
-                    <TextField
-                      sx={{ width: "49.2%" }}
-                      id="outlined-basic"
-                      label="Last name"
-                      variant="outlined"
-                      size="small"
+                    <Controller name="lastName" control={control} defaultValue=""
+                      render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField
+                          sx={{ width: "49.2%" }} value={value} onChange={onChange}
+                          label="Last name" error={!!error} helperText={error ? error.message : null}
+                          variant="outlined"
+                          size="small"
+                        />
+                      )}
+                      rules={{ required: 'Last Name required' }}
                     />
                   </Grid>
                   <Grid item xs={12} sx={{ display: "flex" }}>
@@ -153,6 +156,7 @@ const EditProfile = () => {
                           type="email"
                         />
                       )}
+                      rules={{ required: 'Email required' }}
                     />
                   </Grid>
                   <Grid item xs={12} sx={{ mt: 15 }}>
