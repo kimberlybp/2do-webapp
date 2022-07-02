@@ -5,11 +5,13 @@ import {
   Typography,
   Popper,
   Paper,
-  Divider,
+  Divider
 } from "@mui/material";
 import React from "react";
-import { DropdownButton } from "./button";
+import { DropdownButton } from "./Button";
 import { styled } from "@mui/material/styles";
+import ClickAwayListener from '@mui/base/ClickAwayListener';
+
 
 const ButtonWords = styled(Typography)({
   fontSize: 18,
@@ -19,108 +21,123 @@ const ButtonWords = styled(Typography)({
 });
 
 function ListActions() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleClickAway = () => {
+    setOpen(false);
   };
 
-  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setOpen((prev) => !prev);
+    setAnchorEl(event.currentTarget);
+  };
   const id = open ? "popper" : undefined;
 
   return (
-    <Grid container>
-      <Button variant="contained" onClick={handleClick}>
-        List popper
-      </Button>
-      <Popper id={id} open={open} anchorEl={anchorEl}>
-        <Box
-          component={Paper}
-          elevation={1}
-          sx={{
-            bgcolor: "white",
-            width: '218px',
-            height: '127px',
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <Grid container>
-            <Grid item xs={12}>
-              <DropdownButton>
-                <ButtonWords>Add Tasks</ButtonWords>
-              </DropdownButton>
-              <Divider/>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <Grid container>
+        <Button onClick={handleClick}>
+          <Typography color="black">List Actions</Typography>
+        </Button>
+        <Popper id={id} open={open} anchorEl={anchorEl}>
+          <Box
+            component={Paper}
+            elevation={1}
+            sx={{
+              bgcolor: "white",
+              width: '218px',
+              height: '127px',
+              alignItems: "center",
+              display: "flex",
+            }}
+          >
+            <Grid container>
+              <Grid item xs={12}>
+                <DropdownButton>
+                  <ButtonWords>Add Tasks</ButtonWords>
+                </DropdownButton>
+                <Divider />
+              </Grid>
+              <Grid item xs={12}>
+                <DropdownButton>
+                  <ButtonWords>Rename</ButtonWords>
+                </DropdownButton>
+                <Divider />
+              </Grid>
+              <Grid item xs={12}>
+                <DropdownButton>
+                  <Typography fontSize={18} color="error" fontWeight={550} sx={{ marginLeft: "4%" }}>
+                    Delete Task List
+                  </Typography>
+                </DropdownButton>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <DropdownButton>
-                <ButtonWords>Rename</ButtonWords>
-              </DropdownButton>
-              <Divider/>
-            </Grid>
-            <Grid item xs={12}>
-              <DropdownButton>
-                <Typography fontSize={18} color="#FA2222" fontWeight={550} sx={{ marginLeft: "4%" }}>
-                  Delete Task List
-                </Typography>
-              </DropdownButton>
-            </Grid>
-          </Grid>
-        </Box>
-      </Popper>
-    </Grid>
+          </Box>
+        </Popper>
+      </Grid>
+    </ClickAwayListener>
   );
 };
 
 function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
 
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+
+  const handleClickAway = () => {
+    setOpen(false);
   };
 
-  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setOpen((prev) => !prev);
+    setAnchorEl(event.currentTarget);
+  };
   const id = open ? "popper" : undefined;
 
   return (
-    <Grid container>
-      <Button variant="contained" onClick={handleClick}>
-        Profile popper
-      </Button>
-      <Popper id={id} open={open} anchorEl={anchorEl}>
-        <Box
-          component={Paper}
-          elevation={1}
-          sx={{
-            bgcolor: "white",
-            width: '218px',
-            height: '127px',
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <Grid container>
-            <Grid item xs={12}>
-              <DropdownButton>
-                <ButtonWords>View Profile</ButtonWords>
-              </DropdownButton>
-              <Divider/>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <Grid container>
+        <Button onClick={handleClick}>
+          <Typography color="black">Profile</Typography>
+        </Button>
+        <Popper id={id} open={open} anchorEl={anchorEl}>
+          <Box
+            component={Paper}
+            elevation={1}
+            sx={{
+              bgcolor: "white",
+              width: '218px',
+              height: '127px',
+              alignItems: "center",
+              display: "flex",
+            }}
+          >
+            <Grid container>
+              <Grid item xs={12}>
+                <DropdownButton>
+                  <ButtonWords>View Profile</ButtonWords>
+                </DropdownButton>
+                <Divider />
+              </Grid>
+              <Grid item xs={12}>
+                <DropdownButton>
+                  <ButtonWords>Settings</ButtonWords>
+                </DropdownButton>
+                <Divider />
+              </Grid>
+              <Grid item xs={12}>
+                <DropdownButton>
+                  <ButtonWords>Logoout</ButtonWords>
+                </DropdownButton>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <DropdownButton>
-                <ButtonWords>Settings</ButtonWords>
-              </DropdownButton>
-              <Divider/>
-            </Grid>
-            <Grid item xs={12}>
-              <DropdownButton>
-              <ButtonWords>Logoout</ButtonWords>
-              </DropdownButton>
-            </Grid>
-          </Grid>
-        </Box>
-      </Popper>
-    </Grid>
+          </Box>
+        </Popper>
+      </Grid>
+    </ClickAwayListener>
   );
 };
 

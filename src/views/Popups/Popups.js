@@ -1,7 +1,9 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import { ListActions, Profile } from "./components/dropdowns";
-import { Groupby, Sort } from "./components/groupsort"
+import { ListActions, Profile } from "./components/Dropdowns";
+import { Groupby, Sort } from "./components/GroupbySort";
+import Filter from "./components/Filter";
+import Notifs from "./components/Notifications";
 
 export default function Popups() {
   return (
@@ -10,6 +12,8 @@ export default function Popups() {
       <Profile />
       <Groupby />
       <Sort />
+      <Filter />
+      <Notifs />
     </Grid>
   );
 }
