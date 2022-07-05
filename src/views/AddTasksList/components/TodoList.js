@@ -9,66 +9,36 @@ import Checkbox from '@mui/material/Checkbox';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import { TextField } from '@mui/material';
 import moment from 'moment';
-import { selectTask, toggleComplete, save } from "../../../_actions/TaskAction";
+import React from 'react';
 import generateSecondLine from '../../../utils/generateSecondLine';
 
-export default function TodoList(props) {
-  const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.Task.tasks);
-  //const tasks = props.tasks;
-  const currentTask = useSelector((state) => state.Task.currentTask);
 
+export default function TodoList(props) {
+  const tasks = useSelector((state) => state.Task.tasks);
+  
   const allTasks = useMemo(() => {
     return tasks;
   }, [tasks])
-
-  const handleChecked = (value, event) => {
-    event.stopPropagation();
-    dispatch(toggleComplete(value.id));
-  };
-
-  const handleChange = (value, event) => {
-    event.stopPropagation();
-    dispatch(save(value.id));
-  };
-
-  const onTaskClick = (value) => () => {
-    dispatch(selectTask(value));
-  }
-
-  const onBlur = (event) => {
-    //call api first then, add to redux store
-  }
 
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       {allTasks.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
-        return (
+        if (!props.checked[index]) {
+          return (
           <ListItem
             key={index}
             disablePadding
             sx={{ alignItems:'flex-start' }}
           >
-            {/*<ListItemButton role={undefined} onClick={onTaskClick(value)} dense disableRipple
-              selected={currentTask && currentTask.id === value.id}
-              sx={{
-                alignItems: 'flex-start',
-                ".MuiListItemText-primary": {
-                  color: "#2B3334",
-                  fontWeight: 700,
-                  fontSize: "20px"
-                }
-              }}
-            >*/}
               <ListItemIcon sx={{ minWidth: "23px" }}>
                 <Checkbox
                   edge="start"
-                  checked={currentTask && currentTask.id === value.id}
+                  checked={false}
                   tabIndex={-1}
                   disableRipple
-                  inputProps={{ 'aria-labelledby': labelId }}
-                  onClick={onTaskClick(value)}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                  onChange={() => props.setChecked(index)}
                 />
               </ListItemIcon>
               <ListItemText id={labelId}
@@ -80,23 +50,12 @@ export default function TodoList(props) {
                     { generateSecondLine(value) }
                   </Box>
                 } />
-            {/*</ListItemButton>*/}
           </ListItem>
-        );
+          )}
+          else {
+            return null;
+          }
       })}
-      {/*<ListItem>
-        <ListItemIcon sx={{ minWidth: "23px" }}>
-          <Checkbox
-            edge="start"
-            disableRipple
-            disabled
-          />
-        </ListItemIcon>
-        <TextField variant="standard" fullWidth 
-        onBlur={e => onBlur(e)}
-        disabled
-        placeholder='Quick add a task here!' />
-      </ListItem>*/}
     </List>
   );
 }

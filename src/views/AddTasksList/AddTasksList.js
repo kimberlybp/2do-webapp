@@ -1,10 +1,10 @@
 import {
   Button, Box, Grid, Typography, Popper, Paper,
-  IconButton, List, ListItem, ListItemIcon, ListItemText, ListItemButton,
+  Checkbox, List, ListItem, ListItemIcon, ListItemText, ListItemButton,
   Tooltip, ClickAwayListener, Divider
 } from "@mui/material";
 import generateSecondLine from "../../utils/generateSecondLine";
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import TaskSearch from "./components/TaskSearch";
 import { styled } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
@@ -18,12 +18,25 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function AddTaskList() {
   const theme = useTheme();
-  const dispatch = useDispatch();
-  const currentTask = useSelector((state) => state.Task.currentTask);
   const tasks = useSelector((state) => state.Task.tasks);
+  const allTasks = useMemo(() => {
+    return tasks;
+  }, [tasks])
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+
+  const [checked, setChecked] = React.useState(
+    new Array(allTasks.length).fill(false)
+  );
+
+  const handleChange = (pos) => {
+    const updatedChecked = checked.map((value, index) => 
+      index === pos ? !value: value
+    );
+
+    setChecked(updatedChecked);
+  }
 
 
   const handleClickAway = () => {
@@ -50,6 +63,7 @@ export default function AddTaskList() {
             sx={{
               bgcolor: "white",
               minWidth: {lg:'850px'},
+              maxWidth: '100%',
               height: 'auto',
               flexDirection: 'column'
             }}
@@ -69,7 +83,7 @@ export default function AddTaskList() {
                     All Tasks
                   </Typography>
                 </Grid>
-                <TodoList />
+                <TodoList setChecked={handleChange} checked={checked} />
               </Grid>
               <Grid container sx={{ py: "15px", display: { lg: "flex", xs: "none" } }}>
                 <Divider sx={{ borderRightWidth: 2 }}
@@ -79,28 +93,39 @@ export default function AddTaskList() {
                   <Typography fontSize={18}>
                     Selected Tasks
                   </Typography>
-                {currentTask &&
-                  <>
                     <List>
+                {allTasks.map((value, index) => {
+                  if (checked[index]) {
+                  return (
                       <ListItem
-                        //key={index}
                         disablePadding
                       >
                         <ListItemIcon sx={{ minWidth: "23px" }}>
+                          <Checkbox
+                            edge="start"
+                            checked={true}
+                            tabIndex={-1}
+                            disableRipple
+                            inputProps={{ 'aria-label': 'controlled' }}
+                            onChange={() => handleChange(index)}
+                          />
                         </ListItemIcon>
                         <ListItemText
                           primary={<Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
-                            {currentTask.title}</Typography>}
+                            {value.title}</Typography>}
                           disableTypography
                           secondary={
                             <Box display="flex" sx={{ placeItems: 'center', color: "#6D6D6D", fontSize: "14px", maxWidth: "100%" }}>
-                              {generateSecondLine(currentTask)}
+                              {generateSecondLine(value)}
                             </Box>
                           } />
                       </ListItem>
-                    </List>
-                  </>
+                )}
+                else {
+                  return null;
                 }
+                })}
+                    </List>
               </Grid>
               </Grid>
             </Box>
