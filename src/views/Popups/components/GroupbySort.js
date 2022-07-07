@@ -60,9 +60,9 @@ function GroupDropdown() {
           value={selectGroup}
           onChange={handleChange}
         >
-          <Options divider={true} value={"None"}><Words nowrap>None</Words></Options>
-          <Options divider={true} value={"Collection"}><Words nowrap>Collection</Words></Options>
-          <Options value={"Tags"}><Words nowrap>Tags</Words></Options>
+          <Options divider={true} value={"None"}><Words>None</Words></Options>
+          <Options divider={true} value={"Collection"}><Words>Collection</Words></Options>
+          <Options value={"Tags"}><Words>Tags</Words></Options>
         </NewSelect>
       </FormControl>
     </Box>
@@ -85,9 +85,9 @@ function SortDropdown() {
           value={selectSort}
           onChange={handleChange}
         >
-          <Options value={"Date Updated"}><Words nowrap>Date Updated</Words></Options>
-          <Options value={"Date Created"}><Words nowrap>Date Created</Words></Options>
-          <Options value={"Task Title"}><Words nowrap>Task Title</Words></Options>
+          <Options value={"Date Updated"}><Words>Date Updated</Words></Options>
+          <Options value={"Date Created"}><Words>Date Created</Words></Options>
+          <Options value={"Task Title"}><Words>Task Title</Words></Options>
         </NewSelect>
       </FormControl>
     </Box>
@@ -110,8 +110,8 @@ function OrderDropdown() {
           value={selectOrder}
           onChange={handleChange}
         >
-          <Options value={"Ascending"}><Words nowrap>Ascending</Words></Options>
-          <Options value={"Descending"}><Words nowrap>Descending</Words></Options>
+          <Options value={"Ascending"}><Words>Ascending</Words></Options>
+          <Options value={"Descending"}><Words>Descending</Words></Options>
         </NewSelect>
       </FormControl>
     </Box>

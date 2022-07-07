@@ -18,12 +18,12 @@ const Clear = styled(Typography)({
 
 const reminders = [
   {
-    index: 0,
+    id: 0,
     title: 'Task 1 due in 15 minutes',
     time: '2 hours ago'
   },
   {
-    index: 1,
+    id: 1,
     title: 'Task 2 due in 1 Day',
     time: '3 days ago'
   },
@@ -31,12 +31,12 @@ const reminders = [
 
 const tasksdue = [
   {
-    index: 0,
+    id: 0,
     title: 'Task 5 due now',
     time: '2 hours ago'
   },
   {
-    index: 1,
+    id: 1,
     title: 'Task 2 due now',
     time: '2 hours ago'
   },
@@ -45,6 +45,28 @@ const tasksdue = [
 export default function Notifs() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [reminds, setReminds] = React.useState(reminders);
+  const [tasks, setTasks] = React.useState(tasksdue)
+
+  function handleReminders(id) {
+    
+    const newList = reminds.filter((item) => item.id !== id );
+    setReminds(newList);
+  };
+
+  const handleClearReminders = () => {
+    setReminds([]);
+  };
+
+  function handleTasksDue(id) {
+    
+    const newList = tasks.filter((item) => item.id !== id );
+    setTasks(newList);
+  };
+
+  const handleClearTasksDue = () => {
+    setTasks([]);
+  }
 
   const handleClickAway = () => {
     setOpen(false);
@@ -88,19 +110,19 @@ export default function Notifs() {
                 <Grid item xs={9.6}>
                   <Words>Reminders</Words>
                 </Grid>
-                <Button>
+                <Button onClick={handleClearReminders}>
                   <Clear>CLEAR</Clear>
                 </Button>
               </Box>
               <Grid container sx={{ paddingLeft: '15px', mt: '2px' }}>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                  {reminders.map((value, index) => {
+                  {reminds.map((value, index) => {
                     return (
                       <ListItem
                         key={index}
                         disablePadding
                         secondaryAction={
-                          <IconButton edge="end" sx={{ mb: 2 }}>
+                          <IconButton edge="end" sx={{ mb: 2 }} onClick={() => handleReminders(value.id)}>
                             <CloseIcon />
                           </IconButton>
                         }
@@ -118,19 +140,19 @@ export default function Notifs() {
                 <Grid item xs={9.6}>
                   <Words>Tasks Due</Words>
                 </Grid>
-                <Button>
+                <Button onClick={handleClearTasksDue}>
                   <Clear>CLEAR</Clear>
                 </Button>
               </Box>
               <Grid container sx={{ paddingLeft: '15px', mt: '2px' }}>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                  {tasksdue.map((value, index) => {
+                  {tasks.map((value, index) => {
                     return (
                       <ListItem
                         key={index}
                         disablePadding
                         secondaryAction={
-                          <IconButton edge="end" sx={{ mb: 2 }}>
+                          <IconButton edge="end" sx={{ mb: 2 }} onClick={() => handleTasksDue(value.id)}>
                             <CloseIcon />
                           </IconButton>
                         }

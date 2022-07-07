@@ -88,7 +88,7 @@ export default function Filter() {
             </Grid>
             <Grid container display="flex" justifyContent="center" alignItems="flex-end">
               <Grid item xs={5.5} sx={{ mt: '20px' }}>
-                <Button color="primary_grey_variant" sx={{ fontWeight: 400 }}>Cancel</Button>
+                <Button onClick={handleClickAway} color="primary_grey_variant" sx={{ fontWeight: 400 }}>Cancel</Button>
               </Grid>
               <Grid item>
                 <Button color="secondary" sx={{ fontWeight: 400 }}>Apply</Button>

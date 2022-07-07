@@ -8,7 +8,6 @@ import {
   Divider
 } from "@mui/material";
 import React from "react";
-import { DropdownButton } from "./Button";
 import { styled } from "@mui/material/styles";
 import ClickAwayListener from '@mui/base/ClickAwayListener';
 
@@ -18,6 +17,12 @@ const ButtonWords = styled(Typography)({
   color: "black",
   fontWeight: 550,
   marginLeft: "4%"
+});
+
+const DropdownButton = styled(Button)({
+  width: "100%",
+  display: "flex",
+  justifyContent: "flex-start",
 });
 
 function ListActions() {
@@ -130,7 +135,7 @@ function Profile() {
               </Grid>
               <Grid item xs={12}>
                 <DropdownButton>
-                  <ButtonWords>Logoout</ButtonWords>
+                  <ButtonWords>Logout</ButtonWords>
                 </DropdownButton>
               </Grid>
             </Grid>
