@@ -12,12 +12,12 @@ let allViews = Object.keys(Views).map((k) => Views[k]);
 export default function NewCalendar() {
   const { defaultDate } = useMemo(
     () => ({
-      defaultDate: new Date(2022, 5, 26),
+      defaultDate: new Date(),
     }),
     []
   );
   return (
-    <Grid container direction="column" sx={{ px: "30px", width: "auto" }}>
+    <Grid container direction="column" sx={{ px: {xs:0, sm:"30px"}, width: "auto" }}>
       <Typography component="h1" variant="h4">
         Calendar
       </Typography>
@@ -25,7 +25,7 @@ export default function NewCalendar() {
         display="flex"
         justifyContent="flex-start"
         alignItems="flex-start"
-        sx={{ height: "90vh", bgcolor: "white", mt: "1%" }}
+        sx={{ height: "90vh", bgcolor: "white", mt: "10px" }}
         component={Paper}
         elevation={2}
       >
