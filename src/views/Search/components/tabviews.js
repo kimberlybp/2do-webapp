@@ -3,7 +3,6 @@ import Tabs from "@mui/material/Tabs";
 import TaskList from "./tasklist";
 import Tags from "./tag";
 import Tab from "@mui/material/Tab";
-import Task from "./task";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import React from "react";
@@ -56,7 +55,7 @@ function Views() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Task></Task>
+        
       </TabPanel>
       <TabPanel value={value} index={1}>
         <TaskList></TaskList>

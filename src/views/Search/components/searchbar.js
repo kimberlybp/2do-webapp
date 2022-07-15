@@ -2,14 +2,12 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useState, useRef } from "react";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import CloseIcon from "@mui/icons-material/Close";
+import React, {useState, useRef, useEffect} from "react";
+import { styled } from '@mui/system';
+import CloseIcon from '@mui/icons-material/Close'
+import { TextField, Autocomplete, InputAdornment, Divider, Paper, InputBase } from "@mui/material";
 
-
-const SearchDisplay = styled(Grid)({
+/*const SearchDisplay = styled(Grid)({
   "&:hover": {
     backgroundColor: "#f5f5f3",
   },
@@ -69,10 +67,10 @@ const SearchBar = ({ sampletasks }) => {
     const searchWord = e.target.value;
     setWordEntered(searchWord);
     const newFilter = sampletasks.filter((value) => {
-      if (value.task.toLowerCase().includes(searchWord.toLowerCase())) {
-        return value.task.toLowerCase().includes(searchWord.toLowerCase());
+      if (value.title.toLowerCase().includes(searchWord.toLowerCase())) {
+        return value.title.toLowerCase().includes(searchWord.toLowerCase());
       }
-      if (
+     if (
         !value.task.toLowerCase().includes(searchWord.toLowerCase()) &&
         value.tasklist.toLowerCase().includes(searchWord.toLowerCase())
       ) {
@@ -147,6 +145,136 @@ const SearchBar = ({ sampletasks }) => {
       </Box>
     </Grid>
   );
-};
+};*/
 
-export default SearchBar;
+const sampleData = [
+  {
+    id: 0,
+    title: 'Finish & submit lab 3',
+    tasklist: 'School',
+    module: "CS2106",
+    tag: "High",
+    api: "Tasks"
+  },
+  {
+    id: 1,
+    title: "Finish assignment 3",
+    tasklist: "School",
+    module: "MA2001",
+    tag: "High",
+    api: "Tasks"
+  },
+  {
+    id: 2,
+    title: "Do tutorial 8",
+    tasklist: "School",
+    module: "MA2001",
+    tag: "Medium",
+    api: "Tasks"
+  },
+  {
+    id: 3,
+    title: "Buy muji pens",
+    tasklist: "Random",
+    module: "",
+    tag: "Low",
+    api: "Tasks"
+  },
+  {
+    id: 4,
+    title: "Email members about event",
+    tasklist: "CCA",
+    module: "",
+    tag: "High",
+    api: "Tasks"
+  },
+  {
+    id: 5,
+    title: "Watch 2 videos",
+    tasklist: "Work",
+    module: "",
+    tag: "Medium",
+    api: "Tasks"
+  },
+  {
+    id: 6,
+    title: "Do tutorial 7",
+    tasklist: "School",
+    module: "ST2131",
+    tag: "Medium",
+    api: "Tasks"
+  },
+  {
+    id: 7,
+    name: 'High',
+    colour: 'red',
+    api: "Tags"
+  },
+  {
+    id: 8,
+    name: 'Medium',
+    colour: 'Yellow',
+    api: "Tags"
+  },
+  {
+    id: 9,
+    name: 'School',
+    api: "Task Lists"
+  },
+  {
+    id: 10,
+    name: 'Work',
+    api: "Task Lists"
+  }
+];
+
+export default function SearchBar() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(sampleData)
+  }, []);
+
+  return (
+    <Autocomplete
+      freeSolo
+      id="free-solo-demo"
+      options={data}
+      groupBy={(option) => option.api} //think need change
+      PaperComponent={({ children }) => (
+          <Paper style={{ background: '#f5f3f3' }}>{children}</Paper>
+        )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          placeholder="Search"
+          variant="outlined"
+          size="small"
+          sx={{ width: {xs:"60%", sm:"40%"}, bgcolor: 'white', borderRadius:1 }}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            )
+          }}
+        />
+      )}
+      getOptionLabel={(option) => option.title || option.name}
+      renderOption={(props, option) => {
+        if (option.title !== undefined) {
+          return <li {...props} key={option.id}>
+            <Typography fontWeight={600}>{`${option.title}`}</Typography>
+          </li>;
+        } else {
+          return <li {...props} key={option.id}>
+            <Typography fontWeight={600}>{`${option.name}`}</Typography>
+          </li>;
+        }
+      }}
+    />
+  )
+}
+
+//export default SearchBar;
