@@ -2,14 +2,16 @@ import { actions } from '../utils/constants/actions';
 
 // const initState = {
 //   currentTask: null,
-//   tasks: null
+//   tasks: null,
+//   newTask: null
 // }
 const initState = {
+  newTask: null,
   currentTask: null,
   tasks: [
     {
       id: 1,
-      taskList: { name: 'School' },
+      taskList: 1,
       title: "Finish and Submit Lab 4",
       description: "",
       complete: false,
@@ -31,7 +33,7 @@ const initState = {
     },
     {
       id: 2,
-      taskList: { name: 'Work' },
+      taskList: 2,
       title: "Create a Pull Request for Feature #10",
       description: "",
       complete: false,
@@ -55,26 +57,25 @@ const reducer = (state = initState, action) => {
     case actions.RESET_APP: {
       return initState;
     }
-    case actions.CREATE_TASK_DIALOG: {
+    case actions.CREATE_TASK_INIT: {
+      var date = new Date();
+      date.setHours(date.getHours() + 1);
+      date.setMinutes(0);
       return {
         ...state,
-        currentTask: {
-          id: state.tasks[state.tasks.length-1].id + 1,
+        newTask: {
           taskList: { name: 'School' },
           title: "Task Title",
           description: "",
           complete: false,
           subtasks: [
-            {order: 1, title: "Subtask 1", complete: false},
+            { order: 1, title: "Subtask 1", complete: false },
           ],
-          tags: [
-            {tagId: 1, name: "High", color: "#FA2222"}
-          ],
-          dueDate: new Date(),
+          tags: [],
+          dueDate: date,
           createdAt: new Date(),
           updatedAt: new Date(),
-          module:null,
-          create: true
+          module: null,
         }
       }
     }
@@ -106,6 +107,16 @@ const reducer = (state = initState, action) => {
           ...state.currentTask,
           [key]: value,
           saved: false
+        }
+      }
+    }
+    case actions.UPDATE_NEW_TASK_PARAM: {
+      const { key, value } = action.payload;
+      return {
+        ...state,
+        newTask: {
+          ...state.newTask,
+          [key]: value,
         }
       }
     }

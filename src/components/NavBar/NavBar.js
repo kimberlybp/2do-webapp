@@ -15,7 +15,7 @@ import CalendarIcon from '@mui/icons-material/CalendarToday';
 import AllTasksIcon from '@mui/icons-material/Assignment';
 import { useLocation, useNavigate } from "react-router-dom";
 import { logOut } from '../../_actions/AuthAction';
-import { getTasks, createTaskDialogOpen } from '../../_actions/TaskAction';
+import { getTasks, initCreateTask } from '../../_actions/TaskAction';
 import stringAvatar from "../../utils/stringAvatar";
 import OtherNav from "./components/OtherNav";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -103,7 +103,7 @@ function NavBar(props) {
       <Box className={classes.toolbar} sx={{ mx: "15px", marginTop: "15px" }}>
         <Logo style={{ color: theme.palette.primary.main }} />
       </Box>
-      <Button variant="contained" sx={{ mx: "15px" }} onClick={() => {setCreateOpen(true); dispatch(createTaskDialogOpen()) }}>Create Task</Button>
+      <Button variant="contained" sx={{ mx: "15px" }} onClick={() => {setCreateOpen(true);}}>Create Task</Button>
       <List sx={{
         '&& .Mui-selected, && .Mui-selected:hover': {
           bgcolor: 'transparent',

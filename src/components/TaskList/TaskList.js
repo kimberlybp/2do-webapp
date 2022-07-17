@@ -1,21 +1,17 @@
-import { useMemo } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { List, Box, Typography } from '@mui/material';
+import { Box, List, TextField, Typography } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
-import { TextField } from '@mui/material';
-import moment from 'moment';
-import { selectTask, toggleComplete } from "../../../_actions/TaskAction";
-import generateSecondLine from '../../../utils/generateSecondLine';
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import generateSecondLine from '../../utils/generateSecondLine';
+import { selectTask, toggleComplete } from "../../_actions/TaskAction";
 
-export default function TodoList(props) {
+export default function TaskList(props) {
+  const { tasks } = props;
   const dispatch = useDispatch();
-  // const tasks = useSelector((state) => state.Task.tasks);
-  const tasks = props.tasks;
   const currentTask = useSelector((state) => state.Task.currentTask);
 
   const allTasks = useMemo(() => {

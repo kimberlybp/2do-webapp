@@ -1,5 +1,5 @@
 import { useState, useMemo, Fragment } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -9,38 +9,36 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { TextField, Typography } from '@mui/material';
-import { updateTaskParam } from "../../../_actions/TaskAction";
-
 
 export default function SubTasks(props) {
+  const { task, updateTask } = props;
   const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState(-1);
-  const currentTask = useSelector((state) => state.Task.currentTask);
 
   const subtasks = useMemo(() => {
-    return currentTask.subtasks;
-  }, [currentTask])
+    return task.subtasks;
+  }, [task]);
 
   const handleChecked = (value, event) => {
     event.stopPropagation();
-    const index = currentTask.subtasks.findIndex(s => s.order === value.order)
-    const updated = currentTask.subtasks;
+    const index = task.subtasks.findIndex(s => s.order === value.order)
+    const updated = task.subtasks;
     const prev = updated[index];
     updated[index] = { ...prev, complete: !(prev.complete) }
-    dispatch(updateTaskParam('subtasks', updated));
+    dispatch(updateTask('subtasks', updated));
   };
 
   const handleDelete = (subtaskToDelete) => {
-    const updated = currentTask.subtasks.filter((s) => s.order !== subtaskToDelete.order);
-    dispatch(updateTaskParam('subtasks', updated));
+    const updated = task.subtasks.filter((s) => s.order !== subtaskToDelete.order);
+    dispatch(updateTask('subtasks', updated));
   }
 
   const onBlur = (event, subtaskToUpdate) => {
     setEditIndex(-1);
-    const index = currentTask.subtasks.findIndex(s => s.order === subtaskToUpdate.order)
-    const updated = currentTask.subtasks;
+    const index = task.subtasks.findIndex(s => s.order === subtaskToUpdate.order)
+    const updated = task.subtasks;
     updated[index] = { ...updated[index], title: event.target.value }
-    dispatch(updateTaskParam('subtasks', updated));
+    dispatch(updateTask('subtasks', updated));
   }
 
   if(!subtasks) return null;

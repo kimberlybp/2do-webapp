@@ -1,41 +1,39 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { createFilterOptions } from '@mui/material'
 import { getAllModules } from '../../../_actions/ModuleAction';
-import { updateTaskParam } from '../../../_actions/TaskAction';
 
-export default function ModuleSearch() {
+export default function ModuleSearch(props) {
+  const { task, updateTask } = props;
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const loading = useSelector((state) => state.Shared.loadingTasks['moduleSearch']);
   const allMods = useSelector((state) => state.Module.allModules);
-  const currentTask = useSelector((state) => state.Task.currentTask);
-  const [inputValue, setInputValue] = React.useState('');
-
+  const [inputValue, setInputValue] = useState('');
 
   const filterOptions = createFilterOptions({
     matchFrom: 'any',
     limit: 500,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getAllModules());
     // eslint-disable-next-line
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!allMods) return;
 
-  }, [allMods, currentTask]);
+  }, [allMods, task]);
 
   if (!allMods) return "";
 
   return (
     <Autocomplete
-      value={currentTask.module}
+      value={task.module}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -44,7 +42,7 @@ export default function ModuleSearch() {
         setOpen(false);
       }}
       onChange={(event, newValue) => {
-        dispatch(updateTaskParam('module', newValue))
+        dispatch(updateTask('module', newValue))
       }}
       filterOptions={filterOptions}
       isOptionEqualToValue={(option, value) => option.title === value.title}
@@ -63,10 +61,10 @@ export default function ModuleSearch() {
           InputProps={{
             ...params.InputProps,
             endAdornment: (
-              <React.Fragment>
+              <>
                 {loading ? <CircularProgress color="inherit" size={20} sx={{ marginRight: "35px" }} /> : null}
                 {params.InputProps.endAdornment}
-              </React.Fragment>
+              </>
             ),
           }}
         />

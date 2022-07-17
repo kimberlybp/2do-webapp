@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useMemo, Fragment } from 'react';
 import { TextField, Box } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -6,22 +6,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { useSelector, useDispatch } from "react-redux";
-import { updateTaskParam } from "../../../_actions/TaskAction";
+import { useDispatch } from "react-redux";
 import { CirclePicker } from 'react-color';
 import { Typography } from '@mui/material';
 
-
-
 const filter = createFilterOptions();
 
-export default function FreeSoloCreateOptionDialog(props) {
+export default function TagsSearch(props) {
+  const { task, updateTask } = props;
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState(null);
-  const [tag, setTag] = React.useState(null);
-  const [color, setColor] = React.useState(null);
-  const [open, toggleOpen] = React.useState(false);
-  const currentTask = useSelector((state) => state.Task.currentTask);
+  const [value, setValue] = useState(null);
+  const [tag, setTag] = useState(null);
+  const [color, setColor] = useState(null);
+  const [open, toggleOpen] = useState(false);
 
   const handleClose = () => {
     setDialogValue({
@@ -32,7 +29,7 @@ export default function FreeSoloCreateOptionDialog(props) {
     toggleOpen(false);
   };
 
-  const [dialogValue, setDialogValue] = React.useState({
+  const [dialogValue, setDialogValue] = useState({
     name: '',
     tagId: '',
   });
@@ -46,11 +43,11 @@ export default function FreeSoloCreateOptionDialog(props) {
   };
 
   const handleClick = () => {
-    const updated = currentTask.tags;
+    const updated = task.tags;
     updated.push({
       name: tag.name, color: tag.color
     })
-    dispatch(updateTaskParam('tags', updated));
+    dispatch(updateTask('tags', updated));
   }
 
   const handleColorChange = (color, event) => {
@@ -64,13 +61,13 @@ export default function FreeSoloCreateOptionDialog(props) {
     { tagId: 14, name: "boo", color: "#00FF00" }
   ];
 
-  const filtered = React.useMemo(() => {
-    return top100Films.filter((elem) => !currentTask.tags.find(({ name }) => elem.name === name) && elem.color);
+  const filtered = useMemo(() => {
+    return top100Films.filter((elem) => !task.tags.find(({ name }) => elem.name === name) && elem.color);
     // eslint-disable-next-line
-  }, [currentTask])
+  }, [task])
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Box display="flex">
         <Autocomplete
           size="small"
@@ -99,7 +96,7 @@ export default function FreeSoloCreateOptionDialog(props) {
           filterOptions={(options, params) => {
             const filtered = filter(options, params);
 
-            if (params.inputValue !== '' && !currentTask.tags.some(t => t.name === params.inputValue.trim())) {
+            if (params.inputValue !== '' && !task.tags.some(t => t.name === params.inputValue.trim())) {
               filtered.push({
                 inputValue: params.inputValue,
                 name: `Create "${params.inputValue}"`,
@@ -158,11 +155,11 @@ export default function FreeSoloCreateOptionDialog(props) {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Add</Button>
+            <Button type="submit">Create</Button>
           </DialogActions>
         </form>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

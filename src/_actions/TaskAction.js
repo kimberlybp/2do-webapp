@@ -9,10 +9,49 @@ function updateCurrentTask(key, value) {
   }
 }
 
-export function updateTaskParam(key, value) {
+export function updateNewTask(key, value) {
+  return {
+    type: actions.UPDATE_NEW_TASK_PARAM, payload: { key, value }
+  }
+}
+
+export function updateExistingTask(key, value) {
   return async (dispatch, getState) => { 
     dispatch(updateCurrentTask(key, value));
     dispatch(save());
+    
+    // try{
+    //   const currentTask = getState().Task.currentTask;
+    //   const toSend = {
+    //     _id: currentTask.id,
+    //     task_list: currentTask.taskList,
+    //     title: currentTask.title,
+    //     description: currentTask.description,
+    //     complete: currentTask.complete,
+    //     subtasks: currentTask.subtasks,
+    //     tags: currentTask.tags,
+    //     due_date: currentTask.dueDate,
+    //     module: currentTask.module
+    //   };
+    //   const res = await taskService.updateUserTask(toSend);
+    //   console.log(res);
+
+    // }catch (err) {
+    //   dispatch(alertActions.errorAlert('Error', err.message, 30));
+    //   dispatch(stopPageLoading());
+    // }
+  }
+}
+
+export function updateTaskParam(key, value, isNewTask) {
+  return async (dispatch, getState) => { 
+    if (isNewTask) {
+      dispatch(updateNewTask(key, value));
+    } else {
+      dispatch(updateCurrentTask(key, value));
+      dispatch(save());
+    }
+    
 
     // try{
     //   const currentTask = getState().Task.currentTask;
@@ -43,9 +82,9 @@ export function save() {
   }
 }
 
-export function createTaskDialogOpen() {
+export function initCreateTask() {
   return {
-    type: actions.CREATE_TASK_DIALOG
+    type: actions.CREATE_TASK_INIT
   }
 }
 

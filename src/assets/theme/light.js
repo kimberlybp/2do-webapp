@@ -47,7 +47,8 @@ export const lightTheme = {
       styleOverrides: {
         root: {
           borderRadius: '8px',
-          fontSize: '18px'
+          fontSize: '18px',
+          fontWeight: 700
         }
       }
     },

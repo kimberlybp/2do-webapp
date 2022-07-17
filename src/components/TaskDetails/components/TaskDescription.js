@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { Typography, TextField, Box } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
-import { updateTaskParam } from "../../../_actions/TaskAction";
+import { useDispatch } from "react-redux";
 
 export default function TaskDescription(props) {
+  const { task, updateTask } = props;
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState('');
-  const currentTask = useSelector((state) => state.Task.currentTask);
 
   useEffect(() => {
-    if (currentTask) {
-      setValue(currentTask.description);
+    if (task) {
+      setValue(task.description);
     }
-  }, [currentTask]);
+  }, [task]);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -23,12 +22,12 @@ export default function TaskDescription(props) {
     <Box>
       {edit ?
         <TextField multiline rows={4} autoFocus size="small" fullWidth 
-        defaultValue={currentTask.description}
+        defaultValue={task.description}
         placeholder="Add any extra notes you have here" 
         onChange={handleChange}
         onBlur={ () => {
             setEdit(false);
-            dispatch(updateTaskParam('description', value))
+            dispatch(updateTask('description', value))
         }}
           sx={{
             "input": {
@@ -39,7 +38,7 @@ export default function TaskDescription(props) {
             }
           }} />
         : <Typography variant="body1" gutterBottom sx={{ minHeight: "100px" }} onClick={() => setEdit(true)}>
-          {currentTask.description ? currentTask.description : <i>Add any extra notes you have here</i>}
+          {task.description ? task.description : <i>Add any extra notes you have here</i>}
         </Typography>
       }
     </Box>

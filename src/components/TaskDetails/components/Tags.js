@@ -1,24 +1,23 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { styled } from '@mui/material/styles';
-import { Chip, Box, useTheme, Popover, Typography } from '@mui/material';
+import { useDispatch } from "react-redux";
 import AddIcon from '@mui/icons-material/Add';
-import { updateTaskParam } from "../../../_actions/TaskAction";
+import { Box, Chip, Popover, Typography, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import TagsSearch from './TagsSearch';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
 
-export default function Tags() {
+export default function Tags(props) {
+  const { task, updateTask } = props;
   const dispatch = useDispatch();
   const theme = useTheme();
-  const currentTask = useSelector((state) => state.Task.currentTask);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleDelete = (chipToDelete) => () => {
-    const updated = currentTask.tags.filter((chip) => chip.name !== chipToDelete.name);
-    dispatch(updateTaskParam('tags', updated));
+    const updated = task.tags.filter((chip) => chip.name !== chipToDelete.name);
+    dispatch(updateTask('tags', updated));
   };
 
   const handleClick = (event) => {
@@ -29,10 +28,10 @@ export default function Tags() {
     setAnchorEl(null);
   };
 
-    const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  if(!currentTask.tags) return null;
+  if (!task.tags) return null;
 
   return (
     <Box
@@ -46,7 +45,7 @@ export default function Tags() {
       }}
       component="ul"
     >
-      {currentTask.tags.map((data, index) => {
+      {task.tags.map((data, index) => {
         return (
           <ListItem key={index}>
             <Chip
@@ -77,13 +76,13 @@ export default function Tags() {
             horizontal: 'left',
           }}
         >
-          <Box sx={{ p: 2, minWidth:'300px' }}>
+          <Box sx={{ p: 2, minWidth: '300px' }}>
             <Typography>Search or Create a Tag</Typography>
-              <TagsSearch />
+            <TagsSearch updateTask={updateTask} task={task} />
           </Box>
         </Popover>
       </ListItem>
     </Box>
-    
+
   );
 }
