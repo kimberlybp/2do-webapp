@@ -5,7 +5,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 
 export default function TaskListDropdown() {
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState("The Godfather");
 
   return (
     <Autocomplete

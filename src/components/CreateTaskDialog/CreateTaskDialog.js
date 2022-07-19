@@ -3,36 +3,33 @@ import DialogContent from '@mui/material/DialogContent';
 import Slide from '@mui/material/Slide';
 import { styled, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useEffect, forwardRef } from 'react';
+import { useEffect, forwardRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { initCreateTask } from "../../_actions/TaskAction";
-
 import TaskDetails from '../TaskDetails';
-
-
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function CreateTaskDialog(props) {
   const { open, setOpen } = props;
   const dispatch = useDispatch();
   const theme = useTheme();
-  const currentTask = useSelector((state) => state.Task.currentTask);
+  const [taskTitleError, setTaskTitleError] = useState(false);
   const newTask = useSelector((state) => state.Task.newTask);
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
-    dispatch(initCreateTask());
-  }, [])
+    if(open) dispatch(initCreateTask());
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+    // eslint-disable-next-line
+  }, [open])
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCreateTask = () => {
+    if(newTask.title === "" || !newTask.title){
+      setTaskTitleError(true);
+    }
   };
 
   return (
@@ -46,11 +43,11 @@ export default function CreateTaskDialog(props) {
         fullWidth
         PaperProps={{ sx: styles.paperStyles }}>
         <DialogContent sx={styles.dialogContent}>
-          {newTask && <TaskDetails createTask task={newTask}/>}
+          {newTask && <TaskDetails createTask task={newTask} errorTrigger={taskTitleError} resetErrorTrigger={() => {setTaskTitleError(false)}}/>}
         </DialogContent>
         <DialogActions sx={styles.dialogAction}>
           <GreyButton onClick={handleClose} variant="contained" sx={styles.button}>Cancel</GreyButton>
-          <Button variant="contained" sx={styles.button}>Create Task</Button>
+          <Button onClick={() => handleCreateTask()} variant="contained" sx={styles.button}>Create Task</Button>
         </DialogActions>
       </Dialog>
   );
@@ -76,6 +73,10 @@ const styles = {
     },
   },
 }
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const GreyButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText('#E0E0E0'),

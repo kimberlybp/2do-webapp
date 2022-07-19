@@ -10,7 +10,7 @@ import axios from 'axios';
 
 async function getUserTasks(userId) {
   try{
-    const res = await axios.get(`${process.env.REACT_APP_API}tasks/${userId}`);
+    const res = await axios.get(`${process.env.REACT_APP_API}tasks/userId/${userId}`);
     return res.data;
   } catch (err) { throw err; }
 }

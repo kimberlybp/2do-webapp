@@ -64,8 +64,8 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         newTask: {
-          taskList: { name: 'School' },
-          title: "Task Title",
+          taskList: {},
+          title: null,
           description: "",
           complete: false,
           subtasks: [

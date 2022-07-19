@@ -45,7 +45,7 @@ export default function SubTasks(props) {
 
   return (
     <Fragment>
-      {subtasks.length === 0 && <Typography fontStyle='italic'>No subtasks yet</Typography>}
+      {subtasks.length === 0 && <Typography fontStyle='italic'>No subtasks added</Typography>}
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
         {subtasks.map((value, index) => {
           const labelId = `checkbox-list-label-${value}`;

@@ -15,7 +15,8 @@ import CalendarIcon from '@mui/icons-material/CalendarToday';
 import AllTasksIcon from '@mui/icons-material/Assignment';
 import { useLocation, useNavigate } from "react-router-dom";
 import { logOut } from '../../_actions/AuthAction';
-import { getTasks, initCreateTask } from '../../_actions/TaskAction';
+import { getTasks } from '../../_actions/TaskAction';
+import { getTags } from '../../_actions/TagAction';
 import stringAvatar from "../../utils/stringAvatar";
 import OtherNav from "./components/OtherNav";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -69,6 +70,7 @@ function NavBar(props) {
 
   useEffect(() => {
     if(userId === null) navigate('/');
+    else dispatch(getTags());
     // else dispatch(getTasks());
 
     // eslint-disable-next-line

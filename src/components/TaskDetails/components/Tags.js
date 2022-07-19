@@ -42,6 +42,9 @@ export default function Tags(props) {
         listStyle: 'none',
         p: 0,
         m: 0,
+        "& >li":{
+          marginLeft: 0
+        }
       }}
       component="ul"
     >
@@ -52,8 +55,8 @@ export default function Tags(props) {
               label={data.name}
               onDelete={handleDelete(data)}
               sx={{
-                backgroundColor: data.color,
-                color: `${theme.palette.getContrastText(data.color)} !important`
+                backgroundColor: data.colour,
+                color: `${theme.palette.getContrastText(data.colour)} !important`
               }}
             />
           </ListItem>
@@ -77,7 +80,7 @@ export default function Tags(props) {
           }}
         >
           <Box sx={{ p: 2, minWidth: '300px' }}>
-            <Typography>Search or Create a Tag</Typography>
+            <Typography variant='body1' fontWeight={700}>Search or Create a Tag</Typography>
             <TagsSearch updateTask={updateTask} task={task} />
           </Box>
         </Popover>

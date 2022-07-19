@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, Link, useTheme } from "@mui/material";
+import { Box, Grid, IconButton, Link, useTheme, FormHelperText } from "@mui/material";
 import { useMemo } from 'react';
 import { useDispatch } from "react-redux";
 import AddIcon from '@mui/icons-material/Add';
@@ -18,7 +18,7 @@ import { updateExistingTask, updateNewTask } from "../../_actions/TaskAction";
 import { ReactComponent as NusModsLogo } from '../../assets/icons/nusmods.svg';
 
 export default function TaskDetails(props) {
-  const { task } = props;
+  const { task, errorTrigger, resetErrorTrigger } = props;
   const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -48,8 +48,8 @@ export default function TaskDetails(props) {
         {isExistingTask && <Status />}
         <Box sx={{ flexGrow: 1 }}></Box>
       </Box>
-      <TaskTitle updateTask={updateTask} task={task} />
-      <Tags task={task} />
+      <TaskTitle updateTask={updateTask} task={task} errorTrigger={errorTrigger} resetErrorTrigger={resetErrorTrigger}/>
+      <Tags updateTask={updateTask} task={task} />
       <Typography variant="h6" gutterBottom
         sx={{ fontWeight: 700, color: "#6D6D6D", mt: "10px" }}>
         Task Description
