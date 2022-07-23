@@ -24,7 +24,7 @@ export function updateExistingTask(key, value) {
     //   const currentTask = getState().Task.currentTask;
     //   const toSend = {
     //     _id: currentTask.id,
-    //     task_list: currentTask.taskList,
+    //     task_list: currentTask.tasklist,
     //     title: currentTask.title,
     //     description: currentTask.description,
     //     complete: currentTask.complete,
@@ -57,7 +57,7 @@ export function updateTaskParam(key, value, isNewTask) {
     //   const currentTask = getState().Task.currentTask;
     //   const toSend = {
     //     _id: currentTask.id,
-    //     task_list: currentTask.taskList,
+    //     task_list: currentTask.tasklist,
     //     title: currentTask.title,
     //     description: currentTask.description,
     //     complete: currentTask.complete,
@@ -125,7 +125,7 @@ export function getTasks() {
       const res = await taskService.getUserTasks(userId);
       const updated = await res.map((t) => ({
         id: t._id,
-        taskList: t.task_list,
+        tasklist: t.task_list,
         title: t.title,
         description: t.description,
         complete: t.complete,

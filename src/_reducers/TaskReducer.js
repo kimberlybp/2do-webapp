@@ -11,7 +11,7 @@ const initState = {
   tasks: [
     {
       id: 1,
-      taskList: 1,
+      tasklist: 1,
       title: "Finish and Submit Lab 4",
       description: "",
       complete: false,
@@ -33,7 +33,7 @@ const initState = {
     },
     {
       id: 2,
-      taskList: 2,
+      tasklist: 2,
       title: "Create a Pull Request for Feature #10",
       description: "",
       complete: false,
@@ -58,21 +58,21 @@ const reducer = (state = initState, action) => {
       return initState;
     }
     case actions.CREATE_TASK_INIT: {
-      var date = new Date();
-      date.setHours(date.getHours() + 1);
-      date.setMinutes(0);
+      // var date = new Date();
+      // date.setHours(date.getHours() + 1);
+      // date.setMinutes(0);
       return {
         ...state,
         newTask: {
-          taskList: {},
+          tasklist: null,
           title: null,
           description: "",
           complete: false,
           subtasks: [
-            { order: 1, title: "Subtask 1", complete: false },
+            { order: 1, title: "New subtask", complete: false },
           ],
           tags: [],
-          dueDate: date,
+          dueDate: null,
           createdAt: new Date(),
           updatedAt: new Date(),
           module: null,

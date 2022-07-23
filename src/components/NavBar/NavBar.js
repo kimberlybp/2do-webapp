@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { logOut } from '../../_actions/AuthAction';
 import { getTasks } from '../../_actions/TaskAction';
 import { getTags } from '../../_actions/TagAction';
+import { getTasklists } from '../../_actions/TasklistAction';
 import stringAvatar from "../../utils/stringAvatar";
 import OtherNav from "./components/OtherNav";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -70,7 +71,10 @@ function NavBar(props) {
 
   useEffect(() => {
     if(userId === null) navigate('/');
-    else dispatch(getTags());
+    else {
+      dispatch(getTags());
+      dispatch(getTasklists());
+    }
     // else dispatch(getTasks());
 
     // eslint-disable-next-line

@@ -10,7 +10,7 @@ import moment from 'moment';
 
 
 export default function generateSecondLine(value) {
-  const toCheck = ['tags', 'taskList', 'module', 'dueDate', 'subtasks'];
+  const toCheck = ['tags', 'tasklist', 'module', 'dueDate', 'subtasks'];
   const items = [];
 
   toCheck.map(key => {
@@ -28,8 +28,8 @@ export default function generateSecondLine(value) {
         items.push(res);
       }
 
-      if(key==='taskList') {
-        items.push(value.taskList.name)
+      if(key==='tasklist') {
+        items.push(value.tasklist.name)
       }
 
       if(key==='moduleCode') {

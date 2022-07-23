@@ -15,7 +15,7 @@ export function getTags() {
     try {
       const res = await tagService.getUserTags(userId);
       dispatch(setInitTags(res));
-    }catch (err) {
+    } catch (err) {
       dispatch(alertActions.errorAlert('Error', err.message, 30));
       dispatch(stopPageLoading());
     }
@@ -32,9 +32,9 @@ export function createTag(tag) {
       dispatch(getTags());
       dispatch(taskLoadingDone("createTag"));
       return res;
-    }catch (err) {
-      dispatch(alertActions.errorAlert('Error', 
-      "We're having trouble creating a new tag for you. Please try again or contact us.", 30));
+    } catch (err) {
+      dispatch(alertActions.errorAlert('Error',
+        "We're having trouble creating a new tag for you. Please try again or contact us.", 30));
     }
   }
 }

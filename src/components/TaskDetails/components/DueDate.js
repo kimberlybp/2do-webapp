@@ -17,7 +17,8 @@ export default function DueDate(props) {
         <DateTimePicker
           value={task.dueDate}
           onChange={handleChange}
-          renderInput={(params) => <TextField size='small' fullWidth {...params} />}
+          renderInput={(params) => <TextField placeholder='Enter a due date' size='small' fullWidth {...params}
+          />}
         />
     </LocalizationProvider>
   );

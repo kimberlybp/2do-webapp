@@ -6,8 +6,9 @@ import User from './UserReducer';
 import Module from './ModuleReducer';
 import Task from './TaskReducer';
 import Tag from './TagReducer';
+import Tasklist from './TasklistReducer';
 
 export default combineReducers({ 
-  Shared, Auth, Alert, User, Module, Task, Tag
+  Shared, Auth, Alert, User, Module, Task, Tag, Tasklist
 });
 
