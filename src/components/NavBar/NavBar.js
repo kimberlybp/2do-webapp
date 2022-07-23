@@ -72,10 +72,11 @@ function NavBar(props) {
   useEffect(() => {
     if(userId === null) navigate('/');
     else {
+      dispatch(getTasks());
       dispatch(getTags());
       dispatch(getTasklists());
     }
-    // else dispatch(getTasks());
+    
 
     // eslint-disable-next-line
   }, [userId])

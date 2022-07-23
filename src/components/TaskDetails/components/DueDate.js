@@ -9,7 +9,7 @@ export default function DueDate(props) {
   const dispatch = useDispatch();
 
   const handleChange = (newDate) => {
-    dispatch(updateTask('dueDate', newDate));
+    dispatch(updateTask('dueDate', newDate.toDate()));
   };
 
   return (

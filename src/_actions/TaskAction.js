@@ -1,7 +1,8 @@
 import { actions } from '../utils/constants/actions';
 import { taskService } from '../_services/taskService';
-import { pageLoading, stopPageLoading } from './SharedAction';
+import { pageLoading, stopPageLoading, taskLoading, taskLoadingDone } from './SharedAction';
 import * as alertActions from './AlertAction';
+import camelToSnakeCase from '../utils/camelToSnakeCase';
 
 function updateCurrentTask(key, value) {
   return {
@@ -94,11 +95,11 @@ export function selectTask(task) {
   }
 }
 
-export function createTask() {
-  return {
-    type: actions.CREATE_TASK
-  }
-}
+// export function createTask() {
+//   return {
+//     type: actions.CREATE_TASK
+//   }
+// }
 
 export function toggleComplete(id) {
   return {
@@ -131,10 +132,10 @@ export function getTasks() {
         complete: t.complete,
         subtasks: t.subtasks,
         tags: t.tags,
-        dueDate: t.due_date,
+        dueDate: t.due_date ? new Date(t.due_date) : null,
         createdAt: t.created_at,
         updatedAt: t.updated_at,
-        module: t.module
+        module: t.module ? { title: t.module.title, moduleCode: t.module.module_code } : null
       }))
       dispatch(setInitTasks(updated));
     }catch (err) {
@@ -144,4 +145,43 @@ export function getTasks() {
   }
 }
 
+export function createTask() {
+  return async (dispatch, getState) => {
+    const userId = getState().User.userId;
+    const task = getState().Task.newTask;
+
+    dispatch(taskLoading("createTask"))
+    try {
+      const processedTask = processNewTask(task, userId);
+      const res = await taskService.createTask(processedTask);
+      dispatch(getTasks());
+      dispatch(taskLoadingDone("createTask"));
+      dispatch(alertActions.successAlert('Success',
+        "Task successfully created", 10));
+      return res;
+    } catch (err) {
+      dispatch(alertActions.errorAlert('Error',
+        "We're having trouble creating a new task for you. Please try again or contact us.", 15));
+      dispatch(taskLoadingDone("createTask"));
+    }
+  }
+}
+
+function processNewTask(task, userId) {
+  const processed = {};
+  processed.user_id = userId;
+  Object.keys(task).forEach(key => {
+    if(key === "tasklist") {
+      processed["task_list"] = task[key]._id;
+    } else if(key === "tags") {
+      const processedTags = task.tags.map(t => t._id);
+      processed["tags"] = processedTags;
+    } else if(key === "module" && task[key] !== null) { 
+      processed["module"] = { title: task[key].title, module_code: task[key].moduleCode}
+    } else {
+      if(task[key] !== null) processed[camelToSnakeCase(key)] = task[key]
+    }
+  })
+  return processed;
+}
 

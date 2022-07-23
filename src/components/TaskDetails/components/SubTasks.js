@@ -29,7 +29,10 @@ export default function SubTasks(props) {
   };
 
   const handleDelete = (subtaskToDelete) => {
-    const updated = task.subtasks.filter((s) => s.order !== subtaskToDelete.order);
+    const filtered = task.subtasks.filter((s) => s.order !== subtaskToDelete.order);
+    const updated = filtered.map((f, i) => {
+      return { ...f, order: (i + 1) }
+    })
     dispatch(updateTask('subtasks', updated));
   }
 
@@ -47,7 +50,7 @@ export default function SubTasks(props) {
     <Fragment>
       {subtasks.length === 0 && <Typography fontStyle='italic'>No subtasks added</Typography>}
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        {subtasks.map((value, index) => {
+        {subtasks.sort((a, b) => a.order - b.order).map((value, index) => {
           const labelId = `checkbox-list-label-${value}`;
           return (
             <ListItem

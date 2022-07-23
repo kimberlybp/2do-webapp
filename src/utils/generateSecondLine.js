@@ -21,7 +21,7 @@ export default function generateSecondLine(value) {
             mx:"1px",
             width: "5px",
             height: "12px",
-            backgroundColor: tag.color,
+            backgroundColor: tag.colour,
             borderRadius: '5px',
           }} />
         });

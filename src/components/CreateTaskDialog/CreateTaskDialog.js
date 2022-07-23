@@ -5,7 +5,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useEffect, forwardRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { initCreateTask } from "../../_actions/TaskAction";
+import { createTask, initCreateTask } from "../../_actions/TaskAction";
 import TaskDetails from '../TaskDetails';
 
 export default function CreateTaskDialog(props) {
@@ -15,6 +15,8 @@ export default function CreateTaskDialog(props) {
   const [taskTitleError, setTaskTitleError] = useState(false);
   const newTask = useSelector((state) => state.Task.newTask);
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const createTaskLoading = useSelector((state) => state.Shared.loadingTasks['createTask']);
+
 
   useEffect(() => {
     if(open) dispatch(initCreateTask());
@@ -26,9 +28,12 @@ export default function CreateTaskDialog(props) {
     setOpen(false);
   };
 
-  const handleCreateTask = () => {
+  const handleCreateTask = async () => {
     if(newTask.title === "" || !newTask.title){
       setTaskTitleError(true);
+    }else{
+      const res = await dispatch(createTask());
+      handleClose();
     }
   };
 
@@ -39,15 +44,14 @@ export default function CreateTaskDialog(props) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        // maxWidth="sm"
         fullWidth
         PaperProps={{ sx: styles.paperStyles }}>
         <DialogContent sx={styles.dialogContent}>
           {newTask && <TaskDetails createTask task={newTask} errorTrigger={taskTitleError} resetErrorTrigger={() => {setTaskTitleError(false)}}/>}
         </DialogContent>
         <DialogActions sx={styles.dialogAction}>
-          <GreyButton onClick={handleClose} variant="contained" sx={styles.button}>Cancel</GreyButton>
-          <Button onClick={() => handleCreateTask()} variant="contained" sx={styles.button}>Create Task</Button>
+          <GreyButton disabled={createTaskLoading} onClick={handleClose} variant="contained" sx={styles.button}>Cancel</GreyButton>
+          <Button disabled={createTaskLoading} onClick={() => handleCreateTask()} variant="contained" sx={styles.button}>Create Task</Button>
         </DialogActions>
       </Dialog>
   );

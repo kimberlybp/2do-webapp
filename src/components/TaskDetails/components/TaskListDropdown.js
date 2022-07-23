@@ -24,7 +24,6 @@ export default function TaskListDropdown(props) {
           const newTasklist = await dispatch(createTasklist({ name: newValue.inputValue }));
           dispatch(updateTask('tasklist', newTasklist))
         } else {
-          console.log('here!')
           dispatch(updateTask('tasklist', newValue))
         }
       }}

@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { CirclePicker } from 'react-color';
 import { Typography } from '@mui/material';
 import { createTag } from '../../../_actions/TagAction';
-import { createTask } from '../../../_actions/TaskAction';
 
 const filter = createFilterOptions();
 
@@ -25,7 +24,7 @@ export default function TagsSearch(props) {
   const [open, toggleOpen] = useState(false);
   const allTags = useSelector((state) => state.Tag.tags);
   const [dialogValue, setDialogValue] = useState(initValue);
-  const createTaskLoading = useSelector((state) => state.Shared.loadingTasks['createTask']);
+  const createTaskLoading = useSelector((state) => state.Shared.loadingTasks['createTag']);
 
   const handleClose = () => {
     setDialogValue(initValue);
@@ -135,7 +134,7 @@ export default function TagsSearch(props) {
           freeSolo
           renderInput={(params) => <TextField {...params} autoFocus />}
         />
-        <Button loading={createTaskLoading} disabled={value ? false : true} size="small" variant='contained' sx={{ ml: 1 }} onClick={() => { handleClick() }}>Add</Button>
+        <Button disabled={value ? false : true} size="small" variant='contained' sx={{ ml: 1 }} onClick={() => { handleClick() }}>Add</Button>
       </Box>
       {/* <Box sx={{mt: 2}}>
         <Typography>Pick a Color</Typography>

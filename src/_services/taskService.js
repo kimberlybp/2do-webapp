@@ -1,13 +1,5 @@
 import axios from 'axios';
 
-// async function createUser(user) {
-//   try{
-//     const res = await axios.post(`${process.env.REACT_APP_API}users`, user, 
-//     { headers: { 'Content-Type': 'application/json; charset=utf-8' }});
-//     return res;
-//   } catch (err) { throw err; }
-// }
-
 async function getUserTasks(userId) {
   try{
     const res = await axios.get(`${process.env.REACT_APP_API}tasks/userId/${userId}`);
@@ -23,6 +15,14 @@ async function updateUserTask(task) {
   } catch (err) { throw err; }
 }
 
+async function createTask(task) {
+  try{
+    const res = await axios.post(`${process.env.REACT_APP_API}tasks`, task, 
+        { headers: { 'Content-Type': 'application/json; charset=utf-8' }});
+    return res.data;
+  } catch (err) { throw err; }
+}
+
 export const taskService = {
-  getUserTasks, updateUserTask
+  getUserTasks, updateUserTask, createTask
 }

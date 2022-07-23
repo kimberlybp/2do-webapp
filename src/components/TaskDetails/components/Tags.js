@@ -31,7 +31,7 @@ export default function Tags(props) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  if (!task.tags) return null;
+  // if (!task.tags) return null;
 
   return (
     <Box
@@ -48,7 +48,7 @@ export default function Tags(props) {
       }}
       component="ul"
     >
-      {task.tags.map((data, index) => {
+      {task.tags && task.tags.map((data, index) => {
         return (
           <ListItem key={index}>
             <Chip

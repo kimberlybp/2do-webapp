@@ -10,13 +10,9 @@ import generateSecondLine from '../../utils/generateSecondLine';
 import { selectTask, toggleComplete } from "../../_actions/TaskAction";
 
 export default function TaskList(props) {
-  const { tasks } = props;
+  const { tasks, noTasksPlaceholder } = props;
   const dispatch = useDispatch();
   const currentTask = useSelector((state) => state.Task.currentTask);
-
-  const allTasks = useMemo(() => {
-    return tasks;
-  }, [tasks])
 
   const handleChecked = (value, event) => {
     event.stopPropagation();
@@ -33,7 +29,7 @@ export default function TaskList(props) {
 
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      {allTasks.map((value, index) => {
+      {tasks.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
         return (
           <ListItem
@@ -87,6 +83,7 @@ export default function TaskList(props) {
         disabled
         placeholder='Quick add a task here!' />
       </ListItem>
+      {tasks.length === 0 && noTasksPlaceholder}
     </List>
   );
 }
