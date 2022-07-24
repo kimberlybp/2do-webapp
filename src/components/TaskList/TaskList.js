@@ -9,11 +9,11 @@ import generateSecondLine from '../../utils/generateSecondLine';
 import { quickCreateTask, selectTask, toggleTaskComplete } from "../../_actions/TaskAction";
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import generateDateNextHour from '../../utils/generateDateNextHour';
 
 export default function TaskList(props) {
-  const { tasks, noTasksPlaceholder, quickCreateDueDate } = props;
+  const { tasks, noTasksPlaceholder, quickCreateParams } = props;
   const dispatch = useDispatch();
   const [quickTitle, setQuickTitle] = useState("");
   const currentTask = useSelector((state) => state.Task.currentTask);
@@ -30,7 +30,7 @@ export default function TaskList(props) {
   }
 
   const onBlur = async (event) => {
-    const res = await dispatch(quickCreateTask(event.target.value, quickCreateDueDate))
+    const res = await dispatch(quickCreateTask(event.target.value, quickCreateParams))
     setQuickTitle("");
   }
 
@@ -43,8 +43,8 @@ export default function TaskList(props) {
       {tasks.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
         return (
-          <>
-          <ListItem disablePadding key={index}>
+          <Fragment key={index}>
+          <ListItem disablePadding>
             <ListItemButton role={undefined} onClick={onTaskClick(value)} dense disableRipple
               selected={currentTask && currentTask.id === value.id}
               sx={{
@@ -81,7 +81,7 @@ export default function TaskList(props) {
             </ListItemButton>
           </ListItem>
           <Divider component="li" />
-          </>
+          </Fragment>
         );
       })}
       <ListItem key={0}>

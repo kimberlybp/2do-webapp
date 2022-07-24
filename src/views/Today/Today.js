@@ -87,7 +87,7 @@ export default function Today() {
         <Grid container sx={{ minHeight: "75vh" }}>
           <Grid item xs={12} lg={5.99} sx={styles.leftGridContainer}>
             <Switch checked={showCompleted} onCheck={handleSwitch} label="Show Completed Tasks" />
-            <TaskList tasks={filtered} noTasksPlaceholder={generateNoTasksPlaceholder()} quickCreateDueDate={new Date()}/>
+            <TaskList tasks={filtered} noTasksPlaceholder={generateNoTasksPlaceholder()} quickCreateParams={{ dueDate: new Date() }} />
           </Grid>
           <Grid item md={0.01}>
             <Divider orientation="vertical" />

@@ -2,6 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import Today from "../Today";
 import AllTasks from "../AllTasks";
 import Upcoming from "../Upcoming";
+import List from "../List";
+import Tag from "../Tag";
+import Module from "../Module";
 import Temp from "../Temp";
 import FAQ from "../FAQ";
 import NavBar from "../../components/NavBar";
@@ -17,6 +20,9 @@ export default function Layout() {
           <Route path="/alltasks" element={<AllTasks />} />
           <Route path="/calendar" element={<Temp />} />
           <Route path="/upcoming" element={<Upcoming />} />
+          <Route path="/list/:tasklistId" element={<List />} />
+          <Route path="/tag/:tagId" element={<Tag />} />
+          <Route path="/module/:moduleCode" element={<Module />} />
           <Route path="/faq" element={<FAQ />} />
         </Routes>
       </Box>

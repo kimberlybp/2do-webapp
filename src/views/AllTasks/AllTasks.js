@@ -102,7 +102,7 @@ export default function AllTasks() {
                   <Typography variant="h5" component="div" display="flex" sx={{ alignItems: 'center', px: "16px" }}>{getListHeader(index)}&nbsp;
                     <Typography>{value.dueDate && moment(value.dueDate).format('Do MMMM YYYY, dddd')}</Typography>
                   </Typography>
-                  <TaskList tasks={value.tasks} quickCreateDueDate={value.dueDate} />
+                  <TaskList tasks={value.tasks} quickCreateParams={{dueDate: value.dueDate}} />
                 </>)
               })
             }

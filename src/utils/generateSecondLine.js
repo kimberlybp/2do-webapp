@@ -53,7 +53,7 @@ export default function generateSecondLine(value) {
       {
         items.map((item, index) => {
           if (lastIndex !== index) return <Fragment key={index}>{item}&nbsp;|&nbsp;</Fragment>;
-          else return item
+          else return <Fragment key={index}>{item}</Fragment>
         })
       }
     </Fragment>

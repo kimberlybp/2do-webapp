@@ -116,7 +116,7 @@ export default function Upcoming() {
                   <Typography variant="h5" component="div" display="flex" sx={{ alignItems: 'center', px: "16px" }}>{getListHeader(index)}&nbsp;
                     <Typography>{moment(value.dueDate).format('Do MMMM YYYY, dddd')}</Typography>
                   </Typography>
-                  <TaskList tasks={value.tasks} quickCreateDueDate={value.dueDate} />
+                  <TaskList tasks={value.tasks} quickCreateParams={{ dueDate: value.dueDate }} />
                 </>)
               })
             }

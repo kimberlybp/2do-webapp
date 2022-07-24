@@ -70,12 +70,14 @@ function NavBar(props) {
   const fullName = `${firstName} ${lastName}`;
 
   useEffect(() => {
-    if(userId === null) navigate('/');
-    else {
+    if (userId === null) navigate('/');
+
+    if (userId && userId!=="init") {
       dispatch(getTasks());
       dispatch(getTags());
       dispatch(getTasklists());
     }
+    
     
 
     // eslint-disable-next-line

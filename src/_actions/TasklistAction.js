@@ -31,6 +31,8 @@ export function createTasklist(tasklist) {
       const res = await tasklistService.createTasklist(tasklist);
       dispatch(getTasklists());
       dispatch(taskLoadingDone("createTasklist"));
+      dispatch(alertActions.successAlert('Success', 
+      "Tasklist created", 30));
       return res;
     }catch (err) {
       dispatch(alertActions.errorAlert('Error', 

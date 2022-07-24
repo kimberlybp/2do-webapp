@@ -4,7 +4,7 @@ import { userService } from '../_services/userService';
 import { authService } from '../_services/authService';
 import * as alertActions from './AlertAction';
 import { pageLoading, stopPageLoading } from './SharedAction';
-import { initializeUserData, logOutUser } from './UserAction';
+import { initializeUserData, logOutUser, noUser } from './UserAction';
 
 export function reset() {
   return { type: actions.RESET_APP }
@@ -40,7 +40,9 @@ export function checkSession() {
         const sub = await authService.getCognitoUserSub(user);
         const res = await userService.getUser(sub, accessToken);
         initializeUserData(dispatch, accessToken, res.data);
+        return res.data
       } else {
+        dispatch(noUser());
         dispatch(stopPageLoading());
       }
     } catch (err) {

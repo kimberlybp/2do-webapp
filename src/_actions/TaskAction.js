@@ -149,10 +149,10 @@ export function createTask() {
   }
 }
 
-export function quickCreateTask(title, dueDate) {
+export function quickCreateTask(title, object) {
   return async (dispatch, getState) => {
     const userId = getState().User.userId;
-    const task = {title, dueDate};
+    const task = {title, ...object};
 
     dispatch(taskLoading("createTask"))
     try {

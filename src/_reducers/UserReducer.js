@@ -1,7 +1,7 @@
 import { actions } from '../utils/constants/actions';
 
 const initState = {
-  userId: null,
+  userId: "init",
   subId: null,
   email: null,
   loggedIn: false
@@ -19,6 +19,14 @@ const reducer = (state = initState, action) => {
         firstName: firstName,
         lastName: lastName,
         loggedIn: true
+      }
+    }
+    case actions.NO_USER_LOGGED_IN: {
+      return {
+        userId: null,
+        subId: null,
+        email: null,
+        loggedIn: false
       }
     }
     case actions.RESET_APP: {

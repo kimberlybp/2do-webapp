@@ -20,6 +20,12 @@ function initUser(user) {
   }
 }
 
+export function noUser() {
+  return {
+    type: actions.NO_USER_LOGGED_IN
+  }
+}
+
 export function login(email, password) {
   return async (dispatch, getState) => {
     dispatch(pageLoading('user logging in'));
