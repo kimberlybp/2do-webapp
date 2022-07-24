@@ -30,7 +30,7 @@ export const lightTheme = {
       fontWeight: 600,
     },
     h4: {
-      fontWeight: 600,
+      fontWeight: 700,
     },
     h5: {
       fontWeight: 800,

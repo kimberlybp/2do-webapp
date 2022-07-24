@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Today from "../Today";
 import AllTasks from "../AllTasks";
+import Upcoming from "../Upcoming";
 import Temp from "../Temp";
 import FAQ from "../FAQ";
 import NavBar from "../../components/NavBar";
@@ -15,7 +16,7 @@ export default function Layout() {
           <Route path="/today" element={<Today />} />
           <Route path="/alltasks" element={<AllTasks />} />
           <Route path="/calendar" element={<Temp />} />
-          <Route path="/upcoming" element={<Temp />} />
+          <Route path="/upcoming" element={<Upcoming />} />
           <Route path="/faq" element={<FAQ />} />
         </Routes>
       </Box>

@@ -12,7 +12,7 @@ const CustomSwitch = (props) => {
 
   return (
     <FormControlLabel
-      sx={{ marginRight: '0' }}
+      sx={{ marginRight: '0', marginBottom: 1, marginLeft: 0 }}
       control={<StyledSwitch onChange={() => handleChange()} checked={checked} disabled={disabled} />}
       label={label}
     />
@@ -25,7 +25,7 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
   padding: 0,
   display: 'flex',
   marginRight: "8px",
-  marginLeft: "24px",
+  marginLeft: "16px",
   '&:active': {
     '& .MuiSwitch-thumb': {
       width: 15,
@@ -41,7 +41,7 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
       color: '#fff',
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: "#4CC522",
+        backgroundColor: "#109D58",
       },
     },
   },

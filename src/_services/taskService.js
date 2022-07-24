@@ -7,9 +7,9 @@ async function getUserTasks(userId) {
   } catch (err) { throw err; }
 }
 
-async function updateUserTask(task) {
+async function updateTask(taskId, data) {
   try{
-    const res = await axios.put(`${process.env.REACT_APP_API}tasks/update/${task._id}`, task, 
+    const res = await axios.put(`${process.env.REACT_APP_API}tasks/${taskId}`, data, 
         { headers: { 'Content-Type': 'application/json; charset=utf-8' }});
     return res.data;
   } catch (err) { throw err; }
@@ -23,6 +23,13 @@ async function createTask(task) {
   } catch (err) { throw err; }
 }
 
+async function deleteTask(taskId) {
+  try{
+    const res = await axios.delete(`${process.env.REACT_APP_API}tasks/${taskId}`);
+    return res.data;
+  } catch (err) { throw err; }
+}
+
 export const taskService = {
-  getUserTasks, updateUserTask, createTask
+  getUserTasks, updateTask, createTask, deleteTask
 }

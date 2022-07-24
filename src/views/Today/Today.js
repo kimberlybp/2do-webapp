@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Paper, styled, Typography } from "@mui/material";
 import moment from 'moment';
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -7,7 +7,9 @@ import { ReactComponent as TasksCompleted } from '../../assets/images/tasks-comp
 import { Switch, TaskDetails, TaskList } from "../../components";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import filterTasksByDate from "../../utils/filterTasksByDate";
+import generateDateNextHour from "../../utils/generateDateNextHour";
 import generateGreetings from "../../utils/generateGreetings";
+
 
 export default function Today() {
   const firstName = useSelector((state) => state.User.firstName);
@@ -83,20 +85,41 @@ export default function Today() {
         component={Paper}
         elevation={2}>
         <Grid container sx={{ minHeight: "75vh" }}>
-          <Grid item xs={12} lg={5.5}>
+          <Grid item xs={12} lg={5.99} sx={styles.leftGridContainer}>
             <Switch checked={showCompleted} onCheck={handleSwitch} label="Show Completed Tasks" />
-            <TaskList tasks={filtered} noTasksPlaceholder={generateNoTasksPlaceholder()} />
+            <TaskList tasks={filtered} noTasksPlaceholder={generateNoTasksPlaceholder()} quickCreateDueDate={new Date()}/>
           </Grid>
-          <Grid item md={0.5}>
+          <Grid item md={0.01}>
             <Divider orientation="vertical" />
           </Grid>
           <Grid item xs={12} lg={6} sx={{ px: "25px", display: { lg: "inline", xs: "none" } }}>
-            {currentTask && !currentTask.create && <TaskDetails task={currentTask} />}
+            <TaskDetails task={currentTask} />
           </Grid>
         </Grid>
       </Grid>
     </Grid>
   );
 }
+
+const styles = {
+  leftGridContainer: {
+    width: '100%',
+    // maxHeight: '740px', 
+    overflow: 'scroll',
+    paddingRight: '25px',
+    '::-webkit-scrollbar': {
+      height: '6px',
+      width: '6px',
+    },
+    '::-webkit-scrollbar-track': {
+      marginX: '10px',
+    },
+    '::-webkit-scrollbar-thumb': {
+      background: 'rgba(0, 0, 0, 0.08)',
+      borderRadius: '20px',
+    },
+  }
+}
+
 
 

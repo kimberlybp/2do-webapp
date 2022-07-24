@@ -21,7 +21,7 @@ export default function TaskDescription(props) {
   return (
     <Box>
       {edit ?
-        <TextField multiline rows={4} autoFocus size="small" fullWidth 
+        <TextField multiline rows={5} autoFocus size="small" fullWidth 
         defaultValue={task.description}
         placeholder="Add any extra notes you have here" 
         onChange={handleChange}
@@ -37,7 +37,7 @@ export default function TaskDescription(props) {
               fontSize: '1rem'
             }
           }} />
-        : <Typography variant="body1" gutterBottom sx={{ minHeight: "100px" }} onClick={() => setEdit(true)}>
+        : <Typography variant="body1" gutterBottom sx={{ minHeight: "120px", maxHeight: '120px', overflow: 'auto' }} onClick={() => setEdit(true)}>
           {task.description ? task.description : <i>Add any extra notes you have here</i>}
         </Typography>
       }

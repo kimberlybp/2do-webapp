@@ -42,6 +42,7 @@ export default function TaskListDropdown(props) {
 
         return filtered;
       }}
+      isOptionEqualToValue={(option, value) => option._id === value._id}
       selectOnFocus
       options={allTasklists}
       getOptionLabel={(option) => `${option.name}`}

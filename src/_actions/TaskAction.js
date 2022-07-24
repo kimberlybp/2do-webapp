@@ -17,63 +17,50 @@ export function updateNewTask(key, value) {
 }
 
 export function updateExistingTask(key, value) {
-  return async (dispatch, getState) => { 
+  return async (dispatch, getState) => {
+    dispatch(taskLoading("updateTask"))
+    //update redux store first
     dispatch(updateCurrentTask(key, value));
     dispatch(save());
-    
-    // try{
-    //   const currentTask = getState().Task.currentTask;
-    //   const toSend = {
-    //     _id: currentTask.id,
-    //     task_list: currentTask.tasklist,
-    //     title: currentTask.title,
-    //     description: currentTask.description,
-    //     complete: currentTask.complete,
-    //     subtasks: currentTask.subtasks,
-    //     tags: currentTask.tags,
-    //     due_date: currentTask.dueDate,
-    //     module: currentTask.module
-    //   };
-    //   const res = await taskService.updateUserTask(toSend);
-    //   console.log(res);
 
-    // }catch (err) {
-    //   dispatch(alertActions.errorAlert('Error', err.message, 30));
-    //   dispatch(stopPageLoading());
-    // }
+    try {
+      const currentTask = getState().Task.currentTask;
+      const userId = getState().User.userId;
+      const taskId = currentTask.id;
+      const toSend = processTaskParams(currentTask, userId);
+      const res = await taskService.updateTask(taskId, toSend);
+      dispatch(taskLoadingDone("updateTask"));
+      dispatch(getTasks()); 
+      return res;
+    } catch (err) {
+      dispatch(alertActions.errorAlert('Error', "We're having trouble saving your updated task. Please try again or contact us.", 20));
+      dispatch(taskLoadingDone("updateTask"));
+    }
   }
 }
 
-export function updateTaskParam(key, value, isNewTask) {
+export function toggleTaskComplete(task) {
   return async (dispatch, getState) => { 
-    if (isNewTask) {
-      dispatch(updateNewTask(key, value));
-    } else {
-      dispatch(updateCurrentTask(key, value));
-      dispatch(save());
-    }
+    dispatch(taskLoading("updateTask"));
+    dispatch(toggleComplete(task.id));
     
+    try{
+      const userId = getState().User.userId;
+      const toSend = { user_id: userId, complete: !task.complete };
+      const res = await taskService.updateTask(task.id, toSend);
+      dispatch(taskLoadingDone("updateTask"));
+      // dispatch(getTasks()); 
+      return res;
+    }catch (err) {
+      dispatch(alertActions.errorAlert('Error', err.message, 30));
+      dispatch(stopPageLoading());
+    }
+  }
+}
 
-    // try{
-    //   const currentTask = getState().Task.currentTask;
-    //   const toSend = {
-    //     _id: currentTask.id,
-    //     task_list: currentTask.tasklist,
-    //     title: currentTask.title,
-    //     description: currentTask.description,
-    //     complete: currentTask.complete,
-    //     subtasks: currentTask.subtasks,
-    //     tags: currentTask.tags,
-    //     due_date: currentTask.dueDate,
-    //     module: currentTask.module
-    //   };
-    //   const res = await taskService.updateUserTask(toSend);
-    //   console.log(res);
-
-    // }catch (err) {
-    //   dispatch(alertActions.errorAlert('Error', err.message, 30));
-    //   dispatch(stopPageLoading());
-    // }
+export function toggleComplete(id) {
+  return {
+    type: actions.TOGGLE_COMPLETE, payload: { id }
   }
 }
 
@@ -101,12 +88,6 @@ export function selectTask(task) {
 //   }
 // }
 
-export function toggleComplete(id) {
-  return {
-    type: actions.TOGGLE_COMPLETE, payload: { id }
-  }
-}
-
 export function quickAddToday(newTask) {
   return {
     type: actions.QUICK_ADD_TODAY, payload: { newTask }
@@ -126,7 +107,7 @@ export function getTasks() {
       const res = await taskService.getUserTasks(userId);
       const updated = await res.map((t) => ({
         id: t._id,
-        tasklist: t.task_list,
+        tasklist: t.task_list ?? null,
         title: t.title,
         description: t.description,
         complete: t.complete,
@@ -152,7 +133,7 @@ export function createTask() {
 
     dispatch(taskLoading("createTask"))
     try {
-      const processedTask = processNewTask(task, userId);
+      const processedTask = processTaskParams(task, userId);
       const res = await taskService.createTask(processedTask);
       dispatch(getTasks());
       dispatch(taskLoadingDone("createTask"));
@@ -160,6 +141,7 @@ export function createTask() {
         "Task successfully created", 10));
       return res;
     } catch (err) {
+      console.log(err)
       dispatch(alertActions.errorAlert('Error',
         "We're having trouble creating a new task for you. Please try again or contact us.", 15));
       dispatch(taskLoadingDone("createTask"));
@@ -167,21 +149,68 @@ export function createTask() {
   }
 }
 
-function processNewTask(task, userId) {
+export function quickCreateTask(title, dueDate) {
+  return async (dispatch, getState) => {
+    const userId = getState().User.userId;
+    const task = {title, dueDate};
+
+    dispatch(taskLoading("createTask"))
+    try {
+      const processedTask = processTaskParams(task, userId);
+      const res = await taskService.createTask(processedTask);
+      dispatch(getTasks());
+      dispatch(taskLoadingDone("createTask"));
+      dispatch(alertActions.successAlert('Success',
+        "Task successfully created", 10));
+      return res;
+    } catch (err) {
+      console.log(err)
+      dispatch(alertActions.errorAlert('Error',
+        "We're having trouble creating a new task for you. Please try again or contact us.", 15));
+      dispatch(taskLoadingDone("createTask"));
+    }
+  }
+}
+
+export function deleteTask(taskId) {
+  return async (dispatch, getState) => {
+    dispatch(taskLoading("deleteTask"))
+    try {
+      const currentTask = getState().Task.currentTask;
+      const res = await taskService.deleteTask(taskId);
+      setTimeout(() => {
+        dispatch(getTasks());
+        if (taskId === currentTask.id) dispatch(selectTask(null))
+        dispatch(taskLoadingDone("deleteTask"));
+        dispatch(alertActions.successAlert('Success',
+          "Task successfully deleted", 10));
+      }, 500)
+      
+      return res;
+    } catch (err) {
+      dispatch(alertActions.errorAlert('Error',
+        "We're having trouble deleting this task for you. Please try again or contact us.", 15));
+      dispatch(taskLoadingDone("deleteTask"));
+    }
+  }
+}
+
+function processTaskParams(task, userId) {
   const processed = {};
   processed.user_id = userId;
   Object.keys(task).forEach(key => {
-    if(key === "tasklist") {
+    if (key === "tasklist" && !!task[key]) {
       processed["task_list"] = task[key]._id;
-    } else if(key === "tags") {
+    } else if (key === "tags") {
       const processedTags = task.tags.map(t => t._id);
       processed["tags"] = processedTags;
-    } else if(key === "module" && task[key] !== null) { 
-      processed["module"] = { title: task[key].title, module_code: task[key].moduleCode}
+    } else if (key === "module" && task[key] !== null) {
+      processed["module"] = { title: task[key].title, module_code: task[key].moduleCode }
     } else {
-      if(task[key] !== null) processed[camelToSnakeCase(key)] = task[key]
+      if (task[key] !== null) processed[camelToSnakeCase(key)] = task[key]
     }
   })
+  delete processed.id;
   return processed;
 }
 

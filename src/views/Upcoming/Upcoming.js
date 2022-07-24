@@ -1,17 +1,12 @@
-import { Box, Button, Divider, Grid, Paper, styled, Typography } from "@mui/material";
+import { Divider, Grid, Paper, Typography } from "@mui/material";
 import moment from 'moment';
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { ReactComponent as NoTasksAdded } from '../../assets/images/no-tasks-added.svg';
-import { ReactComponent as TasksCompleted } from '../../assets/images/tasks-completed.svg';
 import { Switch, TaskDetails, TaskList } from "../../components";
-import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import filterTasksByDate from "../../utils/filterTasksByDate";
-import generateGreetings from "../../utils/generateGreetings";
 
 
-export default function AllTasks() {
-  const firstName = useSelector((state) => state.User.firstName);
+export default function Upcoming() {
   const currentTask = useSelector((state) => state.Task.currentTask);
   const tasks = useSelector((state) => state.Task.tasks);
   const [showCompleted, setShowCompleted] = useState(false);
@@ -20,12 +15,37 @@ export default function AllTasks() {
     setShowCompleted(checked);
   };
 
+  const getTasksUpcoming = () => {
+    const from = moment().startOf('day').toDate();
+    const to = moment().startOf('day').toDate();
+    to.setDate(to.getDate() + 6);
+    console.log(from)
+    console.log(to)
+    return filterTasksByDate(from, to, tasks);
+  }
+
+
+  // eslint-disable-next-line
+  Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+  function getDates(startDate, stopDate) {
+    var dateArray = [];
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+        dateArray.push(new Date (currentDate));
+        currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
+}
+
   const filtered = useMemo(() => {
     if (tasks) {
-      const sorted = tasks.sort((a, b) => {
-        if(a.dueDate && b.dueDate) return a.dueDate.getTime() - b.dueDate.getTime()
-        return 1;
-      });
+      const onlyUpcoming = getTasksUpcoming();
+      const sorted = onlyUpcoming.sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
       const updated = showCompleted ? sorted : sorted.filter(t => t.complete === false);
 
       return updated;
@@ -35,33 +55,22 @@ export default function AllTasks() {
   }, [tasks, showCompleted]);
 
   const grouped = useMemo(() => {
-    const today = new Date();
-    const tomorrow = new Date(); 
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const inAWeek = new Date();
     if (filtered) {
-      const dates = [
-        { dueDate: today },
-        { dueDate: tomorrow },
-        { dueDate: null }
-      ]
+      const from = moment().startOf('day').toDate();
+      const to = moment().startOf('day').toDate();
+      to.setDate(to.getDate() + 6);
+      const dateArray = getDates(from, to);
 
-      const grouped = dates.map((val, idx) => {
-        if(val.dueDate) {
-          const start =  moment(val.dueDate).startOf('day').toDate();
-          const end = moment(val.dueDate).endOf('day').toDate();
-          return {
-            dueDate: val.dueDate,
-            tasks: filterTasksByDate(start, end, filtered)
-          }
-        } else {
-          return {
-            dueDate: val.dueDate,
-            tasks: filtered.filter((t) => !t.dueDate)
-          }
+      console.log(dateArray)
+
+      const grouped = dateArray.map((date) => {
+        const start =  moment(date).startOf('day').toDate();
+        const end = moment(date).endOf('day').toDate();
+        return {
+          dueDate: date,
+          tasks: filterTasksByDate(start, end, filtered)
         }
-      })      
-    
+      })
 
       console.log(grouped)
 
@@ -78,15 +87,20 @@ export default function AllTasks() {
       case 1: 
         return 'Tomorrow'
       default: 
-        return `One of these days`
+        return `In ${index+1} days`
     }
   }
 
   return (
     <Grid container sx={{ px: "30px" }}>
+      <Grid item xs={12} sx={{ mb: "-0.5%" }}>
+        <Typography component="h1" variant="h6">
+          Next 7 Days
+        </Typography>
+      </Grid>
       <Grid item xs={12} sx={{ mb: 1 }}>
         <Typography component="h1" variant="h4">
-          All Tasks
+          Upcoming
         </Typography>
       </Grid>
       <Grid item xs={12}
@@ -100,7 +114,7 @@ export default function AllTasks() {
               grouped.map((value, index) => {
                 return (<>
                   <Typography variant="h5" component="div" display="flex" sx={{ alignItems: 'center', px: "16px" }}>{getListHeader(index)}&nbsp;
-                    <Typography>{value.dueDate && moment(value.dueDate).format('Do MMMM YYYY, dddd')}</Typography>
+                    <Typography>{moment(value.dueDate).format('Do MMMM YYYY, dddd')}</Typography>
                   </Typography>
                   <TaskList tasks={value.tasks} quickCreateDueDate={value.dueDate} />
                 </>)
