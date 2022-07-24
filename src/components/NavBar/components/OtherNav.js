@@ -130,7 +130,8 @@ export default function CustomizedAccordions() {
                   label={tag.name}
                   sx={{
                     backgroundColor: tag.colour,
-                    color: `${theme.palette.getContrastText(tag.colour)} !important`
+                    color: `${theme.palette.getContrastText(tag.colour)} !important`,
+                    marginLeft: '16px'
                   }}
                 />
               </ListItem>

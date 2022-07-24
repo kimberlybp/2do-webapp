@@ -23,6 +23,7 @@ import OtherNav from "./components/OtherNav";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SearchIcon from '@mui/icons-material/Search';
 import CreateTaskDialog from "../CreateTaskDialog";
+import SearchBar from "../SearchBar";
 
 const drawerWidth = 280;
 
@@ -156,7 +157,7 @@ function NavBar(props) {
             >
               <MenuIcon />
             </IconButton>
-            <TextField
+            {/* <TextField
               disabled
               id="standard-search"
               placeholder="Search (Under Construction 😅)"
@@ -171,7 +172,8 @@ function NavBar(props) {
                   </InputAdornment>
                 ),
               }}
-            />
+            /> */}
+            <SearchBar />
           </Box>
           <Box sx={{ minWidth: "fit-content" }}>
             <Tooltip title="FAQ">

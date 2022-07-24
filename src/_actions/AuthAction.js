@@ -47,6 +47,7 @@ export function checkSession() {
       }
     } catch (err) {
       //TODO: Dispatch logout
+      dispatch(noUser());
       dispatch(alertActions.errorAlert('Error', err.message, 30));
       dispatch(stopPageLoading());
     }
