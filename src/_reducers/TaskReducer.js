@@ -141,7 +141,7 @@ const reducer = (state = initState, action) => {
       const { task } = action.payload;
       return {
         ...state,
-        currentTask: { ...task, saved: true }
+        currentTask: task ? { ...task } : null
       }
     }
     case actions.QUICK_ADD_TODAY: {

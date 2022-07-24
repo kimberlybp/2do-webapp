@@ -1,14 +1,13 @@
-import { FormControlLabel, Grid, Divider, Paper, Typography, Box } from "@mui/material";
+import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
 import moment from 'moment';
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
-import generateGreetings from "../../utils/generateGreetings";
-import { updateTaskParam } from "../../_actions/TaskAction";
-import { TaskDetails, TaskList, Switch } from "../../components";
-import filterTasksByDate from "../../utils/filterTasksByDate";
 import { ReactComponent as NoTasksAdded } from '../../assets/images/no-tasks-added.svg';
 import { ReactComponent as TasksCompleted } from '../../assets/images/tasks-completed.svg';
+import { Switch, TaskDetails, TaskList } from "../../components";
+import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import filterTasksByDate from "../../utils/filterTasksByDate";
+import generateGreetings from "../../utils/generateGreetings";
 
 export default function Today() {
   const firstName = useSelector((state) => state.User.firstName);
@@ -34,11 +33,13 @@ export default function Today() {
       return updated;
     }
     return [];
+    // eslint-disable-next-line
   }, [tasks, showCompleted]);
 
   const allCompleted = useMemo(() => {
     const onlyToday = getTasksToday();
     return (onlyToday.length > 0 && onlyToday.findIndex(t => !t.complete) === -1);
+    // eslint-disable-next-line
   }, [filtered])
 
   const generateNoTasksPlaceholder = () => {
@@ -90,7 +91,7 @@ export default function Today() {
             <Divider orientation="vertical" />
           </Grid>
           <Grid item xs={12} lg={6} sx={{ px: "25px", display: { lg: "inline", xs: "none" } }}>
-            {currentTask && !currentTask.create && <TaskDetails updateTask={updateTaskParam} task={currentTask} />}
+            {currentTask && !currentTask.create && <TaskDetails task={currentTask} />}
           </Grid>
         </Grid>
       </Grid>

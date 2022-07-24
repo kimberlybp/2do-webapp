@@ -4,7 +4,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import generateSecondLine from '../../utils/generateSecondLine';
 import { selectTask, toggleComplete } from "../../_actions/TaskAction";
@@ -20,7 +19,8 @@ export default function TaskList(props) {
   };
 
   const onTaskClick = (value) => () => {
-    dispatch(selectTask(value));
+    if(currentTask && currentTask.id === value.id) dispatch(selectTask(null))
+    else dispatch(selectTask(value));
   }
 
   const onBlur = (event) => {

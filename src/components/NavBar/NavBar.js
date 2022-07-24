@@ -177,7 +177,7 @@ function NavBar(props) {
                 <HelpOutlineIcon sx={{ color: "#000000" }} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Open setings">
+            <Tooltip title="Open settings">
               <IconButton onClick={handleMenu} sx={{ p: 0 }}>
                 <Avatar {...stringAvatar(fullName)} />
               </IconButton>

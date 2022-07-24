@@ -1,8 +1,8 @@
+import camelToSnakeCase from '../utils/camelToSnakeCase';
 import { actions } from '../utils/constants/actions';
 import { taskService } from '../_services/taskService';
-import { pageLoading, stopPageLoading, taskLoading, taskLoadingDone } from './SharedAction';
 import * as alertActions from './AlertAction';
-import camelToSnakeCase from '../utils/camelToSnakeCase';
+import { stopPageLoading, taskLoading, taskLoadingDone } from './SharedAction';
 
 function updateCurrentTask(key, value) {
   return {
@@ -133,8 +133,8 @@ export function getTasks() {
         subtasks: t.subtasks,
         tags: t.tags,
         dueDate: t.due_date ? new Date(t.due_date) : null,
-        createdAt: t.created_at,
-        updatedAt: t.updated_at,
+        createdAt: new Date(t.created_at),
+        updatedAt: new Date(t.updated_at),
         module: t.module ? { title: t.module.title, moduleCode: t.module.module_code } : null
       }))
       dispatch(setInitTasks(updated));
