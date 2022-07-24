@@ -14,6 +14,9 @@ const reducer = (state = initState, action) => {
         access_token: access_token
       }
     }
+    case actions.RESET_APP: {
+      return initState;
+    }
     case actions.LOG_OUT_AUTH: {
       return initState;
     }

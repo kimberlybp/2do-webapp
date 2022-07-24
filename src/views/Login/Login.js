@@ -113,7 +113,8 @@ const RightGrid = styled(Grid)({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '4rem 2rem'
+  padding: '4rem 2rem',
+  backgroundColor: "#FFF"
 });
 
 const LeftLogo = styled(Logo)({

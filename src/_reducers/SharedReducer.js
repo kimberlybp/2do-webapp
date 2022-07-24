@@ -2,7 +2,8 @@ import { actions } from '../utils/constants/actions';
 
 const initState = {
     isPageLoading: false,
-    pageLoadReason:''
+    pageLoadReason:'',
+    loadingTasks: {}
 }
 
 const reducer = (state = initState, action) => {
@@ -20,6 +21,24 @@ const reducer = (state = initState, action) => {
                 ...state,
                 isPageLoading: false,
                 pageLoadReason:''
+            }
+        }
+        case actions.TASK_LOADING: {
+            return {
+                ...state,
+                loadingTasks:{
+                  ...state.loadingTasks,
+                  [action.payload.task]: true
+                }
+            }
+        }
+        case actions.TASK_LOADING_DONE: {
+            return {
+                ...state,
+                loadingTasks:{
+                  ...state.loadingTasks,
+                  [action.payload.task]: false
+                }
             }
         }
         default: {

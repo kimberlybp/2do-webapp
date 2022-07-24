@@ -1,8 +1,12 @@
 export const lightTheme = {
   palette: {
     type: 'light',
+    background: {
+      default: '#d1bde1',
+    },
     primary: {
       main: '#7134EB',
+      dark: '#5D2AC2'
     },
     secondary: {
       main: '#26a69a',
@@ -26,7 +30,7 @@ export const lightTheme = {
       fontWeight: 600,
     },
     h4: {
-      fontWeight: 600,
+      fontWeight: 700,
     },
     h5: {
       fontWeight: 800,
@@ -43,7 +47,8 @@ export const lightTheme = {
       styleOverrides: {
         root: {
           borderRadius: '8px',
-          fontSize: '18px'
+          fontSize: '18px',
+          fontWeight: 700
         }
       }
     },
