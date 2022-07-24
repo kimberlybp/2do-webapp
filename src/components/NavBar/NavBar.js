@@ -175,11 +175,11 @@ function NavBar(props) {
           </Box>
           <Box sx={{ minWidth: "fit-content" }}>
             <Tooltip title="FAQ">
-              <IconButton sx={{ backgroundColor: "white", marginRight: 1 }} onClick={() => navigate('/faq')}>
+              <IconButton sx={{ backgroundColor: "white", marginRight: 1, "&:hover" : {backgroundColor: '#e8e8e8'} }} onClick={() => navigate('/faq')}>
                 <HelpOutlineIcon sx={{ color: "#000000" }} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Open settings">
+            <Tooltip title="More options">
               <IconButton onClick={handleMenu} sx={{ p: 0 }}>
                 <Avatar {...stringAvatar(fullName)} />
               </IconButton>
