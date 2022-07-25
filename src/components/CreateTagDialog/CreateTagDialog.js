@@ -1,30 +1,27 @@
-import { useState, useMemo, Fragment } from 'react';
-import { TextField, Box, useTheme, Chip, FormHelperText } from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
+import { Box, Chip, FormHelperText, TextField, Typography, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { useDispatch, useSelector } from "react-redux";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Fragment, useState } from 'react';
 import { CirclePicker } from 'react-color';
-import { Typography } from '@mui/material';
-import { createTag } from '../../../_actions/TagAction';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { createTag } from '../../_actions/TagAction';
 
-const filter = createFilterOptions();
 
 export default function CreateTagDialog(props) {
   const { open, setOpen } = props;
-  const initValue = { name: '', colour: '' }
+  const initValue = { name: '', colour: '#f44336' }
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
-  const [value, setValue] = useState(null); //autocomplete textfield value
   const [tagExists, setTagExists] = useState(false); 
-  const [tag, setTag] = useState(null); //current selected tag
-  const [colour, setColour] = useState(null);
+  const [colour, setColour] = useState({ hex: '#f44336' });
   const allTags = useSelector((state) => state.Tag.tags);
   const [dialogValue, setDialogValue] = useState(initValue);
-  const createTagLoading = useSelector((state) => state.Shared.loadingTasks['createTag']);
+  // const createTagLoading = useSelector((state) => state.Shared.loadingTasks['createTag']);
 
   const handleClose = () => {
     setDialogValue(initValue);
@@ -35,12 +32,6 @@ export default function CreateTagDialog(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const res = await dispatch(createTag(dialogValue));
-    if (!!res) {
-      setValue(dialogValue.name);
-      setTag(res);
-    } else {
-      setValue(null)
-    }
     handleClose();    
     setTimeout(() => {
       navigate(`/tag/${res._id}`)
@@ -80,7 +71,7 @@ export default function CreateTagDialog(props) {
               value={dialogValue.name}
               onChange={(event) =>
               {
-                if (allTags.findIndex(t => t.name === event.target.value)) {
+                if (allTags.findIndex(t => t.name === event.target.value) > -1) {
                   setTagExists(true)
                 } else {
                   setTagExists(false)

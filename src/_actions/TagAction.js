@@ -31,10 +31,12 @@ export function createTag(tag) {
       const res = await tagService.createTag(tag);
       dispatch(getTags());
       dispatch(taskLoadingDone("createTag"));
+      dispatch(alertActions.successAlert('Success',
+        "Tag created.", 10));
       return res;
     } catch (err) {
       dispatch(alertActions.errorAlert('Error',
-        "We're having trouble creating a new tag for you. Please try again or contact us.", 30));
+        "We're having trouble creating a new tag for you. Please try again or contact us.", 20));
     }
   }
 }

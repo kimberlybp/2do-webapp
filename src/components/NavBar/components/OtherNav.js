@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import CreateTasklistDialog from '../../CreateTasklistDialog';
+import CreateTagDialog from '../../CreateTagDialog';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -64,6 +65,7 @@ export default function CustomizedAccordions() {
   const theme = useTheme();
   const navigate = useNavigate();
   const [showCreateTasklist, setShowCreateTasklist] = useState(false);
+  const [showCreateTag, setShowCreateTag] = useState(false);
   const tasklists = useSelector((state) => state.Tasklist.tasklists);
   const tags = useSelector((state) => state.Tag.tags);
   const tasks = useSelector((state) => state.Task.tasks);
@@ -80,6 +82,7 @@ export default function CustomizedAccordions() {
 
   const handleCreateTag = (e) => {
     e.stopPropagation();
+    setShowCreateTag(true);
   }
 
   const modules = useMemo(() => {
@@ -154,6 +157,7 @@ export default function CustomizedAccordions() {
         </AccordionDetails>
       </Accordion>
       <CreateTasklistDialog open={showCreateTasklist} setOpen={setShowCreateTasklist}/>
+      <CreateTagDialog open={showCreateTag} setOpen={setShowCreateTag}/>
     </div>
   );
 }

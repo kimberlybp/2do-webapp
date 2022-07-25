@@ -30,10 +30,20 @@ const reducer = (state = initState, action) => {
       }
     }
     case actions.RESET_APP: {
-      return initState;
+      return {
+        userId: null,
+        subId: null,
+        email: null,
+        loggedIn: false
+      };
     }
     case actions.LOG_OUT_USER: {
-      return initState;
+      return {
+        userId: null,
+        subId: null,
+        email: null,
+        loggedIn: false
+      };
     }
     default: {
       return state
