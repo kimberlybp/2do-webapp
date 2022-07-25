@@ -21,7 +21,7 @@ export default function SignUp(props) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (userId !== null) navigate('/today');
+    if (userId !== null && userId !== "init") navigate('/today');
     // eslint-disable-next-line
   }, [userId])
 
@@ -46,7 +46,7 @@ export default function SignUp(props) {
         </Box>
         <VectorOne style={{ maxWidth: '100%', marginTop: '5%' }} />
       </LeftGrid>
-      <RightGrid item xs={12} sm={12} md={6}>
+      <RightGrid item xs={12} sm={12} md={6} sx={{background: 'white'}}>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1, maxWidth: "450px" }}>
           <Box sx={{ display: { sm: "block", md: "none" } }}>
             <RightLogo />
