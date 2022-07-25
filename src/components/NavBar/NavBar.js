@@ -1,30 +1,28 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import {
-  AppBar, Divider, Drawer, IconButton, List, ListItem, ListItemText, ListItemIcon, Toolbar,
-  useTheme, Button, ListItemButton, Avatar, Tooltip, Menu, MenuItem, TextField, InputAdornment
-} from "@mui/material"
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
-import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
-import { Box } from "@mui/system";
-import TodayIcon from '@mui/icons-material/Today';
-import UpcomingIcon from '@mui/icons-material/EventNote';
-import CalendarIcon from '@mui/icons-material/CalendarToday';
 import AllTasksIcon from '@mui/icons-material/Assignment';
-import { useLocation, useNavigate } from "react-router-dom";
-import { logOut } from '../../_actions/AuthAction';
-import { getTasks, selectTask } from '../../_actions/TaskAction';
-import { getTags } from '../../_actions/TagAction';
-import { getTasklists } from '../../_actions/TasklistAction';
-import stringAvatar from "../../utils/stringAvatar";
-import OtherNav from "./components/OtherNav";
+import CalendarIcon from '@mui/icons-material/CalendarToday';
+import UpcomingIcon from '@mui/icons-material/EventNote';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import SearchIcon from '@mui/icons-material/Search';
-import CreateTaskDialog from "../CreateTaskDialog";
+import MenuIcon from "@mui/icons-material/Menu";
+import TodayIcon from '@mui/icons-material/Today';
+import {
+  AppBar, Avatar, Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Tooltip, useTheme
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
+import stringAvatar from "../../utils/stringAvatar";
+import { logOut } from '../../_actions/AuthAction';
+import { getTags } from '../../_actions/TagAction';
+import { getTasks, selectTask } from '../../_actions/TaskAction';
+import { getTasklists } from '../../_actions/TasklistAction';
+import CreateTaskDialog from '../CreateTaskDialog';
 import SearchBar from "../SearchBar";
 import TaskDetailsDialog from "../TaskDetailsDialog";
+import OtherNav from "./components/OtherNav";
 
 const drawerWidth = 280;
 
@@ -240,6 +238,7 @@ function NavBar(props) {
           {drawer}
         </Drawer>
       </nav>
+      <CreateTaskDialog open={createOpen} setOpen={setCreateOpen} />
       <TaskDetailsDialog open={detailsOpen} setOpen={setDetailsOpen} onClose={() => dispatch(selectTask(null))} />
     </>
   );

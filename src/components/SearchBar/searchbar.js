@@ -1,7 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Autocomplete, createFilterOptions, InputAdornment, Paper, TextField } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectTask } from "../../_actions/TaskAction";
