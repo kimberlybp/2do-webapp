@@ -63,8 +63,6 @@ export default function AllTasks() {
       })      
     
 
-      console.log(grouped)
-
       return grouped;
     }
     return [];
@@ -110,7 +108,8 @@ export default function AllTasks() {
           <Grid item md={0.01}>
             <Divider orientation="vertical" />
           </Grid>
-          <Grid item xs={12} lg={6} sx={{ px: "25px", display: { lg: "inline", xs: "none" } }}>
+          <Grid item xs={12} lg={6} sx={{ px: "25px", display: { lg: "inline", xs: "none" } }}
+          >
             <TaskDetails task={currentTask} />
           </Grid>
         </Grid>
@@ -124,7 +123,7 @@ const styles = {
     width: '100%',
     maxHeight: '840px', 
     overflow: 'scroll',
-    paddingRight: '25px',
+    padding: { md: '25px', xs: 0 },
     '::-webkit-scrollbar': {
       height: '6px',
       width: '6px',

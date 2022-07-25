@@ -15,7 +15,7 @@ import CalendarIcon from '@mui/icons-material/CalendarToday';
 import AllTasksIcon from '@mui/icons-material/Assignment';
 import { useLocation, useNavigate } from "react-router-dom";
 import { logOut } from '../../_actions/AuthAction';
-import { getTasks } from '../../_actions/TaskAction';
+import { getTasks, selectTask } from '../../_actions/TaskAction';
 import { getTags } from '../../_actions/TagAction';
 import { getTasklists } from '../../_actions/TasklistAction';
 import stringAvatar from "../../utils/stringAvatar";
@@ -24,6 +24,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SearchIcon from '@mui/icons-material/Search';
 import CreateTaskDialog from "../CreateTaskDialog";
 import SearchBar from "../SearchBar";
+import TaskDetailsDialog from "../TaskDetailsDialog";
 
 const drawerWidth = 280;
 
@@ -64,10 +65,12 @@ function NavBar(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const userId = useSelector((state) => state.User.userId);
   const firstName = useSelector((state) => state.User.firstName);
   const lastName = useSelector((state) => state.User.lastName);
+  const currentTask = useSelector((state) => state.Task.currentTask);
   const fullName = `${firstName} ${lastName}`;
 
   useEffect(() => {
@@ -83,6 +86,14 @@ function NavBar(props) {
 
     // eslint-disable-next-line
   }, [userId])
+
+  useEffect(() => {
+    if(currentTask) {
+      setDetailsOpen(true);
+    } else {
+      setDetailsOpen(false);
+    }
+  }, [currentTask])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -138,6 +149,7 @@ function NavBar(props) {
       </List>
       <Divider />
       <OtherNav />
+      <TaskDetailsDialog />
     </>
   );
 
@@ -228,7 +240,7 @@ function NavBar(props) {
           {drawer}
         </Drawer>
       </nav>
-      <CreateTaskDialog open={createOpen} setOpen={setCreateOpen} />
+      <TaskDetailsDialog open={detailsOpen} setOpen={setDetailsOpen} onClose={() => dispatch(selectTask(null))} />
     </>
   );
 }

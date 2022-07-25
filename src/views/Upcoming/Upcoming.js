@@ -1,6 +1,6 @@
 import { Divider, Grid, Paper, Typography } from "@mui/material";
 import moment from 'moment';
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Switch, TaskDetails, TaskList } from "../../components";
 import filterTasksByDate from "../../utils/filterTasksByDate";
@@ -19,8 +19,6 @@ export default function Upcoming() {
     const from = moment().startOf('day').toDate();
     const to = moment().startOf('day').toDate();
     to.setDate(to.getDate() + 6);
-    console.log(from)
-    console.log(to)
     return filterTasksByDate(from, to, tasks);
   }
 
@@ -60,9 +58,6 @@ export default function Upcoming() {
       const to = moment().startOf('day').toDate();
       to.setDate(to.getDate() + 6);
       const dateArray = getDates(from, to);
-
-      console.log(dateArray)
-
       const grouped = dateArray.map((date) => {
         const start =  moment(date).startOf('day').toDate();
         const end = moment(date).endOf('day').toDate();
@@ -71,8 +66,6 @@ export default function Upcoming() {
           tasks: filterTasksByDate(start, end, filtered)
         }
       })
-
-      console.log(grouped)
 
       return grouped;
     }
@@ -112,12 +105,13 @@ export default function Upcoming() {
             <Switch checked={showCompleted} onCheck={handleSwitch} label="Show Completed Tasks" />
             {
               grouped.map((value, index) => {
-                return (<>
-                  <Typography variant="h5" component="div" display="flex" sx={{ alignItems: 'center', px: "16px" }}>{getListHeader(index)}&nbsp;
-                    <Typography>{moment(value.dueDate).format('Do MMMM YYYY, dddd')}</Typography>
-                  </Typography>
-                  <TaskList tasks={value.tasks} quickCreateParams={{ dueDate: value.dueDate }} />
-                </>)
+                return (
+                  <Fragment key={index}>
+                    <Typography variant="h5" component="div" display="flex" sx={{ alignItems: 'center', px: "16px" }}>{getListHeader(index)}&nbsp;
+                      <Typography>{moment(value.dueDate).format('Do MMMM YYYY, dddd')}</Typography>
+                    </Typography>
+                    <TaskList tasks={value.tasks} quickCreateParams={{ dueDate: value.dueDate }} />
+                  </Fragment>)
               })
             }
           </Grid>

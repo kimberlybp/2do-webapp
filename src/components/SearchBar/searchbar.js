@@ -68,7 +68,6 @@ export default function SearchBar() {
       options={options}
       onChange={(event, newValue) => {
         setData(newValue)
-        console.log(newValue)
         if (newValue) navigate(getUrlToNavigateTo(newValue))
       }}
       groupBy={(option) => option.type}
