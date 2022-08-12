@@ -37,8 +37,14 @@ export default function TaskDetails(props) {
   }, [task]);
 
   const handleAddSubtask = () => {
+    let latestOrder = 1;
     const updated = task.subtasks;
-    const latestOrder = updated ? task.subtasks[updated.length - 1]?.order + 1 ?? 1 : 1;
+    if(updated.length > 0) {
+      const maxOrder = updated.reduce((p, v) => {
+        return (p.order > v.order ? p.order : v.order)
+      }, '')
+      latestOrder = maxOrder + 1;
+    }
     updated.push({ order: latestOrder, title: "New Subtask", complete: false });
     dispatch(updateTask('subtasks', updated));
   }

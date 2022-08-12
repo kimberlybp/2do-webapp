@@ -30,7 +30,7 @@ export function updateExistingTask(key, value) {
       const toSend = processTaskParams(currentTask, userId);
       const res = await taskService.updateTask(taskId, toSend);
       dispatch(taskLoadingDone("updateTask"));
-      dispatch(getTasks()); 
+      // dispatch(getTasks()); 
       return res;
     } catch (err) {
       dispatch(alertActions.errorAlert('Error', "We're having trouble saving your updated task. Please try again or contact us.", 20));
