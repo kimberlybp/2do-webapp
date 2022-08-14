@@ -9,7 +9,7 @@ import { createTask, initCreateTask } from "../../_actions/TaskAction";
 import TaskDetails from '../TaskDetails';
 
 export default function CreateTaskDialog(props) {
-  const { open, setOpen } = props;
+  const { open, setOpen, dueDateInit } = props;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [taskTitleError, setTaskTitleError] = useState(false);
@@ -19,7 +19,8 @@ export default function CreateTaskDialog(props) {
 
 
   useEffect(() => {
-    if(open) dispatch(initCreateTask());
+    if(open && !!dueDateInit) dispatch(initCreateTask(dueDateInit));
+    if(open && !dueDateInit) dispatch(initCreateTask());
 
     // eslint-disable-next-line
   }, [open])

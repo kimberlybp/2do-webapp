@@ -1,23 +1,65 @@
-import React, { useMemo } from "react";
-import events from "./SampleEvents";
-import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import moment from "moment";
-import { Box, Paper, Typography, Grid } from "@mui/material";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useEffect, useMemo, useState } from "react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import { useDispatch, useSelector } from "react-redux";
+import "../../assets/styles/react-big-calendar.css";
+import CreateTaskDialog from "../../components/CreateTaskDialog";
+import TaskDetailsDialog from "../../components/TaskDetailsDialog";
+import { selectTask } from "../../_actions/TaskAction";
 
 const localizer = momentLocalizer(moment);
 
-let allViews = Object.keys(Views).map((k) => Views[k]);
+export default function CalendarView() {
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.Task.tasks);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [dueDate, setDueDate] = useState(null);
 
-export default function NewCalendar() {
-  const { defaultDate } = useMemo(
+  useEffect(() => {
+    dispatch(selectTask(null))
+    // eslint-disable-next-line
+  }, [])
+  
+  const events = useMemo(() => {
+    if (tasks && tasks.length > 0) {
+      return tasks.filter(t => !!t.dueDate).map(t => {
+        return { ...t, start: t.dueDate, end: t.dueDate }
+      })
+    } else return []
+  }, [tasks])
+
+  const { defaultDate, views } = useMemo(
     () => ({
       defaultDate: new Date(),
+      views: {
+        month: true,
+        agenda: true
+      }
     }),
     []
   );
+
+  // const handleSelectEvent = useCallback(
+  //   (event) => window.alert(event.title),
+  //   []
+  // )
+
+  const handleSelectSlot = ({start, end}) => {
+    setDueDate(start);
+    setTimeout(() => {
+      setCreateOpen(true);
+    }, 500)
+  }
+
+  const handleSelectEvent = (event) =>{
+    dispatch(selectTask(event));
+    setDetailsOpen(true);
+  }
+
   return (
-    <Grid container direction="column" sx={{ px: {xs:0, sm:"30px"}, width: "auto" }}>
+    <Grid container direction="column" sx={{ px: {xs:0, sm:"30px"}, width: "100%" }}>
       <Typography component="h1" variant="h4">
         Calendar
       </Typography>
@@ -25,7 +67,7 @@ export default function NewCalendar() {
         display="flex"
         justifyContent="flex-start"
         alignItems="flex-start"
-        sx={{ height: "90vh", bgcolor: "white", mt: "10px" }}
+        sx={{ height: "90vh", bgcolor: "white", mt: "10px", padding: "20px" }}
         component={Paper}
         elevation={2}
       >
@@ -33,11 +75,17 @@ export default function NewCalendar() {
           localizer={localizer}
           events={events}
           defaultDate={defaultDate}
-          views={allViews}
+          onSelectEvent={handleSelectEvent}
+          onSelectSlot={handleSelectSlot}
+          views={views}
           step={60}
           style={{ width: "100%" }}
+          selectable
+          popup
         />
       </Box>
+      <TaskDetailsDialog overrideDisplay open={detailsOpen} setOpen={setDetailsOpen} onClose={() => dispatch(selectTask(null))} />
+      <CreateTaskDialog open={createOpen} setOpen={setCreateOpen} dueDateInit={dueDate}/>
     </Grid>
   );
 }

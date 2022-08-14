@@ -30,8 +30,11 @@ export default function TaskList(props) {
   }
 
   const onBlur = async (event) => {
-    const res = await dispatch(quickCreateTask(event.target.value, quickCreateParams))
-    setQuickTitle("");
+    if (!!event.target.value.trim()) {
+      const res = await dispatch(quickCreateTask(event.target.value, quickCreateParams))
+      setQuickTitle("");
+      dispatch(selectTask(res))
+    }
   }
 
   const handleChange = (event) => {
@@ -39,7 +42,7 @@ export default function TaskList(props) {
   };
 
   return (
-    <List key={0} sx={{ width: '100%', bgcolor: 'background.paper' }}>
+    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       {tasks.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
         return (

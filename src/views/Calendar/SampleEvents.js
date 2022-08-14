@@ -2,8 +2,8 @@ const Events = [
   {
     'title': 'All Day Event very long title',
     'allDay': true,
-    'start': new Date(2022, 6, 0),
-    'end': new Date(2022, 6, 1)
+    // 'start': new Date(2022, 6, 0),
+    // 'end': new Date(2022, 6, 1)
   },
   {
     'title': 'Long Event',

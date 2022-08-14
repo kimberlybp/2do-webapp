@@ -123,7 +123,7 @@ const styles = {
     width: '100%',
     maxHeight: '840px', 
     overflow: 'scroll',
-    padding: { md: '25px', xs: 0 },
+    paddingRight: '25px',
     '::-webkit-scrollbar': {
       height: '6px',
       width: '6px',

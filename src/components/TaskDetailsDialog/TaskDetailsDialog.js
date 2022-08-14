@@ -10,7 +10,7 @@ import TaskDetails from '../TaskDetails';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function TaskDetailsDialog(props) {
-  const { open, setOpen, onClose } = props;
+  const { open, setOpen, onClose, overrideDisplay } = props;
   const dispatch = useDispatch();
   const theme = useTheme();
   const currentTask = useSelector((state) => state.Task.currentTask);
@@ -40,7 +40,7 @@ export default function TaskDetailsDialog(props) {
         keepMounted
         onClose={handleClose}
         fullWidth
-        sx={{ display: { lg: "none", xs: "block" } }}
+        sx={{ display: overrideDisplay ? { xs: "block" } : { lg: "none", xs: "block" } }}
         PaperProps={{ sx: styles.paperStyles }}>
         <DialogContent sx={styles.dialogContent}>
           <Box display="flex" flexDirection="row-reverse">
@@ -53,10 +53,6 @@ export default function TaskDetailsDialog(props) {
           </Box>
           {currentTask && <TaskDetails task={currentTask} />}
         </DialogContent>
-        {/* <DialogActions sx={styles.dialogAction}>
-          <GreyButton disabled={createTaskLoading} onClick={handleClose} variant="contained" sx={styles.button}>Cancel</GreyButton>
-          <Button disabled={createTaskLoading} onClick={() => handleCreateTask()} variant="contained" sx={styles.button}>Create Task</Button>
-        </DialogActions> */}
       </Dialog>
   );
 }
