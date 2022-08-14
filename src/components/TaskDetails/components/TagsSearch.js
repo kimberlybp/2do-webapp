@@ -24,7 +24,6 @@ export default function TagsSearch(props) {
   const [open, toggleOpen] = useState(false);
   const allTags = useSelector((state) => state.Tag.tags);
   const [dialogValue, setDialogValue] = useState(initValue);
-  const createTaskLoading = useSelector((state) => state.Shared.loadingTasks['createTag']);
 
   const handleClose = () => {
     setDialogValue(initValue);

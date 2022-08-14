@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Paper, Typography, useTheme } from "@mui/material";
+import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,7 +11,6 @@ import { selectTask } from "../../_actions/TaskAction";
 export default function Module(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const theme = useTheme();
   const currentTask = useSelector((state) => state.Task.currentTask);
   const tasks = useSelector((state) => state.Task.tasks);
   const modules = useSelector((state) => state.Module.allModules);
@@ -22,6 +21,8 @@ export default function Module(props) {
 
   useEffect(() => {
     dispatch(selectTask(null)); //unselect any task chosen
+
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -30,6 +31,8 @@ export default function Module(props) {
       if(!res) navigate('/today');
       else setCurrentModule(res);
     } 
+
+    // eslint-disable-next-line
   }, [moduleCode, modules])
 
   const handleSwitch = (checked) => {

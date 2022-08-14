@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Paper, styled, Typography } from "@mui/material";
+import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
 import moment from 'moment';
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -7,7 +7,6 @@ import { ReactComponent as TasksCompleted } from '../../assets/images/tasks-comp
 import { Switch, TaskDetails, TaskList } from "../../components";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import filterTasksByDate from "../../utils/filterTasksByDate";
-import generateDateNextHour from "../../utils/generateDateNextHour";
 import generateGreetings from "../../utils/generateGreetings";
 
 

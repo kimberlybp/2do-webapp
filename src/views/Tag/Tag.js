@@ -1,15 +1,10 @@
-import { Box, Button, Divider, Grid, Paper, Skeleton, styled, Typography, FormHelperText, Chip, useTheme } from "@mui/material";
-import moment from 'moment';
+import { Box, Chip, Divider, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as NoTasksAdded } from '../../assets/images/no-tasks-added.svg';
 import { ReactComponent as TasksCompleted } from '../../assets/images/tasks-completed.svg';
 import { Switch, TaskDetails, TaskList } from "../../components";
-import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
-import filterTasksByDate from "../../utils/filterTasksByDate";
-import generateDateNextHour from "../../utils/generateDateNextHour";
-import generateGreetings from "../../utils/generateGreetings";
 import { selectTask } from "../../_actions/TaskAction";
 
 
@@ -32,6 +27,8 @@ export default function Tag(props) {
       if(!res) navigate('/today');
       else setCurrentTag(res);
     } 
+
+    // eslint-disable-next-line
   }, [tagId, tags])
 
   const handleSwitch = (checked) => {

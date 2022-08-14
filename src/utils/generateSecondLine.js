@@ -8,7 +8,7 @@ export default function generateSecondLine(value) {
   const toCheck = ['tags', 'tasklist', 'module', 'dueDate', 'subtasks'];
   const items = [];
 
-  toCheck.map(key => {
+  toCheck.forEach(key => {
     if (value[key]) {
       if (key === 'tags' && value.tags.length > 0) {
         let res = value.tags.map((tag, i) => {

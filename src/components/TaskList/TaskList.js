@@ -1,16 +1,15 @@
-import { Box, List, TextField, Typography, Divider } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { Box, Divider, List, TextField, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import generateSecondLine from '../../utils/generateSecondLine';
 import { quickCreateTask, selectTask, toggleTaskComplete } from "../../_actions/TaskAction";
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { Fragment, useState } from 'react';
-import generateDateNextHour from '../../utils/generateDateNextHour';
 
 export default function TaskList(props) {
   const { tasks, noTasksPlaceholder, quickCreateParams } = props;
@@ -30,8 +29,11 @@ export default function TaskList(props) {
   }
 
   const onBlur = async (event) => {
-    const res = await dispatch(quickCreateTask(event.target.value, quickCreateParams))
-    setQuickTitle("");
+    if (!!event.target.value.trim()) {
+      const res = await dispatch(quickCreateTask(event.target.value, quickCreateParams))
+      setQuickTitle("");
+      dispatch(selectTask(res))
+    }
   }
 
   const handleChange = (event) => {
@@ -39,7 +41,7 @@ export default function TaskList(props) {
   };
 
   return (
-    <List key={0} sx={{ width: '100%', bgcolor: 'background.paper' }}>
+    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       {tasks.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
         return (

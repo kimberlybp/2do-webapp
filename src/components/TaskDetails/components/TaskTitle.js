@@ -1,16 +1,13 @@
-import { useState, useEffect, useMemo } from "react";
-import { Typography, TextField, Box, ButtonGroup, Button, IconButton } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
-import { useForm, Controller } from 'react-hook-form';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import { clear } from "@testing-library/user-event/dist/clear";
 
 export default function TaskTitle(props) {
   const { task, updateTask, errorTrigger, resetErrorTrigger } = props;
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
-  const { control, trigger, setValue, getValues, reset, clearErrors } = useForm();
+  const { control, trigger, setValue, getValues, clearErrors } = useForm();
 
   useEffect(() => {
     if (!!task) {
@@ -33,10 +30,6 @@ export default function TaskTitle(props) {
 
     // eslint-disable-next-line
   }, [errorTrigger]);
-
-  const prevValue = useMemo(() => {
-    return task.title
-  }, [task]);
 
   const handleOnBlur = async () => {
     const res = await trigger("taskTitle", { shouldFocus: true });

@@ -1,16 +1,16 @@
-import { Box, Button, Dialog, DialogActions, IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Dialog, IconButton } from "@mui/material";
 import DialogContent from '@mui/material/DialogContent';
 import Slide from '@mui/material/Slide';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useEffect, forwardRef, useState } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { createTask, initCreateTask } from "../../_actions/TaskAction";
+import { initCreateTask } from "../../_actions/TaskAction";
 import TaskDetails from '../TaskDetails';
-import CloseIcon from '@mui/icons-material/Close';
 
 export default function TaskDetailsDialog(props) {
-  const { open, setOpen, onClose } = props;
+  const { open, setOpen, onClose, overrideDisplay } = props;
   const dispatch = useDispatch();
   const theme = useTheme();
   const currentTask = useSelector((state) => state.Task.currentTask);
@@ -40,7 +40,7 @@ export default function TaskDetailsDialog(props) {
         keepMounted
         onClose={handleClose}
         fullWidth
-        sx={{ display: { lg: "none", xs: "block" } }}
+        sx={{ display: overrideDisplay ? { xs: "block" } : { lg: "none", xs: "block" } }}
         PaperProps={{ sx: styles.paperStyles }}>
         <DialogContent sx={styles.dialogContent}>
           <Box display="flex" flexDirection="row-reverse">
@@ -53,10 +53,6 @@ export default function TaskDetailsDialog(props) {
           </Box>
           {currentTask && <TaskDetails task={currentTask} />}
         </DialogContent>
-        {/* <DialogActions sx={styles.dialogAction}>
-          <GreyButton disabled={createTaskLoading} onClick={handleClose} variant="contained" sx={styles.button}>Cancel</GreyButton>
-          <Button disabled={createTaskLoading} onClick={() => handleCreateTask()} variant="contained" sx={styles.button}>Create Task</Button>
-        </DialogActions> */}
       </Dialog>
   );
 }
@@ -85,11 +81,3 @@ const styles = {
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const GreyButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText('#E0E0E0'),
-  backgroundColor: '#E0E0E0',
-  '&:hover': {
-    backgroundColor: '#DDDDDD',
-  },
-}));
