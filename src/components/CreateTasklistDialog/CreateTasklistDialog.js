@@ -1,20 +1,16 @@
 import { Button, Dialog, DialogActions, DialogTitle, FormHelperText, TextField } from "@mui/material";
 import DialogContent from '@mui/material/DialogContent';
 import Slide from '@mui/material/Slide';
-import { styled, useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useEffect, forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createTask, initCreateTask } from "../../_actions/TaskAction";
+import { initCreateTask } from "../../_actions/TaskAction";
 import { createTasklist } from "../../_actions/TasklistAction";
-import TaskDetails from '../TaskDetails';
 
 export default function CreateTasklistDialog(props) {
   const { open, setOpen } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const theme = useTheme();
   const [name, setName] = useState("");
   const [listExistsError, setListExistsError] = useState(false);
   const tasklists = useSelector((state) => state.Tasklist.tasklists);
@@ -91,11 +87,3 @@ const styles = {
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const GreyButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText('#E0E0E0'),
-  backgroundColor: '#E0E0E0',
-  '&:hover': {
-    backgroundColor: '#DDDDDD',
-  },
-}));

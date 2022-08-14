@@ -55,6 +55,8 @@ export default function SearchBar() {
         return `/list/${data._id}`
       case "Modules":
         return `/module/${data.moduleCode}`
+      default: 
+        return '/today'
     }
   }
 

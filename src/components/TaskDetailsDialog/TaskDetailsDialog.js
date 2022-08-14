@@ -1,13 +1,13 @@
-import { Box, Button, Dialog, DialogActions, IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Dialog, IconButton } from "@mui/material";
 import DialogContent from '@mui/material/DialogContent';
 import Slide from '@mui/material/Slide';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useEffect, forwardRef, useState } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { createTask, initCreateTask } from "../../_actions/TaskAction";
+import { initCreateTask } from "../../_actions/TaskAction";
 import TaskDetails from '../TaskDetails';
-import CloseIcon from '@mui/icons-material/Close';
 
 export default function TaskDetailsDialog(props) {
   const { open, setOpen, onClose, overrideDisplay } = props;
@@ -81,11 +81,3 @@ const styles = {
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const GreyButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText('#E0E0E0'),
-  backgroundColor: '#E0E0E0',
-  '&:hover': {
-    backgroundColor: '#DDDDDD',
-  },
-}));

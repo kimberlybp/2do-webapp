@@ -1,10 +1,10 @@
 import { actions } from '../utils/constants/actions';
 import UserPool from "../utils/UserPool";
-import { userService } from '../_services/userService';
 import { authService } from '../_services/authService';
+import { userService } from '../_services/userService';
 import * as alertActions from './AlertAction';
 import { pageLoading, stopPageLoading } from './SharedAction';
-import { initializeUserData, logOutUser, noUser } from './UserAction';
+import { initializeUserData, noUser } from './UserAction';
 
 export function reset() {
   return { type: actions.RESET_APP }
