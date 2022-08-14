@@ -33,7 +33,7 @@ export default function CreateTaskDialog(props) {
     if(newTask.title === "" || !newTask.title){
       setTaskTitleError(true);
     }else{
-      const res = await dispatch(createTask());
+      const res = await dispatch(createTask()); // eslint-disable-line
       handleClose();
     }
   };

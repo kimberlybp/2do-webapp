@@ -1,17 +1,12 @@
-import { Box, Button, Divider, Grid, Paper, styled, Typography } from "@mui/material";
+import { Divider, Grid, Paper, Typography } from "@mui/material";
 import moment from 'moment';
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { ReactComponent as NoTasksAdded } from '../../assets/images/no-tasks-added.svg';
-import { ReactComponent as TasksCompleted } from '../../assets/images/tasks-completed.svg';
 import { Switch, TaskDetails, TaskList } from "../../components";
-import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import filterTasksByDate from "../../utils/filterTasksByDate";
-import generateGreetings from "../../utils/generateGreetings";
 
 
 export default function AllTasks() {
-  const firstName = useSelector((state) => state.User.firstName);
   const currentTask = useSelector((state) => state.Task.currentTask);
   const tasks = useSelector((state) => state.Task.tasks);
   const [showCompleted, setShowCompleted] = useState(false);
@@ -38,7 +33,6 @@ export default function AllTasks() {
     const today = new Date();
     const tomorrow = new Date(); 
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const inAWeek = new Date();
     if (filtered) {
       const dates = [
         { dueDate: today },

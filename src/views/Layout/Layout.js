@@ -1,15 +1,14 @@
-import { Route, Routes } from "react-router-dom";
-import Today from "../Today";
-import AllTasks from "../AllTasks";
-import Upcoming from "../Upcoming";
-import List from "../List";
-import Tag from "../Tag";
-import Module from "../Module";
-import Temp from "../Temp";
-import FAQ from "../FAQ";
-import Calendar from "../Calendar";
-import NavBar from "../../components/NavBar";
 import { Box } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+import NavBar from "../../components/NavBar";
+import AllTasks from "../AllTasks";
+import Calendar from "../Calendar";
+import FAQ from "../FAQ";
+import List from "../List";
+import Module from "../Module";
+import Tag from "../Tag";
+import Today from "../Today";
+import Upcoming from "../Upcoming";
 
 export default function Layout() {
   return (
