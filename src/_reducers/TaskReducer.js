@@ -61,13 +61,14 @@ const reducer = (state = initState, action) => {
       // var date = new Date();
       // date.setHours(date.getHours() + 1);
       // date.setMinutes(0);
+      const { dueDateInit } = action.payload;
       return {
         ...state,
         newTask: {
           subtasks: [
             { order: 1, title: "New subtask", complete: false },
           ],
-          dueDate: null,
+          dueDate: dueDateInit ?? null,
           tags: [],
           tasklist: null, 
           module: null

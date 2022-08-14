@@ -70,9 +70,9 @@ export function save() {
   }
 }
 
-export function initCreateTask() {
+export function initCreateTask(dueDateInit) {
   return {
-    type: actions.CREATE_TASK_INIT
+    type: actions.CREATE_TASK_INIT, payload: { dueDateInit }
   }
 }
 
@@ -162,7 +162,19 @@ export function quickCreateTask(title, object) {
       dispatch(taskLoadingDone("createTask"));
       dispatch(alertActions.successAlert('Success',
         "Task successfully created", 10));
-      return res;
+      return {
+        id: res._id,
+        tasklist: res.task_list ?? null,
+        title: res.title,
+        description: res.description,
+        complete: res.complete,
+        subtasks: res.subtasks,
+        tags: res.tags,
+        dueDate: res.due_date ? new Date(res.due_date) : null,
+        createdAt: new Date(res.created_at),
+        updatedAt: new Date(res.updated_at),
+        module: res.module ? { title: res.module.title, moduleCode: res.module.module_code } : null
+      };
     } catch (err) {
       console.log(err)
       dispatch(alertActions.errorAlert('Error',

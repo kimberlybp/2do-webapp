@@ -80,7 +80,7 @@ export default function Upcoming() {
       case 1: 
         return 'Tomorrow'
       default: 
-        return `In ${index+1} days`
+        return `In ${index} days`
     }
   }
 

@@ -20,7 +20,7 @@ import { getTags } from '../../_actions/TagAction';
 import { getTasks, selectTask } from '../../_actions/TaskAction';
 import { getTasklists } from '../../_actions/TasklistAction';
 import CreateTaskDialog from '../CreateTaskDialog';
-import SearchBar from "../SearchBar";
+import SearchBar from '../SearchBar';
 import TaskDetailsDialog from "../TaskDetailsDialog";
 import OtherNav from "./components/OtherNav";
 
@@ -147,7 +147,6 @@ function NavBar(props) {
       </List>
       <Divider />
       <OtherNav />
-      <TaskDetailsDialog />
     </>
   );
 
