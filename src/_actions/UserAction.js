@@ -1,11 +1,11 @@
+import { AuthenticationDetails, CognitoUser, CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { actions } from '../utils/constants/actions';
-import * as alertActions from './AlertAction';
-import { userService } from '../_services/userService';
-import { pageLoading, stopPageLoading } from './SharedAction';
-import { CognitoUser, AuthenticationDetails, CognitoUserAttribute } from "amazon-cognito-identity-js";
 import UserPool from '../utils/UserPool';
 import { authService } from '../_services/authService';
-import { logOut, setToken, signUpSuccess } from './AuthAction';
+import { userService } from '../_services/userService';
+import * as alertActions from './AlertAction';
+import { setToken, signUpSuccess } from './AuthAction';
+import { pageLoading, stopPageLoading } from './SharedAction';
 
 function initUser(user) {
   return {
@@ -17,6 +17,12 @@ function initUser(user) {
       lastName: user.last_name,
       profilePicUrl: user.profile_pic_url
     }
+  }
+}
+
+export function noUser() {
+  return {
+    type: actions.NO_USER_LOGGED_IN
   }
 }
 
@@ -37,7 +43,7 @@ export function login(email, password) {
         console.error('unhandled');
       }
     } catch (err) {
-      dispatch(logOut());
+      // dispatch(logOut());
       if(err.message.includes("not confirmed")) dispatch(alertActions.errorAlert('Error', "Email not verified", 30));
       else dispatch(alertActions.errorAlert('Error', err.message, 30));
       

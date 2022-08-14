@@ -1,24 +1,28 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import {
-  AppBar, Divider, Drawer, IconButton, List, ListItem, ListItemText, ListItemIcon, Toolbar,
-  useTheme, Button, ListItemButton, Avatar, Tooltip, Menu, MenuItem, TextField, InputAdornment
-} from "@mui/material"
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
-import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
-import { Box } from "@mui/system";
-import TodayIcon from '@mui/icons-material/Today';
-import UpcomingIcon from '@mui/icons-material/EventNote';
-import CalendarIcon from '@mui/icons-material/CalendarToday';
 import AllTasksIcon from '@mui/icons-material/Assignment';
-import { useLocation, useNavigate } from "react-router-dom";
-import { logOut } from '../../_actions/AuthAction';
-import stringAvatar from "../../utils/stringAvatar";
-import OtherNav from "./components/OtherNav";
+import CalendarIcon from '@mui/icons-material/CalendarToday';
+import UpcomingIcon from '@mui/icons-material/EventNote';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from "@mui/icons-material/Menu";
+import TodayIcon from '@mui/icons-material/Today';
+import {
+  AppBar, Avatar, Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Tooltip, useTheme
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ReactComponent as Logo } from '../../assets/images/2do-logo-darker.svg';
+import stringAvatar from "../../utils/stringAvatar";
+import { logOut } from '../../_actions/AuthAction';
+import { getTags } from '../../_actions/TagAction';
+import { getTasks, selectTask } from '../../_actions/TaskAction';
+import { getTasklists } from '../../_actions/TasklistAction';
+import CreateTaskDialog from '../CreateTaskDialog';
+import SearchBar from "../SearchBar";
+import TaskDetailsDialog from "../TaskDetailsDialog";
+import OtherNav from "./components/OtherNav";
 
 const drawerWidth = 280;
 
@@ -58,10 +62,36 @@ function NavBar(props) {
   const dispatch = useDispatch();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const userId = useSelector((state) => state.User.userId);
   const firstName = useSelector((state) => state.User.firstName);
   const lastName = useSelector((state) => state.User.lastName);
+  const currentTask = useSelector((state) => state.Task.currentTask);
   const fullName = `${firstName} ${lastName}`;
+
+  useEffect(() => {
+    if (userId === null) navigate('/');
+
+    if (userId && userId!=="init") {
+      dispatch(getTasks());
+      dispatch(getTags());
+      dispatch(getTasklists());
+    }
+    
+    
+
+    // eslint-disable-next-line
+  }, [userId])
+
+  useEffect(() => {
+    if(currentTask) {
+      setDetailsOpen(true);
+    } else {
+      setDetailsOpen(false);
+    }
+  }, [currentTask])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -73,7 +103,6 @@ function NavBar(props) {
     { title: 'Calendar', path: '/calendar', icon: <CalendarIcon /> },
     { title: 'All Tasks', path: '/alltasks', icon: <AllTasksIcon /> },
   ]
-
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -93,7 +122,7 @@ function NavBar(props) {
       <Box className={classes.toolbar} sx={{ mx: "15px", marginTop: "15px" }}>
         <Logo style={{ color: theme.palette.primary.main }} />
       </Box>
-      <Button variant="contained" sx={{ mx: "15px" }}>Create Task</Button>
+      <Button variant="contained" sx={{ mx: "15px" }} onClick={() => {setCreateOpen(true);}}>Create Task</Button>
       <List sx={{
         '&& .Mui-selected, && .Mui-selected:hover': {
           bgcolor: 'transparent',
@@ -118,6 +147,7 @@ function NavBar(props) {
       </List>
       <Divider />
       <OtherNav />
+      <TaskDetailsDialog />
     </>
   );
 
@@ -137,9 +167,10 @@ function NavBar(props) {
             >
               <MenuIcon />
             </IconButton>
-            <TextField
+            {/* <TextField
+              disabled
               id="standard-search"
-              placeholder="Search"
+              placeholder="Search (Under Construction 😅)"
               type="search"
               variant="outlined"
               size="small"
@@ -151,15 +182,16 @@ function NavBar(props) {
                   </InputAdornment>
                 ),
               }}
-            />
+            /> */}
+            <SearchBar />
           </Box>
           <Box sx={{ minWidth: "fit-content" }}>
             <Tooltip title="FAQ">
-              <IconButton sx={{ backgroundColor: "white", marginRight: 1 }}>
+              <IconButton sx={{ backgroundColor: "white", marginRight: 1, "&:hover" : {backgroundColor: '#e8e8e8'} }} onClick={() => navigate('/faq')}>
                 <HelpOutlineIcon sx={{ color: "#000000" }} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Open setings">
+            <Tooltip title="More options">
               <IconButton onClick={handleMenu} sx={{ p: 0 }}>
                 <Avatar {...stringAvatar(fullName)} />
               </IconButton>
@@ -171,8 +203,8 @@ function NavBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>View Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Settings</MenuItem>
+              <MenuItem disabled onClick={handleClose}>View Profile</MenuItem>
+              <MenuItem disabled onClick={handleClose}>Settings</MenuItem>
               <MenuItem onClick={onClickLogout}>Log Out</MenuItem>
             </Menu>
           </Box>
@@ -206,6 +238,8 @@ function NavBar(props) {
           {drawer}
         </Drawer>
       </nav>
+      <CreateTaskDialog open={createOpen} setOpen={setCreateOpen} />
+      <TaskDetailsDialog open={detailsOpen} setOpen={setDetailsOpen} onClose={() => dispatch(selectTask(null))} />
     </>
   );
 }
